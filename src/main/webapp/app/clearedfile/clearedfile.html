@@ -1,0 +1,86 @@
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">Cleared Files</h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="input-group">
+            <!--Have to implement tags-input, for search by title, file no or dept to mark file or open and comment through-->
+            <!--pdftron-->
+            <input type="text" class="form-control" ng-model="searchText" id="searchQuery" placeholder="Search by title or tag or by department..">
+            <div class="input-group-btn">
+                <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+
+                <button class="btn btn-link btn-sm"><i class="glyphicon glyphicon-chevron-down"></i></button>
+
+                <a href="#/user-management">
+                    <button class="btn btn-link btn-sm"><i class="glyphicon glyphicon-user"></i></button>
+                </a>
+
+                <a href="#/settings">
+                    <button class="btn btn-link btn-xs">
+                        <i class="glyphicon glyphicon-wrench"></i></button>
+                </a>
+
+                <a href="#/settings">
+                    <button class="btn btn-link btn-xs">
+                        <i class="glyphicon glyphicon-cog"></i></button>
+                </a>
+
+                <a href="#/createfile">
+                    <button class="btn btn-primary btn-xs">
+                        <i class="glyphicon glyphicon-plus"></i></button>
+                </a>
+
+            </div>
+        </div>
+
+        <form class="form-horizontal">
+            <fieldset>
+                <legend></legend>
+
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <!--<tr class="headerGrid">-->
+                        <tr class="success">
+                            <th>File No</th>
+                            <th>Title</th>
+                            <th>Tags</th>
+                            <th>Mark From User</th>
+                            <th>From Department</th>
+                            <th>Cleared By</th>
+                            <th>By Department</th>
+                            <th>File Closed By</th>
+                            <th></th>
+
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr ng-repeat = "clearedlist in vm.clearedfiles | filter:searchText">
+                            <td>{{clearedlist.fileno}}</td>
+                            <td>{{clearedlist.title}}</td>
+                            <td>{{clearedlist.tag}}</td>
+                            <td>{{clearedlist.fromusername}}</td>
+                            <td>{{clearedlist.fromdepartmentname}}</td>
+                            <td>{{clearedlist.byusername}}</td>
+                            <td>{{clearedlist.bydepartmentname}}</td>
+                            <td>{{clearedlist.fileclosedby}}</td>
+
+                            <td class="action verticalalign">
+                                <button type="submit" ui-sref="clearedfiles({fileno:pendinglist.fileno})" class="btn btn-default" style="float: right">Re-Open File</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                <a href="#/createfile" class="btn btn-primary" style="float: right">Put Up File</a>
+                <a href="#/pendingfile" class="btn btn-danger" style="float: right">Pending Files</a>
+
+            </fieldset>
+        </form>
+
+    </div>
+</div>
+
+

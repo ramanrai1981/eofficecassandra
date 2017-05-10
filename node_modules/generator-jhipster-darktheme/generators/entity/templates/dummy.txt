@@ -1,0 +1,2 @@
+hello darktheme:entity sub generator!
+It's dummy.txt

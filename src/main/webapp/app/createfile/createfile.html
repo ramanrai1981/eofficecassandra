@@ -1,0 +1,69 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Create File</title>
+    <link rel="stylesheet" href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css"/>
+    <script src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
+</head>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Put Up File</h3>
+    </div>
+
+    <div class="panel-body">
+
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>
+                    <button type="submit" class="btn btn-warning">Save as Draft</button>
+                </legend>
+
+                <div class="form-group">
+                    <label for="fileno" class="col-lg-2 control-label">File No</label>
+                    <div class="col-lg-10">
+                        <input class="form-control" id="fileno" type="text" placeholder="File No like.. sk/2014/23234">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="title" class="col-lg-2 control-label">Title</label>
+                    <div class="col-lg-10">
+                        <input class="form-control" id="title" type="text" placeholder="Small description for title...">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Tags</label>
+                    <div class="col-lg-10">
+                        <tags-input ng-model="tags" add-on-paste="true">
+                            <auto-complete source="loadTags($query)"></auto-complete>
+                        </tags-input>
+                        Model: {{tags}}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="file" class="col-lg-2 control-label">Attachment</label>
+                    <div class="col-lg-10">
+                        <input class="form-control input" id="file" type="file" file-Model="vm.fileDetail.file">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button type="reset" class="btn btn-default">Reset</button>
+                        <button type="submit" class="btn btn-primary">Put Up File</button>
+                        <a href="#/pendingfile" class="btn btn-danger" style="float: right">Pending Files</a>
+                        <a href="#/clearedfile" class="btn btn-success" style="float: right">Cleared File</a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+
+</html>

@@ -1,0 +1,207 @@
+<a href="#/addorganisation" class="btn btn-warning pull-right" >Create Oraganisation</a><br><br><br>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="input-group">
+            <input type="text" class="form-control SearchBar"  placeholder="Search your Organisation....">
+            <span class="input-group-btn">
+             <button class="btn btn-defaul SearchButton" type="button">
+             <span class=" glyphicon glyphicon-search SearchIcon" ></span>
+            </button>
+          </span>
+        </div>
+    </div>
+</div><br><br>
+<div class="row">
+    <div class="col-md-6 ">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+             <h3 class="panel-title">Organisation Details</h3>
+                 <div class="input-group-btn">
+                       <a href="#/settings"><button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-wrench"></i></button>
+                      </a>
+                     <a href="#/user-management">
+                         <button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-user"></i></button>
+                     </a>
+
+         </div>
+  </div>
+    <table class="table table-striped table-bordered table-list">
+        <thead>
+        <tr >
+            <th>Organisation Name</th>
+            <th>Organisation Address</th>
+            <th>Organisation Establishment Year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat = "orglist in vm.organisations | filter:searchText">
+            <td >{{orglist.name}}</td>
+            <td >{{orglist.address}}</td>
+            <td >{{orglist.establishyear}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+    </div>
+    <div class="col-lg-6 ">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Organisation Details</h3>
+                <div class="input-group-btn">
+                    <a href="#/settings"><button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-wrench"></i></button>
+                    </a>
+                    <a href="#/user-management">
+                        <button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-user"></i></button>
+                    </a>
+                </div>
+            </div>
+            <table class="table table-striped table-bordered table-list">
+                <thead>
+                <tr >
+                    <th>Organisation Name</th>
+                    <th>Organisation Address</th>
+                    <th>Organisation Establishment year</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat = "orglist in vm.organisations | filter:searchText">
+                    <td >{{orglist.name}}</td>
+                    <td >{{orglist.address}}</td>
+                    <td >{{orglist.establishyear}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+</div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 ">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Organisation Details</h3>
+                <div class="input-group-btn">
+                    <a href="#/settings"><button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-wrench"></i></button>
+                    </a>
+                    <a href="#/user-management">
+                        <button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-user"></i></button>
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-striped table-bordered table-list">
+                <thead>
+                <tr >
+                    <th>Organisation Name</th>
+                    <th>Organisation Address</th>
+                    <th>Organisation Establishment year</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat = "orglist in vm.organisations | filter:searchText">
+                    <td >{{orglist.name}}</td>
+                    <td >{{orglist.address}}</td>
+                    <td >{{orglist.establishyear}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div class="col-lg-6 ">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">Organisation Details</h3>
+                <div class="input-group-btn">
+
+
+                    <a href="#/settings"><button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-wrench"></i></button>
+                    </a>
+                    <a href="#/user-management">
+                        <button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-user"></i></button>
+                    </a>
+                </div>
+
+            </div>
+            <table class="table table-striped table-bordered table-list">
+                <thead>
+                <tr >
+                    <th>Organisation Name</th>
+                    <th>Organisation Address</th>
+                    <th>Organisation Establishment year</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat = "orglist in vm.organisations | filter:searchText">
+                    <td >{{orglist.name}}</td>
+                    <td >{{orglist.address}}</td>
+                    <td >{{orglist.establishyear}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!--<div class="container">-->
+    <!--<div class="row">-->
+
+            <!--<div class="panel panel-default panel-table">-->
+                <!--<div class="panel-heading">-->
+                    <!--<div class="row">-->
+
+                        <!--<div class="col col-xs-12">-->
+                            <!--<a href="/#/addorganisation" class="btn btn-warning pull-right">Create Oraganisation</a>-->
+                            <!--<br><br>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+
+                    <!--<div class="col col-xs-12 ">-->
+                        <!--<div class="input-group">-->
+                            <!--<input type="text" class="form-control SearchBar " placeholder="Search your Organisation....">-->
+                            <!--<span class="input-group-btn">-->
+                                <!--<button class="btn btn-defaul SearchButton" type="button">-->
+                                <!--<span class=" glyphicon glyphicon-search SearchIcon" ></span>-->
+                                <!--</button>-->
+                                <!--</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--<div class="panel panel-primary">-->
+                    <!--<div class="panel-heading">-->
+                        <!--<h3 class="panel-title ">Organisation Details</h3>-->
+
+
+
+                        <!--<div class="input-group-btn">-->
+                            <!--<a href="#/adddepartment">-->
+                                <!--<button class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></button>-->
+                            <!--</a>-->
+
+                            <!--<a href="#/user-management">-->
+                                <!--<button class="btn btn-primary"><i class="glyphicon glyphicon-user"></i></button>-->
+                            <!--</a>-->
+                            <!--<a href="#/settings"><button class="btn btn-primary"><i class="glyphicon glyphicon-wrench"></i></button>-->
+                            <!--</a>-->
+
+                        <!--</div>-->
+
+
+                        <!--</div>-->
+                        <!--</div>-->
+
+
+
+            <!--</div>-->
+
+        <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+<!--</div>-->
+
