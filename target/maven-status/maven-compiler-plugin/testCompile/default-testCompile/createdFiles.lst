@@ -9,4 +9,6 @@ com/hartron/eoffice/security/SecurityUtilsUnitTest.class
 com/hartron/eoffice/web/rest/LogsResourceIntTest.class
 com/hartron/eoffice/web/rest/ProfileInfoResourceIntTest.class
 com/hartron/eoffice/config/CassandraTestConfiguration.class
+com/hartron/eoffice/web/rest/FileLogResourceIntTest.class
+com/hartron/eoffice/web/rest/FileResourceIntTest.class
 com/hartron/eoffice/web/rest/TestUtil$ZonedDateTimeMatcher.class

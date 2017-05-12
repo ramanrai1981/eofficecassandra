@@ -54,15 +54,15 @@
                         </thead>
 
                         <tbody>
-                        <tr ng-repeat = "pendinglist in vm.pendingfiles | filter:searchText">
-                            <td>{{pendinglist.fileno}}</td>
+                        <tr ng-repeat = "pendinglist in vm.files | filter:searchText">
+                            <td>{{pendinglist.fileNo}}</td>
                             <td>{{pendinglist.title}}</td>
                             <td>{{pendinglist.tag}}</td>
                             <td>{{pendinglist.username}}</td>
                             <td>{{pendinglist.departmentname}}</td>
                             <td class="action verticalalign">
-                                <button type="submit" ui-sref="pdftron({fileno:pendinglist.fileno})" class="btn btn-primary" style="float: right">Open for eSign or Comment</button>
-                                <button type="submit" ui-sref="pendingfiles({fileno:pendinglist.fileno})" class="btn btn-default" style="float: right">Mark To User</button>
+                                <button type="submit" ui-sref="pdftron({fileNo:pendinglist.fileNo})" class="btn btn-primary" style="float: right">Open for eSign or Comment</button>
+                                <button type="submit" ui-sref="pendingfiles({fileNo:pendinglist.fileNo})" class="btn btn-default" style="float: right">Mark To User</button>
                             </td>
                         </tr>
                         </tbody>
@@ -70,6 +70,8 @@
 
                 <a href="#/createfile" class="btn btn-primary" style="float: right">Put Up File</a>
                 <a href="#/clearedfile" class="btn btn-success" style="float: right">Cleared File</a>
+
+
 
             </fieldset>
         </form>
