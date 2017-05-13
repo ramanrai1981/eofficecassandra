@@ -5,11 +5,10 @@
         .module('eofficeApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'Organisation'];
 
-    function HomeController ($scope, Principal, LoginService, $state) {
+    function HomeController ($scope, Principal, LoginService, $state, Organisation) {
         var vm = this;
-
         vm.account = null;
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
@@ -19,11 +18,15 @@
         });
 
         getAccount();
-        vm.organisations = [{"name": "HARTRON","address": "Sec-17, Panchkula","establishyear": "1983"},
-                            {"name": "Women & Child Development","address": "Sec-4, Panchkula","establishyear": "1966"},
-                            {"name": "Secondary Education. Haryana","address": "Sec-5, Panchkula","establishyear": "1970"},
-                            {"name": "HEPC","address": "Sec-2, Panchkula","establishyear": "2017"}];
 
+        loadAll();
+
+                function loadAll() {
+                    Organisation.query(function(result) {
+                        vm.organisations = result;
+                        vm.searchQuery = null;
+                    });
+                }
         function getAccount() {
             Principal.identity().then(function(account) {
                 vm.account = account;

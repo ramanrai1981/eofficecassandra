@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span data-translate="eofficeApp.organisation.detail.title">Organisation</span> {{vm.organisation.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span data-translate="eofficeApp.organisation.orgname">Orgname</span></dt>
+        <dd>
+            <span>{{vm.organisation.orgname}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.organisation.hod">Hod</span></dt>
+        <dd>
+            <span>{{vm.organisation.hod}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.organisation.address">Address</span></dt>
+        <dd>
+            <span>{{vm.organisation.address}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.organisation.establishmentyear">Establishmentyear</span></dt>
+        <dd>
+            <span>{{vm.organisation.establishmentyear | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.organisation.active">Active</span></dt>
+        <dd>
+            <span>{{vm.organisation.active}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.organisation.createdate">Createdate</span></dt>
+        <dd>
+            <span>{{vm.organisation.createdate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.organisation.updatedate">Updatedate</span></dt>
+        <dd>
+            <span>{{vm.organisation.updatedate | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="organisation-detail.edit({id:vm.organisation.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

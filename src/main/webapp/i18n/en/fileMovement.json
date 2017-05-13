@@ -1,0 +1,28 @@
+{
+    "eofficeApp": {
+        "fileMovement" : {
+            "home": {
+                "title": "File Movements",
+                "createLabel": "Create a new File Movement",
+                "createOrEditLabel": "Create or edit a File Movement"
+            },
+            "created": "A new File Movement is created with identifier {{ param }}",
+            "updated": "A File Movement is updated with identifier {{ param }}",
+            "deleted": "A File Movement is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete File Movement {{ id }}?"
+            },
+            "detail": {
+                "title": "File Movement"
+            },
+            "fileId": "File Id",
+            "markFrom": "Mark From",
+            "markTo": "Mark To",
+            "fileName": "File Name",
+            "markDate": "Mark Date",
+            "updateDate": "Update Date",
+            "actionStatus": "Action Status",
+            "comment": "Comment"
+        }
+    }
+}

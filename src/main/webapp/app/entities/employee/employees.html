@@ -1,0 +1,78 @@
+<div>
+    <h2 data-translate="eofficeApp.employee.home.title">Employees</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="employee.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="eofficeApp.employee.home.createLabel">
+                        Create new Employee
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="eofficeApp.employee.empid">Empid</span></th>
+                    <th><span data-translate="eofficeApp.employee.empname">Empname</span></th>
+                    <th><span data-translate="eofficeApp.employee.department">Department</span></th>
+                    <th><span data-translate="eofficeApp.employee.designation">Designation</span></th>
+                    <th><span data-translate="eofficeApp.employee.mobilenumber">Mobilenumber</span></th>
+                    <th><span data-translate="eofficeApp.employee.emailid">Emailid</span></th>
+                    <th><span data-translate="eofficeApp.employee.dateofbirth">Dateofbirth</span></th>
+                    <th><span data-translate="eofficeApp.employee.dateofjoining">Dateofjoining</span></th>
+                    <th><span data-translate="eofficeApp.employee.relievingdate">Relievingdate</span></th>
+                    <th><span data-translate="eofficeApp.employee.active">Active</span></th>
+                    <th><span data-translate="eofficeApp.employee.createdate">Createdate</span></th>
+                    <th><span data-translate="eofficeApp.employee.updatedate">Updatedate</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="employee in vm.employees track by employee.id">
+                    <td><a ui-sref="employee-detail({id:employee.id})">{{employee.id}}</a></td>
+                    <td>{{employee.empid}}</td>
+                    <td>{{employee.empname}}</td>
+                    <td>{{employee.department}}</td>
+                    <td>{{employee.designation}}</td>
+                    <td>{{employee.mobilenumber}}</td>
+                    <td>{{employee.emailid}}</td>
+                    <td>{{employee.dateofbirth | date:'medium'}}</td>
+                    <td>{{employee.dateofjoining | date:'medium'}}</td>
+                    <td>{{employee.relievingdate | date:'medium'}}</td>
+                    <td>{{employee.active}}</td>
+                    <td>{{employee.createdate | date:'medium'}}</td>
+                    <td>{{employee.updatedate | date:'medium'}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="employee-detail({id:employee.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="employee.edit({id:employee.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="employee.delete({id:employee.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

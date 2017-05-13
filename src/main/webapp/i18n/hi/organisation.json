@@ -1,0 +1,27 @@
+{
+    "eofficeApp": {
+        "organisation" : {
+            "home": {
+                "title": "Organisations",
+                "createLabel": "नया Organisation बनाएँ",
+                "createOrEditLabel": "Organisation बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Organisation [identifier: {{ param }}] तैयार है",
+            "updated": "एक Organisation [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Organisation [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Organisation [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Organisation"
+            },
+            "orgname": "Orgname",
+            "hod": "Hod",
+            "address": "Address",
+            "establishmentyear": "Establishmentyear",
+            "active": "Active",
+            "createdate": "Createdate",
+            "updatedate": "Updatedate"
+        }
+    }
+}

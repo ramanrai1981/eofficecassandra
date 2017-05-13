@@ -25,7 +25,18 @@
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
                     $translatePartialLoader.addPart('pendingfile');
                     return $translate.refresh();
-                }]
+                }],
+
+            file: function () {
+                    return {
+                        fileNo: null,
+                        title: null,
+                        tag: null,
+                        uploadDate: null,
+                        status: false,
+                        id: null
+                    };
+                }
             }
         });
     }

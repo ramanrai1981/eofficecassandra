@@ -1,0 +1,51 @@
+
+<div>
+    <h2><span data-translate="eofficeApp.fileMovement.detail.title">File Movement</span> {{vm.fileMovement.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span data-translate="eofficeApp.fileMovement.fileId">File Id</span></dt>
+        <dd>
+            <span>{{vm.fileMovement.fileId}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.fileMovement.markFrom">Mark From</span></dt>
+        <dd>
+            <span>{{vm.fileMovement.markFrom}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.fileMovement.markTo">Mark To</span></dt>
+        <dd>
+            <span>{{vm.fileMovement.markTo}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.fileMovement.fileName">File Name</span></dt>
+        <dd>
+            <span>{{vm.fileMovement.fileName}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.fileMovement.markDate">Mark Date</span></dt>
+        <dd>
+            <span>{{vm.fileMovement.markDate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.fileMovement.updateDate">Update Date</span></dt>
+        <dd>
+            <span>{{vm.fileMovement.updateDate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.fileMovement.actionStatus">Action Status</span></dt>
+        <dd>
+            <span>{{vm.fileMovement.actionStatus}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.fileMovement.comment">Comment</span></dt>
+        <dd>
+            <span>{{vm.fileMovement.comment}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="file-movement-detail.edit({id:vm.fileMovement.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

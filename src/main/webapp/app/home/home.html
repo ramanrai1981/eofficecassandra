@@ -1,4 +1,21 @@
-<a href="#/addorganisation" class="btn btn-warning pull-right" >Create Oraganisation</a><br><br><br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 no-padding-left">
+            <button class="btn btn-warning pull-right" ui-sref="createorganisation.new" >
+                <span class="glyphicon glyphicon-plus"></span>
+                <span  data-translate="">
+                        Create new Organisation
+                    </span>
+            </button>
+        </div>
+    </div>
+</div><br>
+<div class="panel panel-default">
+<div class="panel-heading">
+    <h3 class="panel-title">Search Organisation</h3>
+    </div>
+
+
 <div class="row">
     <div class="col-lg-12">
         <div class="input-group">
@@ -10,7 +27,8 @@
           </span>
         </div>
     </div>
-</div><br><br>
+</div> </div>
+    <br>
 <div class="row">
     <div class="col-md-6 ">
         <div class="panel panel-primary">
@@ -19,7 +37,7 @@
                  <div class="input-group-btn">
                        <a href="#/settings"><button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-wrench"></i></button>
                       </a>
-                     <a href="#/user-management">
+                     <a href="#/addemployee">
                          <button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-user"></i></button>
                      </a>
 
@@ -29,15 +47,19 @@
         <thead>
         <tr >
             <th>Organisation Name</th>
+            <th>HOD</th>
             <th>Organisation Address</th>
             <th>Organisation Establishment Year</th>
+            <th>Active</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat = "orglist in vm.organisations | filter:searchText">
-            <td >{{orglist.name}}</td>
+            <td >{{orglist.orgname}}</td>
+            <td >{{orglist.hod}}</td>
             <td >{{orglist.address}}</td>
-            <td >{{orglist.establishyear}}</td>
+            <td >{{orglist.establishmentyear}}</td>
+            <td >{{orglist.active}}</td>
         </tr>
         </tbody>
     </table>
@@ -50,7 +72,7 @@
                 <div class="input-group-btn">
                     <a href="#/settings"><button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-wrench"></i></button>
                     </a>
-                    <a href="#/user-management">
+                    <a ui-sref="addemployee">
                         <button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-user"></i></button>
                     </a>
                 </div>
@@ -59,12 +81,14 @@
                 <thead>
                 <tr >
                     <th>Organisation Name</th>
+                    <th>HOD</th>
                     <th>Organisation Address</th>
-                    <th>Organisation Establishment year</th>
+                    <th>Organisation Establishment Year</th>
+                    <th>Active</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat = "orglist in vm.organisations | filter:searchText">
+                <tr ng-repeat = "orglist in vm.organisations1 | filter:searchText">
                     <td >{{orglist.name}}</td>
                     <td >{{orglist.address}}</td>
                     <td >{{orglist.establishyear}}</td>
@@ -83,7 +107,7 @@
                 <div class="input-group-btn">
                     <a href="#/settings"><button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-wrench"></i></button>
                     </a>
-                    <a href="#/user-management">
+                    <a href="#/addemployee">
                         <button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-user"></i></button>
                     </a>
                 </div>
@@ -93,19 +117,20 @@
                 <thead>
                 <tr >
                     <th>Organisation Name</th>
+                    <th>HOD</th>
                     <th>Organisation Address</th>
-                    <th>Organisation Establishment year</th>
+                    <th>Organisation Establishment Year</th>
+                    <th>Active</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat = "orglist in vm.organisations | filter:searchText">
+                <tr ng-repeat = "orglist in vm.organisations2 | filter:searchText">
                     <td >{{orglist.name}}</td>
                     <td >{{orglist.address}}</td>
                     <td >{{orglist.establishyear}}</td>
                 </tr>
                 </tbody>
             </table>
-
         </div>
     </div>
     <div class="col-lg-6 ">
@@ -118,7 +143,7 @@
 
                     <a href="#/settings"><button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-wrench"></i></button>
                     </a>
-                    <a href="#/user-management">
+                    <a href="#/addemployee">
                         <button class="btn btn-primary" style="float: right"><i class="glyphicon glyphicon-user"></i></button>
                     </a>
                 </div>
@@ -128,12 +153,14 @@
                 <thead>
                 <tr >
                     <th>Organisation Name</th>
+                    <th>HOD</th>
                     <th>Organisation Address</th>
-                    <th>Organisation Establishment year</th>
+                    <th>Organisation Establishment Year</th>
+                    <th>Active</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat = "orglist in vm.organisations | filter:searchText">
+                <tr ng-repeat = "orglist in vm.organisations3 | filter:searchText">
                     <td >{{orglist.name}}</td>
                     <td >{{orglist.address}}</td>
                     <td >{{orglist.establishyear}}</td>
