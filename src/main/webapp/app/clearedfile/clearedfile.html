@@ -58,7 +58,7 @@
 
                         <tbody>
                         <tr ng-repeat = "clearedlist in vm.clearedfiles | filter:searchText">
-                            <td>{{clearedlist.fileno}}</td>
+                            <td>{{clearedlist.fileNo}}</td>
                             <td>{{clearedlist.title}}</td>
                             <td>{{clearedlist.tag}}</td>
                             <td>{{clearedlist.fromusername}}</td>
@@ -68,7 +68,7 @@
                             <td>{{clearedlist.fileclosedby}}</td>
 
                             <td class="action verticalalign">
-                                <button type="submit" ui-sref="clearedfiles({fileno:pendinglist.fileno})" class="btn btn-default" style="float: right">Re-Open File</button>
+                                <button type="submit" ui-sref="clearedfiles({fileNo:pendinglist.fileNo})" class="btn btn-default btn-sm" style="float: right">Re-Open File</button>
                             </td>
                         </tr>
                         </tbody>

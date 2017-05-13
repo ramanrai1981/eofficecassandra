@@ -1,0 +1,27 @@
+{
+    "eofficeApp": {
+        "fileLog" : {
+            "home": {
+                "title": "File Logs",
+                "createLabel": "Create a new File Log",
+                "createOrEditLabel": "Create or edit a File Log"
+            },
+            "created": "A new File Log is created with identifier {{ param }}",
+            "updated": "A File Log is updated with identifier {{ param }}",
+            "deleted": "A File Log is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete File Log {{ id }}?"
+            },
+            "detail": {
+                "title": "File Log"
+            },
+            "fileNo": "File No",
+            "title": "Title",
+            "markFrom": "Mark From",
+            "markTo": "Mark To",
+            "markDate": "Mark Date",
+            "updateDate": "Update Date",
+            "comment": "Comment"
+        }
+    }
+}

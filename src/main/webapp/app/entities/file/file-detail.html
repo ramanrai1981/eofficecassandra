@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span data-translate="eofficeApp.file.detail.title">File</span> {{vm.file.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span data-translate="eofficeApp.file.fileNo">File No</span></dt>
+        <dd>
+            <span>{{vm.file.fileNo}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.file.title">Title</span></dt>
+        <dd>
+            <span>{{vm.file.title}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.file.tag">Tag</span></dt>
+        <dd>
+            <span>{{vm.file.tag}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.file.uploadDate">Upload Date</span></dt>
+        <dd>
+            <span>{{vm.file.uploadDate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.file.status">Status</span></dt>
+        <dd>
+            <span>{{vm.file.status}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="file-detail.edit({id:vm.file.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

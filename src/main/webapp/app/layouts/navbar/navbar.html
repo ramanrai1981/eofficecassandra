@@ -50,12 +50,6 @@
                                  <span data-translate="">Add Employee</span>
                              </a>
                          </li>
-                         <li ui-sref-active="active" ng-switch-when="true">
-                             <a ui-sref="adddesignation" ng-click="vm.collapseNavbar()">
-                                 <span class="glyphicon glyphicon-wrench"></span>&nbsp;
-                                 <span data-translate="">Add Designation</span>
-                             </a>
-                         </li>
                     </ul>
                 </li>
 
@@ -104,7 +98,41 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li ui-sref-active="active">
+
+                                <a ui-sref="file" ng-click="vm.collapseNavbar()">
+                                    <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                    <span data-translate="global.menu.entities.file">File</span>
+                                </a>
+                            </li>
+                        <li ui-sref-active="active">
+                                <a ui-sref="file-log" ng-click="vm.collapseNavbar()">
+                                    <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                    <span data-translate="global.menu.entities.fileLog">File Log</span>
+                                </a>
+                            </li>
+                        <li ui-sref-active="active">
+                                <a ui-sref="file-movement" ng-click="vm.collapseNavbar()">
+                                    <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                    <span data-translate="global.menu.entities.fileMovement">File Movement</span>
+                                </a>
+                            </li>
                         <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+                        <li ui-sref-active="active">
+                            <a ui-sref="organisation" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                <span data-translate="global.menu.entities.organisation">Organisation</span>
+                            </a>
+                        </li>
+
+                        <li ui-sref-active="active">
+                                <a ui-sref="employee" ng-click="vm.collapseNavbar()">
+                                    <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                    <span data-translate="global.menu.entities.employee">Employee</span>
+                                </a>
+                            </li>
+                                               <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+
                     </ul>
                 </li>
                 <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">

@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span data-translate="eofficeApp.fileLog.detail.title">File Log</span> {{vm.fileLog.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span data-translate="eofficeApp.fileLog.fileNo">File No</span></dt>
+        <dd>
+            <span>{{vm.fileLog.fileNo}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.fileLog.title">Title</span></dt>
+        <dd>
+            <span>{{vm.fileLog.title}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.fileLog.markFrom">Mark From</span></dt>
+        <dd>
+            <span>{{vm.fileLog.markFrom}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.fileLog.markTo">Mark To</span></dt>
+        <dd>
+            <span>{{vm.fileLog.markTo}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.fileLog.markDate">Mark Date</span></dt>
+        <dd>
+            <span>{{vm.fileLog.markDate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.fileLog.updateDate">Update Date</span></dt>
+        <dd>
+            <span>{{vm.fileLog.updateDate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.fileLog.comment">Comment</span></dt>
+        <dd>
+            <span>{{vm.fileLog.comment}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="file-log-detail.edit({id:vm.fileLog.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

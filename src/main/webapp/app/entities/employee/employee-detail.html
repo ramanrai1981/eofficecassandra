@@ -1,0 +1,67 @@
+
+<div>
+    <h2><span data-translate="eofficeApp.employee.detail.title">Employee</span> {{vm.employee.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span data-translate="eofficeApp.employee.empid">Empid</span></dt>
+        <dd>
+            <span>{{vm.employee.empid}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.employee.empname">Empname</span></dt>
+        <dd>
+            <span>{{vm.employee.empname}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.employee.department">Department</span></dt>
+        <dd>
+            <span>{{vm.employee.department}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.employee.designation">Designation</span></dt>
+        <dd>
+            <span>{{vm.employee.designation}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.employee.mobilenumber">Mobilenumber</span></dt>
+        <dd>
+            <span>{{vm.employee.mobilenumber}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.employee.emailid">Emailid</span></dt>
+        <dd>
+            <span>{{vm.employee.emailid}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.employee.dateofbirth">Dateofbirth</span></dt>
+        <dd>
+            <span>{{vm.employee.dateofbirth | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.employee.dateofjoining">Dateofjoining</span></dt>
+        <dd>
+            <span>{{vm.employee.dateofjoining | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.employee.relievingdate">Relievingdate</span></dt>
+        <dd>
+            <span>{{vm.employee.relievingdate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.employee.active">Active</span></dt>
+        <dd>
+            <span>{{vm.employee.active}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.employee.createdate">Createdate</span></dt>
+        <dd>
+            <span>{{vm.employee.createdate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.employee.updatedate">Updatedate</span></dt>
+        <dd>
+            <span>{{vm.employee.updatedate | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="employee-detail.edit({id:vm.employee.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
