@@ -1,0 +1,59 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myOrganisationLabel" data-translate="">Create a new Organisation</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.organisation.id">
+            <label for="id" data-translate="">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.organisation.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="" for="field_orgname">Organisation name</label>
+            <input type="text" class="form-control" name="orgname" id="field_orgname"
+                    ng-model="vm.organisation.orgname"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="" for="field_hod">HOD</label>
+            <input type="text" class="form-control" name="hod" id="field_hod"
+                    ng-model="vm.organisation.hod"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                    ng-model="vm.organisation.address"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="" for="field_establishmentyear">Establishment year</label>
+                <div class="input-group">
+                    <input id="field_establishmentyear" type="text" class="form-control" name="establishmentyear" datetime-picker="{{dateformat}}" ng-model="vm.organisation.establishmentyear" is-open="vm.datePickerOpenStatus.establishmentyear"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('establishmentyear')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="" for="field_active">Active</label>
+                <input type="checkbox" name="active" id="field_active"
+                          ng-model="vm.organisation.active"/>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="">Save</span>
+        </button>
+    </div>
+</form>

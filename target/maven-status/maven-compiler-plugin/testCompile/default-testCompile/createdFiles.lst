@@ -6,6 +6,9 @@ com/hartron/eoffice/web/rest/TestUtil.class
 com/hartron/eoffice/service/UserServiceIntTest.class
 com/hartron/eoffice/web/rest/AccountResourceIntTest.class
 com/hartron/eoffice/security/SecurityUtilsUnitTest.class
+com/hartron/eoffice/web/rest/FileMovementResourceIntTest.class
+com/hartron/eoffice/web/rest/OrganisationResourceIntTest.class
+com/hartron/eoffice/web/rest/EmployeeResourceIntTest.class
 com/hartron/eoffice/web/rest/LogsResourceIntTest.class
 com/hartron/eoffice/web/rest/ProfileInfoResourceIntTest.class
 com/hartron/eoffice/config/CassandraTestConfiguration.class

@@ -45,6 +45,7 @@ public class FileLogRepository {
                 fileLog.setMarkFrom(row.getString("markFrom"));
                 fileLog.setMarkTo(row.getString("markTo"));
                 fileLog.setMarkDate(row.get("markDate", ZonedDateTime.class));
+                fileLog.setUpdateDate(row.get("updateDate", ZonedDateTime.class));
                 fileLog.setComment(row.getString("comment"));
                 return fileLog;
             }

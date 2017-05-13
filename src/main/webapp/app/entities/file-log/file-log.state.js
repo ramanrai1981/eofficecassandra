@@ -109,6 +109,7 @@
                                 markFrom: null,
                                 markTo: null,
                                 markDate: null,
+                                updateDate: null,
                                 comment: null,
                                 id: null
                             };

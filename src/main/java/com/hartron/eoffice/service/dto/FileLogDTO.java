@@ -23,6 +23,8 @@ public class FileLogDTO implements Serializable {
 
     private ZonedDateTime markDate;
 
+    private ZonedDateTime updateDate;
+
     private String comment;
 
     public UUID getId() {
@@ -67,6 +69,13 @@ public class FileLogDTO implements Serializable {
     public void setMarkDate(ZonedDateTime markDate) {
         this.markDate = markDate;
     }
+    public ZonedDateTime getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(ZonedDateTime updateDate) {
+        this.updateDate = updateDate;
+    }
     public String getComment() {
         return comment;
     }
@@ -105,6 +114,7 @@ public class FileLogDTO implements Serializable {
             ", markFrom='" + markFrom + "'" +
             ", markTo='" + markTo + "'" +
             ", markDate='" + markDate + "'" +
+            ", updateDate='" + updateDate + "'" +
             ", comment='" + comment + "'" +
             '}';
     }

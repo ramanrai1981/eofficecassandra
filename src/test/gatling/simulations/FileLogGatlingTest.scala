@@ -68,7 +68,7 @@ class FileLogGatlingTest extends Simulation {
             .exec(http("Create new fileLog")
             .post("/api/file-logs")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "fileNo":"SAMPLE_TEXT", "title":"SAMPLE_TEXT", "markFrom":"SAMPLE_TEXT", "markTo":"SAMPLE_TEXT", "markDate":"2020-01-01T00:00:00.000Z", "comment":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "fileNo":"SAMPLE_TEXT", "title":"SAMPLE_TEXT", "markFrom":"SAMPLE_TEXT", "markTo":"SAMPLE_TEXT", "markDate":"2020-01-01T00:00:00.000Z", "updateDate":"2020-01-01T00:00:00.000Z", "comment":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_fileLog_url"))).exitHereIfFailed
             .pause(10)

@@ -8,12 +8,19 @@
             "pendingfile": "फ़ाइल पड़ा हुआ",
             "addorganisation": "addorganisation",
             "adddepartment": "adddepartment",
-            "adddesignation": "adddesignation",
+            "addemployee": "addemployee",
+            "createorganisation": "Createorganisation",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "एंटिटीज़",
+
                 "file": "File",
                 "fileLog": "File Log",
+                "fileMovement": "File Movement",
+
+                "organisation": "Organisation",
+                "employee": "Employee",
+
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

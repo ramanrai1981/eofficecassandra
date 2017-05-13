@@ -48,6 +48,7 @@
                             <th>Tags</th>
                             <th>Mark From User</th>
                             <th>Department</th>
+                            <th>Upload Date</th>
                             <th></th>
 
                         </tr>
@@ -60,9 +61,10 @@
                             <td>{{pendinglist.tag}}</td>
                             <td>{{pendinglist.username}}</td>
                             <td>{{pendinglist.departmentname}}</td>
+                            <td>{{pendinglist.uploadDate | date:'dd/MM/yyyy @ h:mma'}}</td>
                             <td class="action verticalalign">
-                                <button type="submit" ui-sref="pdftron({fileNo:pendinglist.fileNo})" class="btn btn-primary" style="float: right">Open for eSign or Comment</button>
-                                <button type="submit" ui-sref="pendingfiles({fileNo:pendinglist.fileNo})" class="btn btn-default" style="float: right">Mark To User</button>
+                                <button type="submit" ui-sref="pdftron({fileNo:pendinglist.fileNo})" class="btn btn-primary btn-sm" style="float: right">Open/eSign/Comment</button>
+                                <button type="submit" ui-sref="pendingfiles({fileNo:pendinglist.fileNo})" class="btn btn-default btn-sm" style="float: right">Mark To User</button>
                             </td>
                         </tr>
                         </tbody>

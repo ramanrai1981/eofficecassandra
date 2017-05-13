@@ -1,0 +1,106 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myFileMovementLabel" data-translate="eofficeApp.fileMovement.home.createOrEditLabel">Create or edit a File Movement</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.fileMovement.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.fileMovement.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="eofficeApp.fileMovement.fileId" for="field_fileId">File Id</label>
+            <input type="text" class="form-control" name="fileId" id="field_fileId"
+                    ng-model="vm.fileMovement.fileId"
+                    required/>
+            <div ng-show="editForm.fileId.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.fileId.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="eofficeApp.fileMovement.markFrom" for="field_markFrom">Mark From</label>
+            <input type="text" class="form-control" name="markFrom" id="field_markFrom"
+                    ng-model="vm.fileMovement.markFrom"
+                    required/>
+            <div ng-show="editForm.markFrom.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.markFrom.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="eofficeApp.fileMovement.markTo" for="field_markTo">Mark To</label>
+            <input type="text" class="form-control" name="markTo" id="field_markTo"
+                    ng-model="vm.fileMovement.markTo"
+                    required/>
+            <div ng-show="editForm.markTo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.markTo.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="eofficeApp.fileMovement.fileName" for="field_fileName">File Name</label>
+            <input type="text" class="form-control" name="fileName" id="field_fileName"
+                    ng-model="vm.fileMovement.fileName"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="eofficeApp.fileMovement.markDate" for="field_markDate">Mark Date</label>
+                <div class="input-group">
+                    <input id="field_markDate" type="text" class="form-control" name="markDate" datetime-picker="{{dateformat}}" ng-model="vm.fileMovement.markDate" is-open="vm.datePickerOpenStatus.markDate"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('markDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="eofficeApp.fileMovement.updateDate" for="field_updateDate">Update Date</label>
+                <div class="input-group">
+                    <input id="field_updateDate" type="text" class="form-control" name="updateDate" datetime-picker="{{dateformat}}" ng-model="vm.fileMovement.updateDate" is-open="vm.datePickerOpenStatus.updateDate"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('updateDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="eofficeApp.fileMovement.actionStatus" for="field_actionStatus">Action Status</label>
+            <input type="text" class="form-control" name="actionStatus" id="field_actionStatus"
+                    ng-model="vm.fileMovement.actionStatus"
+                    required/>
+            <div ng-show="editForm.actionStatus.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.actionStatus.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="eofficeApp.fileMovement.comment" for="field_comment">Comment</label>
+            <input type="text" class="form-control" name="comment" id="field_comment"
+                    ng-model="vm.fileMovement.comment"
+                    />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -60,6 +60,9 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
     private static final ZonedDateTime DEFAULT_MARK_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_MARK_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
+    private static final ZonedDateTime DEFAULT_UPDATE_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_UPDATE_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+
     private static final String DEFAULT_COMMENT = "AAAAAAAAAA";
     private static final String UPDATED_COMMENT = "BBBBBBBBBB";
 
@@ -108,6 +111,7 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
                 .markFrom(DEFAULT_MARK_FROM)
                 .markTo(DEFAULT_MARK_TO)
                 .markDate(DEFAULT_MARK_DATE)
+                .updateDate(DEFAULT_UPDATE_DATE)
                 .comment(DEFAULT_COMMENT);
         return fileLog;
     }
@@ -139,6 +143,7 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
         assertThat(testFileLog.getMarkFrom()).isEqualTo(DEFAULT_MARK_FROM);
         assertThat(testFileLog.getMarkTo()).isEqualTo(DEFAULT_MARK_TO);
         assertThat(testFileLog.getMarkDate()).isEqualTo(DEFAULT_MARK_DATE);
+        assertThat(testFileLog.getUpdateDate()).isEqualTo(DEFAULT_UPDATE_DATE);
         assertThat(testFileLog.getComment()).isEqualTo(DEFAULT_COMMENT);
     }
 
@@ -177,6 +182,7 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
             .andExpect(jsonPath("$.[*].markFrom").value(hasItem(DEFAULT_MARK_FROM.toString())))
             .andExpect(jsonPath("$.[*].markTo").value(hasItem(DEFAULT_MARK_TO.toString())))
             .andExpect(jsonPath("$.[*].markDate").value(hasItem(sameInstant(DEFAULT_MARK_DATE))))
+            .andExpect(jsonPath("$.[*].updateDate").value(hasItem(sameInstant(DEFAULT_UPDATE_DATE))))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT.toString())));
     }
 
@@ -195,6 +201,7 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
             .andExpect(jsonPath("$.markFrom").value(DEFAULT_MARK_FROM.toString()))
             .andExpect(jsonPath("$.markTo").value(DEFAULT_MARK_TO.toString()))
             .andExpect(jsonPath("$.markDate").value(sameInstant(DEFAULT_MARK_DATE)))
+            .andExpect(jsonPath("$.updateDate").value(sameInstant(DEFAULT_UPDATE_DATE)))
             .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT.toString()));
     }
 
@@ -219,6 +226,7 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
                 .markFrom(UPDATED_MARK_FROM)
                 .markTo(UPDATED_MARK_TO)
                 .markDate(UPDATED_MARK_DATE)
+                .updateDate(UPDATED_UPDATE_DATE)
                 .comment(UPDATED_COMMENT);
         FileLogDTO fileLogDTO = fileLogMapper.fileLogToFileLogDTO(updatedFileLog);
 
@@ -236,6 +244,7 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
         assertThat(testFileLog.getMarkFrom()).isEqualTo(UPDATED_MARK_FROM);
         assertThat(testFileLog.getMarkTo()).isEqualTo(UPDATED_MARK_TO);
         assertThat(testFileLog.getMarkDate()).isEqualTo(UPDATED_MARK_DATE);
+        assertThat(testFileLog.getUpdateDate()).isEqualTo(UPDATED_UPDATE_DATE);
         assertThat(testFileLog.getComment()).isEqualTo(UPDATED_COMMENT);
     }
 

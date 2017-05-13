@@ -20,6 +20,7 @@
             "markFrom": "Mark From",
             "markTo": "Mark To",
             "markDate": "Mark Date",
+            "updateDate": "Update Date",
             "comment": "Comment"
         }
     }

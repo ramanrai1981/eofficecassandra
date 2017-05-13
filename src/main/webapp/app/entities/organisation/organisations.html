@@ -1,0 +1,68 @@
+<div>
+    <h2 data-translate="eofficeApp.organisation.home.title">Organisations</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="organisation.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="eofficeApp.organisation.home.createLabel">
+                        Create new Organisation
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="eofficeApp.organisation.orgname">Orgname</span></th>
+                    <th><span data-translate="eofficeApp.organisation.hod">Hod</span></th>
+                    <th><span data-translate="eofficeApp.organisation.address">Address</span></th>
+                    <th><span data-translate="eofficeApp.organisation.establishmentyear">Establishmentyear</span></th>
+                    <th><span data-translate="eofficeApp.organisation.active">Active</span></th>
+                    <th><span data-translate="eofficeApp.organisation.createdate">Createdate</span></th>
+                    <th><span data-translate="eofficeApp.organisation.updatedate">Updatedate</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="organisation in vm.organisations track by organisation.id">
+                    <td><a ui-sref="organisation-detail({id:organisation.id})">{{organisation.id}}</a></td>
+                    <td>{{organisation.orgname}}</td>
+                    <td>{{organisation.hod}}</td>
+                    <td>{{organisation.address}}</td>
+                    <td>{{organisation.establishmentyear | date:'medium'}}</td>
+                    <td>{{organisation.active}}</td>
+                    <td>{{organisation.createdate | date:'medium'}}</td>
+                    <td>{{organisation.updatedate | date:'medium'}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="organisation-detail({id:organisation.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="organisation.edit({id:organisation.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="organisation.delete({id:organisation.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

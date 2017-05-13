@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS fileLog (
     markFrom text,
     markTo text,
     markDate timestamp,
+    updateDate timestamp,
     comment text,
     PRIMARY KEY(id)
 );
