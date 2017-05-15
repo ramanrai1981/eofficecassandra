@@ -7,10 +7,6 @@
 </head>
 
 <div class="panel panel-primary">
-    <a href="#/pendingfile" class="btn btn-danger" style="float: right">Pending Files<span
-        class="glyphicon glyphicon-eye-open"></span></a>
-    <a href="#/clearedfile" class="btn btn-success" style="float: right">Cleared Files<span
-        class="glyphicon glyphicon-ok"></span></a>
     <div class="panel-heading">
         <h3 class="panel-title">Put Up File</h3>
     </div>
@@ -60,6 +56,11 @@
                     <div class="col-lg-10 col-lg-offset-2">
                         <button type="reset" class="btn btn-default">Reset</button>
                         <button type="submit" class="btn btn-primary" ng-click="vm.putUpFile()">Put Up File</button>
+
+                        <a href="#/pendingfile" class="btn btn-info" style="float: right">Pending Files<span
+                            class="glyphicon glyphicon-eye-open"></span></a>
+                        <a href="#/clearedfile" class="btn btn-info" style="float: right">Cleared Files<span
+                            class="glyphicon glyphicon-ok"></span></a>
                     </div>
                 </div>
             </fieldset>

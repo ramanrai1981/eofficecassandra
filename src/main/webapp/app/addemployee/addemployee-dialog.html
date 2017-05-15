@@ -1,0 +1,143 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myEmployeeLabel">Add an Employee</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.employee.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.employee.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_empid">Empolyee ID</label>
+            <input type="text" class="form-control" name="empid" id="field_empid"
+                    ng-model="vm.employee.empid"
+                    required/>
+            <div ng-show="editForm.empid.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.empid.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <!--<div class="form-group">-->
+            <!--<label class="control-label" for="field_empname">Empname</label>-->
+            <!--<input type="text" class="form-control" name="empname" id="field_empname"-->
+                    <!--ng-model="vm.employee.empname"-->
+                    <!--/>-->
+        <!--</div>-->
+        <div class="form-group">
+            <label class="control-label" for="field_department">Department</label>
+            <textarea class="form-control" name="department" rows="3" ng-model="vm.employee.department" id="field_department" required/>
+            <div ng-show="editForm.department.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.department.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_designation">Designation</label>
+            <input type="text" class="form-control" name="designation" id="field_designation"
+                    ng-model="vm.employee.designation" required/>
+            <div ng-show="editForm.designation.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.designation.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_mobilenumber">Mobile Number</label>
+            <input type="number" class="form-control" name="mobilenumber" id="field_mobilenumber"
+                    ng-model="vm.employee.mobilenumber" required/>
+            <div ng-show="editForm.mobilenumber.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.mobilenumber.$error.required">
+                    This field is required.
+                </p>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_emailid">Email ID</label>
+            <input type="text" class="form-control" name="emailid" id="field_emailid"
+                    ng-model="vm.employee.emailid" required/>
+            <div ng-show="editForm.emailid.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.emailid.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_dateofbirth">Date of Birth</label>
+                <div class="input-group">
+                    <input id="field_dateofbirth" type="text" class="form-control" name="dateofbirth" datetime-picker="{{dateformat}}" ng-model="vm.employee.dateofbirth" is-open="vm.datePickerOpenStatus.dateofbirth"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dateofbirth')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_dateofjoining">Date of Joining</label>
+                <div class="input-group">
+                    <input id="field_dateofjoining" type="text" class="form-control" name="dateofjoining" datetime-picker="{{dateformat}}" ng-model="vm.employee.dateofjoining" is-open="vm.datePickerOpenStatus.dateofjoining"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dateofjoining')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_relievingdate">Relieving Date</label>
+                <div class="input-group">
+                    <input id="field_relievingdate" type="text" class="form-control" name="relievingdate" datetime-picker="{{dateformat}}" ng-model="vm.employee.relievingdate" is-open="vm.datePickerOpenStatus.relievingdate"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('relievingdate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_active">Active</label>
+                <input type="checkbox" name="active" id="field_active"
+                          ng-model="vm.employee.active"/>
+        </div>
+        <!--<div class="form-group">-->
+            <!--<label class="control-label" for="field_createdate">Create Date</label>-->
+                <!--<div class="input-group">-->
+                    <!--<input id="field_createdate" type="text" class="form-control" name="createdate" datetime-picker="{{dateformat}}" ng-model="vm.employee.createdate" is-open="vm.datePickerOpenStatus.createdate"-->
+                    <!--/>-->
+                    <!--<span class="input-group-btn">-->
+                        <!--<button type="button" class="btn btn-default" ng-click="vm.openCalendar('createdate')"><i class="glyphicon glyphicon-calendar"></i></button>-->
+                    <!--</span>-->
+                <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label class="control-label" for="field_updatedate">Update Date</label>-->
+                <!--<div class="input-group">-->
+                    <!--<input id="field_updatedate" type="text" class="form-control" name="updatedate" datetime-picker="{{dateformat}}" ng-model="vm.employee.updatedate" is-open="vm.datePickerOpenStatus.updatedate"-->
+                    <!--/>-->
+                    <!--<span class="input-group-btn">-->
+                        <!--<button type="button" class="btn btn-default" ng-click="vm.openCalendar('updatedate')"><i class="glyphicon glyphicon-calendar"></i></button>-->
+                    <!--</span>-->
+                <!--</div>-->
+        <!--</div>-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,4 +1,4 @@
-<div class="panel panel-warning">
+<div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title">Pending Files</h3>
     </div>
@@ -9,7 +9,7 @@
             <!--pdftron-->
             <input type="text" class="form-control" ng-model="searchText" id="searchQuery" placeholder="Search by title or tag or by department..">
             <div class="input-group-btn">
-                <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                <button class="btn btn-info"><i class="glyphicon glyphicon-search"></i></button>
 
                 <button class="btn btn-link btn-sm"><i class="glyphicon glyphicon-chevron-down"></i></button>
 
@@ -42,7 +42,7 @@
                     <table class="table table-striped table-hover">
                         <thead>
                         <!--<tr class="headerGrid">-->
-                        <tr class="warning">
+                        <tr class="danger">
                             <th>File No</th>
                             <th>Title</th>
                             <th>Tags</th>
@@ -64,7 +64,7 @@
                             <td>{{pendinglist.uploadDate | date:'dd/MM/yyyy @ h:mma'}}</td>
                             <td class="action verticalalign">
                                 <button type="submit" ui-sref="pdftron({fileNo:pendinglist.fileNo})" class="btn btn-primary btn-sm" style="float: right">Open/eSign/Comment</button>
-                                <button type="submit" ui-sref="pendingfiles({fileNo:pendinglist.fileNo})" class="btn btn-default btn-sm" style="float: right">Mark To User</button>
+                                <button type="submit" ui-sref="pendingfile-markto-user({fileid:pendinglist.id})" class="btn btn-info btn-sm" style="float: right">Mark To User</button>
                             </td>
                         </tr>
                         </tbody>
