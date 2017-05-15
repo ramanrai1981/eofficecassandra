@@ -6,8 +6,6 @@
             "home": "होम",
             "createfile": "फ़ाइल सृजन",
             "pendingfile": "फ़ाइल पड़ा हुआ",
-            "addorganisation": "addorganisation",
-            "adddepartment": "adddepartment",
             "addemployee": "addemployee",
             "createorganisation": "Createorganisation",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
