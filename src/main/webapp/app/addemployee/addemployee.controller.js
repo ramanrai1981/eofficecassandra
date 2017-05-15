@@ -5,35 +5,21 @@
         .module('eofficeApp')
         .controller('AddemployeeController', AddemployeeController);
 
-    AddemployeeController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
+    AddemployeeController.$inject = ['Addemployee'];
 
-    function AddemployeeController ($scope, Principal, LoginService, $state) {
+    function AddemployeeController(Addemployee) {
+
         var vm = this;
 
-        vm.account = null;
-        vm.isAuthenticated = null;
-        vm.login = LoginService.open;
-        vm.register = register;
-        $scope.$on('authenticationSuccess', function() {
-            getAccount();
-        });
+        vm.addemployees = [];
 
-        getAccount();
-        vm.employees = [{"id": "101","empname":"Shaurya Kumar", "employeedesignation":"AGM", "departmentname" : "HUDA", "mobilenumber": "9466902763", "emailid" : "shaurya.kumar@gmail.com"},
-                        {"id": "102","empname":"Rohan", "employeedesignation":"STM", "departmentname" : "HAFED", "mobilenumber": "9466906427", "emailid" : "rohan.kumar@yahoo.com"}];
+        loadAll();
 
-        // vm.addtags = [{"id": "10","name": "Noting"},{"id": "11","name": "DO"},{"id": "15","name": "General Note"}];
-        // console.log(vm.tags);
-
-
-        function getAccount() {
-            Principal.identity().then(function(account) {
-                vm.account = account;
-                vm.isAuthenticated = Principal.isAuthenticated;
+        function loadAll() {
+            Addemployee.query(function(result) {
+                vm.employees = result;
+                vm.searchQuery = null;
             });
-        }
-        function register () {
-            $state.go('register');
         }
     }
 })();

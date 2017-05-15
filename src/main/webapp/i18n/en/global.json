@@ -6,8 +6,6 @@
             "home": "Home",
             "createfile": "Create File",
             "createfile": "Pending File",
-            "addorganisation": "Addorganisation",
-            "adddepartment": "Adddepartment",
             "addemployee": "Addemployee",
             "createorganisation": "Createorganisation",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",

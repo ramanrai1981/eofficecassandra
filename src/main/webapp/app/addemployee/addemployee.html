@@ -1,10 +1,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12 no-padding-left">
-            <button class="btn btn-warning pull-right" ui-sref="employee.new" >
+            <button class="btn btn-warning pull-right" ui-sref="addemployee.new" >
                 <span class="glyphicon glyphicon-plus"></span>
                 <span  data-translate="">
-                        Create new Employee
+                        Create a new Employee
                     </span>
             </button>
         </div>
@@ -44,18 +44,22 @@
                             <th>Department</th>
                             <th>Mobile No.</th>
                             <th>Email-ID</th>
-
+                            <th>Date of Joining</th>
+                            <th>Date of Relieving</th>
                         </tr>
                         </thead>
 
                         <tbody>
                         <tr ng-repeat = "employeedetaillist in vm.employees | filter:searchText">
-                            <td>{{employeedetaillist.id}}</td>
+                            <td>{{employeedetaillist.empid}}</td>
                             <td>{{employeedetaillist.empname}}</td>
-                            <td>{{employeedetaillist.employeedesignation}}</td>
-                            <td>{{employeedetaillist.departmentname}}</td>
+                            <td>{{employeedetaillist.department}}</td>
+                            <td>{{employeedetaillist.designation}}</td>
                             <td>{{employeedetaillist.mobilenumber}}</td>
                             <td>{{employeedetaillist.emailid}}</td>
+                            <td>{{employeedetaillist.dateofjoining}}</td>
+                            <td>{{employeedetaillist.relievingdate}}</td>
+
 
                         </tr>
                         </tbody>
@@ -69,5 +73,3 @@
 
     </div>
 </div>
-
-
