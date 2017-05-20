@@ -41,12 +41,12 @@ public class OrganisationRepository {
                 Organisation organisation = new Organisation();
                 organisation.setId(row.getUUID("id"));
                 organisation.setOrgname(row.getString("orgname"));
-                organisation.setHod(row.getString("hod"));
                 organisation.setAddress(row.getString("address"));
-                organisation.setEstablishmentyear(row.get("establishmentyear", ZonedDateTime.class));
                 organisation.setActive(row.getBool("active"));
                 organisation.setCreatedate(row.get("createdate", ZonedDateTime.class));
                 organisation.setUpdatedate(row.get("updatedate", ZonedDateTime.class));
+                organisation.setOwner(row.getString("owner"));
+                organisation.setEstablishmentdate(row.get("establishmentdate", ZonedDateTime.class));
                 return organisation;
             }
         ).forEach(organisationsList::add);

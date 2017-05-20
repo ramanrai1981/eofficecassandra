@@ -29,8 +29,6 @@ public class Employee implements Serializable {
 
     private String designation;
 
-    private Integer mobilenumber;
-
     private String emailid;
 
     private ZonedDateTime dateofbirth;
@@ -44,6 +42,9 @@ public class Employee implements Serializable {
     private ZonedDateTime createdate;
 
     private ZonedDateTime updatedate;
+
+    @NotNull
+    private String mobilenumber;
 
     public UUID getId() {
         return id;
@@ -103,19 +104,6 @@ public class Employee implements Serializable {
 
     public void setDesignation(String designation) {
         this.designation = designation;
-    }
-
-    public Integer getMobilenumber() {
-        return mobilenumber;
-    }
-
-    public Employee mobilenumber(Integer mobilenumber) {
-        this.mobilenumber = mobilenumber;
-        return this;
-    }
-
-    public void setMobilenumber(Integer mobilenumber) {
-        this.mobilenumber = mobilenumber;
     }
 
     public String getEmailid() {
@@ -209,6 +197,19 @@ public class Employee implements Serializable {
         this.updatedate = updatedate;
     }
 
+    public String getMobilenumber() {
+        return mobilenumber;
+    }
+
+    public Employee mobilenumber(String mobilenumber) {
+        this.mobilenumber = mobilenumber;
+        return this;
+    }
+
+    public void setMobilenumber(String mobilenumber) {
+        this.mobilenumber = mobilenumber;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -237,7 +238,6 @@ public class Employee implements Serializable {
             ", empname='" + empname + "'" +
             ", department='" + department + "'" +
             ", designation='" + designation + "'" +
-            ", mobilenumber='" + mobilenumber + "'" +
             ", emailid='" + emailid + "'" +
             ", dateofbirth='" + dateofbirth + "'" +
             ", dateofjoining='" + dateofjoining + "'" +
@@ -245,6 +245,7 @@ public class Employee implements Serializable {
             ", active='" + active + "'" +
             ", createdate='" + createdate + "'" +
             ", updatedate='" + updatedate + "'" +
+            ", mobilenumber='" + mobilenumber + "'" +
             '}';
     }
 }

@@ -23,8 +23,6 @@ public class EmployeeDTO implements Serializable {
 
     private String designation;
 
-    private Integer mobilenumber;
-
     private String emailid;
 
     private ZonedDateTime dateofbirth;
@@ -38,6 +36,9 @@ public class EmployeeDTO implements Serializable {
     private ZonedDateTime createdate;
 
     private ZonedDateTime updatedate;
+
+    @NotNull
+    private String mobilenumber;
 
     public UUID getId() {
         return id;
@@ -73,13 +74,6 @@ public class EmployeeDTO implements Serializable {
 
     public void setDesignation(String designation) {
         this.designation = designation;
-    }
-    public Integer getMobilenumber() {
-        return mobilenumber;
-    }
-
-    public void setMobilenumber(Integer mobilenumber) {
-        this.mobilenumber = mobilenumber;
     }
     public String getEmailid() {
         return emailid;
@@ -130,6 +124,13 @@ public class EmployeeDTO implements Serializable {
     public void setUpdatedate(ZonedDateTime updatedate) {
         this.updatedate = updatedate;
     }
+    public String getMobilenumber() {
+        return mobilenumber;
+    }
+
+    public void setMobilenumber(String mobilenumber) {
+        this.mobilenumber = mobilenumber;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -160,7 +161,6 @@ public class EmployeeDTO implements Serializable {
             ", empname='" + empname + "'" +
             ", department='" + department + "'" +
             ", designation='" + designation + "'" +
-            ", mobilenumber='" + mobilenumber + "'" +
             ", emailid='" + emailid + "'" +
             ", dateofbirth='" + dateofbirth + "'" +
             ", dateofjoining='" + dateofjoining + "'" +
@@ -168,6 +168,7 @@ public class EmployeeDTO implements Serializable {
             ", active='" + active + "'" +
             ", createdate='" + createdate + "'" +
             ", updatedate='" + updatedate + "'" +
+            ", mobilenumber='" + mobilenumber + "'" +
             '}';
     }
 }

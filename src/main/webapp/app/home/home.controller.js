@@ -5,10 +5,11 @@
         .module('eofficeApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'Organisation'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
 
-    function HomeController ($scope, Principal, LoginService, $state, Organisation) {
+    function HomeController ($scope, Principal, LoginService, $state) {
         var vm = this;
+
         vm.account = null;
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
@@ -19,14 +20,6 @@
 
         getAccount();
 
-        loadAll();
-
-                function loadAll() {
-                    Organisation.query(function(result) {
-                        vm.organisations = result;
-                        vm.searchQuery = null;
-                    });
-                }
         function getAccount() {
             Principal.identity().then(function(account) {
                 vm.account = account;

@@ -2,8 +2,8 @@ package com.hartron.eoffice.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.hartron.eoffice.service.FileLogService;
-import com.hartron.eoffice.web.rest.util.HeaderUtil;
 import com.hartron.eoffice.service.dto.FileLogDTO;
+import com.hartron.eoffice.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing FileLog.
@@ -28,7 +25,7 @@ public class FileLogResource {
     private final Logger log = LoggerFactory.getLogger(FileLogResource.class);
 
     private static final String ENTITY_NAME = "fileLog";
-        
+
     private final FileLogService fileLogService;
 
     public FileLogResource(FileLogService fileLogService) {

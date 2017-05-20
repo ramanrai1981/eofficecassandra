@@ -4,10 +4,12 @@
         "browsehappy": "आप एक <strong>पुराने</strong> ब्राउज़र का उपयोग कर रहे हैं। कृपया अपने अनुभव में सुधार करने के लिए अपने <a href=\"http://browsehappy.com/?locale=en\">ब्राउज़र को अपग्रेड करें</a>",
         "menu": {
             "home": "होम",
+            "myhome": "होम",
             "createfile": "फ़ाइल सृजन",
             "pendingfile": "फ़ाइल पड़ा हुआ",
             "addemployee": "addemployee",
             "createorganisation": "Createorganisation",
+            "dashboard": "Dashboard",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "एंटिटीज़",
@@ -19,6 +21,8 @@
                 "organisation": "Organisation",
                 "employee": "Employee",
 
+                "department": "Department",
+                "designation": "Designation",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -44,12 +44,6 @@
                     />
         </div>
         <div class="form-group">
-            <label class="control-label" data-translate="eofficeApp.employee.mobilenumber" for="field_mobilenumber">Mobilenumber</label>
-            <input type="number" class="form-control" name="mobilenumber" id="field_mobilenumber"
-                    ng-model="vm.employee.mobilenumber"
-                    />
-        </div>
-        <div class="form-group">
             <label class="control-label" data-translate="eofficeApp.employee.emailid" for="field_emailid">Emailid</label>
             <input type="text" class="form-control" name="emailid" id="field_emailid"
                     ng-model="vm.employee.emailid"
@@ -109,6 +103,18 @@
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('updatedate')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="eofficeApp.employee.mobilenumber" for="field_mobilenumber">Mobilenumber</label>
+            <input type="text" class="form-control" name="mobilenumber" id="field_mobilenumber"
+                    ng-model="vm.employee.mobilenumber"
+                    required/>
+            <div ng-show="editForm.mobilenumber.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.mobilenumber.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
         </div>
 
     </div>

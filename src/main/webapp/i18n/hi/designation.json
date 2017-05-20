@@ -1,0 +1,23 @@
+{
+    "eofficeApp": {
+        "designation" : {
+            "home": {
+                "title": "Designations",
+                "createLabel": "नया Designation बनाएँ",
+                "createOrEditLabel": "Designation बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Designation [identifier: {{ param }}] तैयार है",
+            "updated": "एक Designation [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Designation [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Designation [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Designation"
+            },
+            "organisationid": "Organisationid",
+            "departmentid": "Departmentid",
+            "designation": "Designation"
+        }
+    }
+}

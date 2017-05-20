@@ -16,12 +16,12 @@
                 "title": "Organisation"
             },
             "orgname": "Orgname",
-            "hod": "Hod",
             "address": "Address",
-            "establishmentyear": "Establishmentyear",
             "active": "Active",
             "createdate": "Createdate",
-            "updatedate": "Updatedate"
+            "updatedate": "Updatedate",
+            "owner": "Owner",
+            "establishmentdate": "Establishmentdate"
         }
     }
 }

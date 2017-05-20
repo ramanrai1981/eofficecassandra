@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS employee (
     empname text,
     department text,
     designation text,
-    mobilenumber int,
     emailid text,
     dateofbirth timestamp,
     dateofjoining timestamp,
@@ -13,5 +12,6 @@ CREATE TABLE IF NOT EXISTS employee (
     active boolean,
     createdate timestamp,
     updatedate timestamp,
+    mobilenumber text,
     PRIMARY KEY(id)
 );

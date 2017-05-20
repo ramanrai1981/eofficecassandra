@@ -23,7 +23,6 @@
                     <th><span data-translate="eofficeApp.employee.empname">Empname</span></th>
                     <th><span data-translate="eofficeApp.employee.department">Department</span></th>
                     <th><span data-translate="eofficeApp.employee.designation">Designation</span></th>
-                    <th><span data-translate="eofficeApp.employee.mobilenumber">Mobilenumber</span></th>
                     <th><span data-translate="eofficeApp.employee.emailid">Emailid</span></th>
                     <th><span data-translate="eofficeApp.employee.dateofbirth">Dateofbirth</span></th>
                     <th><span data-translate="eofficeApp.employee.dateofjoining">Dateofjoining</span></th>
@@ -31,6 +30,7 @@
                     <th><span data-translate="eofficeApp.employee.active">Active</span></th>
                     <th><span data-translate="eofficeApp.employee.createdate">Createdate</span></th>
                     <th><span data-translate="eofficeApp.employee.updatedate">Updatedate</span></th>
+                    <th><span data-translate="eofficeApp.employee.mobilenumber">Mobilenumber</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -41,7 +41,6 @@
                     <td>{{employee.empname}}</td>
                     <td>{{employee.department}}</td>
                     <td>{{employee.designation}}</td>
-                    <td>{{employee.mobilenumber}}</td>
                     <td>{{employee.emailid}}</td>
                     <td>{{employee.dateofbirth | date:'medium'}}</td>
                     <td>{{employee.dateofjoining | date:'medium'}}</td>
@@ -49,6 +48,7 @@
                     <td>{{employee.active}}</td>
                     <td>{{employee.createdate | date:'medium'}}</td>
                     <td>{{employee.updatedate | date:'medium'}}</td>
+                    <td>{{employee.mobilenumber}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

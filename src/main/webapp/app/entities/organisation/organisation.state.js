@@ -105,12 +105,12 @@
                         entity: function () {
                             return {
                                 orgname: null,
-                                hod: null,
                                 address: null,
-                                establishmentyear: null,
                                 active: null,
                                 createdate: null,
                                 updatedate: null,
+                                owner: null,
+                                establishmentdate: null,
                                 id: null
                             };
                         }

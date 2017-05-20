@@ -48,14 +48,8 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
     private static final String DEFAULT_ORGNAME = "AAAAAAAAAA";
     private static final String UPDATED_ORGNAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_HOD = "AAAAAAAAAA";
-    private static final String UPDATED_HOD = "BBBBBBBBBB";
-
     private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";
     private static final String UPDATED_ADDRESS = "BBBBBBBBBB";
-
-    private static final ZonedDateTime DEFAULT_ESTABLISHMENTYEAR = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_ESTABLISHMENTYEAR = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     private static final Boolean DEFAULT_ACTIVE = false;
     private static final Boolean UPDATED_ACTIVE = true;
@@ -65,6 +59,12 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
 
     private static final ZonedDateTime DEFAULT_UPDATEDATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_UPDATEDATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+
+    private static final String DEFAULT_OWNER = "AAAAAAAAAA";
+    private static final String UPDATED_OWNER = "BBBBBBBBBB";
+
+    private static final ZonedDateTime DEFAULT_ESTABLISHMENTDATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_ESTABLISHMENTDATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     @Autowired
     private OrganisationRepository organisationRepository;
@@ -107,12 +107,12 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
     public static Organisation createEntity() {
         Organisation organisation = new Organisation()
                 .orgname(DEFAULT_ORGNAME)
-                .hod(DEFAULT_HOD)
                 .address(DEFAULT_ADDRESS)
-                .establishmentyear(DEFAULT_ESTABLISHMENTYEAR)
                 .active(DEFAULT_ACTIVE)
                 .createdate(DEFAULT_CREATEDATE)
-                .updatedate(DEFAULT_UPDATEDATE);
+                .updatedate(DEFAULT_UPDATEDATE)
+                .owner(DEFAULT_OWNER)
+                .establishmentdate(DEFAULT_ESTABLISHMENTDATE);
         return organisation;
     }
 
@@ -139,12 +139,12 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
         assertThat(organisationList).hasSize(databaseSizeBeforeCreate + 1);
         Organisation testOrganisation = organisationList.get(organisationList.size() - 1);
         assertThat(testOrganisation.getOrgname()).isEqualTo(DEFAULT_ORGNAME);
-        assertThat(testOrganisation.getHod()).isEqualTo(DEFAULT_HOD);
         assertThat(testOrganisation.getAddress()).isEqualTo(DEFAULT_ADDRESS);
-        assertThat(testOrganisation.getEstablishmentyear()).isEqualTo(DEFAULT_ESTABLISHMENTYEAR);
         assertThat(testOrganisation.isActive()).isEqualTo(DEFAULT_ACTIVE);
         assertThat(testOrganisation.getCreatedate()).isEqualTo(DEFAULT_CREATEDATE);
         assertThat(testOrganisation.getUpdatedate()).isEqualTo(DEFAULT_UPDATEDATE);
+        assertThat(testOrganisation.getOwner()).isEqualTo(DEFAULT_OWNER);
+        assertThat(testOrganisation.getEstablishmentdate()).isEqualTo(DEFAULT_ESTABLISHMENTDATE);
     }
 
     @Test
@@ -168,6 +168,24 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
     }
 
     @Test
+    public void checkOwnerIsRequired() throws Exception {
+        int databaseSizeBeforeTest = organisationRepository.findAll().size();
+        // set the field null
+        organisation.setOwner(null);
+
+        // Create the Organisation, which fails.
+        OrganisationDTO organisationDTO = organisationMapper.organisationToOrganisationDTO(organisation);
+
+        restOrganisationMockMvc.perform(post("/api/organisations")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(organisationDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Organisation> organisationList = organisationRepository.findAll();
+        assertThat(organisationList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     public void getAllOrganisations() throws Exception {
         // Initialize the database
         organisationRepository.save(organisation);
@@ -178,12 +196,12 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(organisation.getId().toString())))
             .andExpect(jsonPath("$.[*].orgname").value(hasItem(DEFAULT_ORGNAME.toString())))
-            .andExpect(jsonPath("$.[*].hod").value(hasItem(DEFAULT_HOD.toString())))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
-            .andExpect(jsonPath("$.[*].establishmentyear").value(hasItem(sameInstant(DEFAULT_ESTABLISHMENTYEAR))))
             .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
             .andExpect(jsonPath("$.[*].createdate").value(hasItem(sameInstant(DEFAULT_CREATEDATE))))
-            .andExpect(jsonPath("$.[*].updatedate").value(hasItem(sameInstant(DEFAULT_UPDATEDATE))));
+            .andExpect(jsonPath("$.[*].updatedate").value(hasItem(sameInstant(DEFAULT_UPDATEDATE))))
+            .andExpect(jsonPath("$.[*].owner").value(hasItem(DEFAULT_OWNER.toString())))
+            .andExpect(jsonPath("$.[*].establishmentdate").value(hasItem(sameInstant(DEFAULT_ESTABLISHMENTDATE))));
     }
 
     @Test
@@ -197,12 +215,12 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(organisation.getId().toString()))
             .andExpect(jsonPath("$.orgname").value(DEFAULT_ORGNAME.toString()))
-            .andExpect(jsonPath("$.hod").value(DEFAULT_HOD.toString()))
             .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
-            .andExpect(jsonPath("$.establishmentyear").value(sameInstant(DEFAULT_ESTABLISHMENTYEAR)))
             .andExpect(jsonPath("$.active").value(DEFAULT_ACTIVE.booleanValue()))
             .andExpect(jsonPath("$.createdate").value(sameInstant(DEFAULT_CREATEDATE)))
-            .andExpect(jsonPath("$.updatedate").value(sameInstant(DEFAULT_UPDATEDATE)));
+            .andExpect(jsonPath("$.updatedate").value(sameInstant(DEFAULT_UPDATEDATE)))
+            .andExpect(jsonPath("$.owner").value(DEFAULT_OWNER.toString()))
+            .andExpect(jsonPath("$.establishmentdate").value(sameInstant(DEFAULT_ESTABLISHMENTDATE)));
     }
 
     @Test
@@ -222,12 +240,12 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
         Organisation updatedOrganisation = organisationRepository.findOne(organisation.getId());
         updatedOrganisation
                 .orgname(UPDATED_ORGNAME)
-                .hod(UPDATED_HOD)
                 .address(UPDATED_ADDRESS)
-                .establishmentyear(UPDATED_ESTABLISHMENTYEAR)
                 .active(UPDATED_ACTIVE)
                 .createdate(UPDATED_CREATEDATE)
-                .updatedate(UPDATED_UPDATEDATE);
+                .updatedate(UPDATED_UPDATEDATE)
+                .owner(UPDATED_OWNER)
+                .establishmentdate(UPDATED_ESTABLISHMENTDATE);
         OrganisationDTO organisationDTO = organisationMapper.organisationToOrganisationDTO(updatedOrganisation);
 
         restOrganisationMockMvc.perform(put("/api/organisations")
@@ -240,12 +258,12 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
         assertThat(organisationList).hasSize(databaseSizeBeforeUpdate);
         Organisation testOrganisation = organisationList.get(organisationList.size() - 1);
         assertThat(testOrganisation.getOrgname()).isEqualTo(UPDATED_ORGNAME);
-        assertThat(testOrganisation.getHod()).isEqualTo(UPDATED_HOD);
         assertThat(testOrganisation.getAddress()).isEqualTo(UPDATED_ADDRESS);
-        assertThat(testOrganisation.getEstablishmentyear()).isEqualTo(UPDATED_ESTABLISHMENTYEAR);
         assertThat(testOrganisation.isActive()).isEqualTo(UPDATED_ACTIVE);
         assertThat(testOrganisation.getCreatedate()).isEqualTo(UPDATED_CREATEDATE);
         assertThat(testOrganisation.getUpdatedate()).isEqualTo(UPDATED_UPDATEDATE);
+        assertThat(testOrganisation.getOwner()).isEqualTo(UPDATED_OWNER);
+        assertThat(testOrganisation.getEstablishmentdate()).isEqualTo(UPDATED_ESTABLISHMENTDATE);
     }
 
     @Test

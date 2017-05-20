@@ -57,9 +57,6 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
     private static final String DEFAULT_DESIGNATION = "AAAAAAAAAA";
     private static final String UPDATED_DESIGNATION = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_MOBILENUMBER = 1;
-    private static final Integer UPDATED_MOBILENUMBER = 2;
-
     private static final String DEFAULT_EMAILID = "AAAAAAAAAA";
     private static final String UPDATED_EMAILID = "BBBBBBBBBB";
 
@@ -80,6 +77,9 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
 
     private static final ZonedDateTime DEFAULT_UPDATEDATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_UPDATEDATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+
+    private static final String DEFAULT_MOBILENUMBER = "AAAAAAAAAA";
+    private static final String UPDATED_MOBILENUMBER = "BBBBBBBBBB";
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -125,14 +125,14 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
                 .empname(DEFAULT_EMPNAME)
                 .department(DEFAULT_DEPARTMENT)
                 .designation(DEFAULT_DESIGNATION)
-                .mobilenumber(DEFAULT_MOBILENUMBER)
                 .emailid(DEFAULT_EMAILID)
                 .dateofbirth(DEFAULT_DATEOFBIRTH)
                 .dateofjoining(DEFAULT_DATEOFJOINING)
                 .relievingdate(DEFAULT_RELIEVINGDATE)
                 .active(DEFAULT_ACTIVE)
                 .createdate(DEFAULT_CREATEDATE)
-                .updatedate(DEFAULT_UPDATEDATE);
+                .updatedate(DEFAULT_UPDATEDATE)
+                .mobilenumber(DEFAULT_MOBILENUMBER);
         return employee;
     }
 
@@ -162,7 +162,6 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
         assertThat(testEmployee.getEmpname()).isEqualTo(DEFAULT_EMPNAME);
         assertThat(testEmployee.getDepartment()).isEqualTo(DEFAULT_DEPARTMENT);
         assertThat(testEmployee.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
-        assertThat(testEmployee.getMobilenumber()).isEqualTo(DEFAULT_MOBILENUMBER);
         assertThat(testEmployee.getEmailid()).isEqualTo(DEFAULT_EMAILID);
         assertThat(testEmployee.getDateofbirth()).isEqualTo(DEFAULT_DATEOFBIRTH);
         assertThat(testEmployee.getDateofjoining()).isEqualTo(DEFAULT_DATEOFJOINING);
@@ -170,6 +169,7 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
         assertThat(testEmployee.isActive()).isEqualTo(DEFAULT_ACTIVE);
         assertThat(testEmployee.getCreatedate()).isEqualTo(DEFAULT_CREATEDATE);
         assertThat(testEmployee.getUpdatedate()).isEqualTo(DEFAULT_UPDATEDATE);
+        assertThat(testEmployee.getMobilenumber()).isEqualTo(DEFAULT_MOBILENUMBER);
     }
 
     @Test
@@ -211,6 +211,24 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
     }
 
     @Test
+    public void checkMobilenumberIsRequired() throws Exception {
+        int databaseSizeBeforeTest = employeeRepository.findAll().size();
+        // set the field null
+        employee.setMobilenumber(null);
+
+        // Create the Employee, which fails.
+        EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(employee);
+
+        restEmployeeMockMvc.perform(post("/api/employees")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(employeeDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Employee> employeeList = employeeRepository.findAll();
+        assertThat(employeeList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
     public void getAllEmployees() throws Exception {
         // Initialize the database
         employeeRepository.save(employee);
@@ -224,14 +242,14 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
             .andExpect(jsonPath("$.[*].empname").value(hasItem(DEFAULT_EMPNAME.toString())))
             .andExpect(jsonPath("$.[*].department").value(hasItem(DEFAULT_DEPARTMENT.toString())))
             .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION.toString())))
-            .andExpect(jsonPath("$.[*].mobilenumber").value(hasItem(DEFAULT_MOBILENUMBER)))
             .andExpect(jsonPath("$.[*].emailid").value(hasItem(DEFAULT_EMAILID.toString())))
             .andExpect(jsonPath("$.[*].dateofbirth").value(hasItem(sameInstant(DEFAULT_DATEOFBIRTH))))
             .andExpect(jsonPath("$.[*].dateofjoining").value(hasItem(sameInstant(DEFAULT_DATEOFJOINING))))
             .andExpect(jsonPath("$.[*].relievingdate").value(hasItem(sameInstant(DEFAULT_RELIEVINGDATE))))
             .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
             .andExpect(jsonPath("$.[*].createdate").value(hasItem(sameInstant(DEFAULT_CREATEDATE))))
-            .andExpect(jsonPath("$.[*].updatedate").value(hasItem(sameInstant(DEFAULT_UPDATEDATE))));
+            .andExpect(jsonPath("$.[*].updatedate").value(hasItem(sameInstant(DEFAULT_UPDATEDATE))))
+            .andExpect(jsonPath("$.[*].mobilenumber").value(hasItem(DEFAULT_MOBILENUMBER.toString())));
     }
 
     @Test
@@ -248,14 +266,14 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
             .andExpect(jsonPath("$.empname").value(DEFAULT_EMPNAME.toString()))
             .andExpect(jsonPath("$.department").value(DEFAULT_DEPARTMENT.toString()))
             .andExpect(jsonPath("$.designation").value(DEFAULT_DESIGNATION.toString()))
-            .andExpect(jsonPath("$.mobilenumber").value(DEFAULT_MOBILENUMBER))
             .andExpect(jsonPath("$.emailid").value(DEFAULT_EMAILID.toString()))
             .andExpect(jsonPath("$.dateofbirth").value(sameInstant(DEFAULT_DATEOFBIRTH)))
             .andExpect(jsonPath("$.dateofjoining").value(sameInstant(DEFAULT_DATEOFJOINING)))
             .andExpect(jsonPath("$.relievingdate").value(sameInstant(DEFAULT_RELIEVINGDATE)))
             .andExpect(jsonPath("$.active").value(DEFAULT_ACTIVE.booleanValue()))
             .andExpect(jsonPath("$.createdate").value(sameInstant(DEFAULT_CREATEDATE)))
-            .andExpect(jsonPath("$.updatedate").value(sameInstant(DEFAULT_UPDATEDATE)));
+            .andExpect(jsonPath("$.updatedate").value(sameInstant(DEFAULT_UPDATEDATE)))
+            .andExpect(jsonPath("$.mobilenumber").value(DEFAULT_MOBILENUMBER.toString()));
     }
 
     @Test
@@ -278,14 +296,14 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
                 .empname(UPDATED_EMPNAME)
                 .department(UPDATED_DEPARTMENT)
                 .designation(UPDATED_DESIGNATION)
-                .mobilenumber(UPDATED_MOBILENUMBER)
                 .emailid(UPDATED_EMAILID)
                 .dateofbirth(UPDATED_DATEOFBIRTH)
                 .dateofjoining(UPDATED_DATEOFJOINING)
                 .relievingdate(UPDATED_RELIEVINGDATE)
                 .active(UPDATED_ACTIVE)
                 .createdate(UPDATED_CREATEDATE)
-                .updatedate(UPDATED_UPDATEDATE);
+                .updatedate(UPDATED_UPDATEDATE)
+                .mobilenumber(UPDATED_MOBILENUMBER);
         EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(updatedEmployee);
 
         restEmployeeMockMvc.perform(put("/api/employees")
@@ -301,7 +319,6 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
         assertThat(testEmployee.getEmpname()).isEqualTo(UPDATED_EMPNAME);
         assertThat(testEmployee.getDepartment()).isEqualTo(UPDATED_DEPARTMENT);
         assertThat(testEmployee.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
-        assertThat(testEmployee.getMobilenumber()).isEqualTo(UPDATED_MOBILENUMBER);
         assertThat(testEmployee.getEmailid()).isEqualTo(UPDATED_EMAILID);
         assertThat(testEmployee.getDateofbirth()).isEqualTo(UPDATED_DATEOFBIRTH);
         assertThat(testEmployee.getDateofjoining()).isEqualTo(UPDATED_DATEOFJOINING);
@@ -309,6 +326,7 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
         assertThat(testEmployee.isActive()).isEqualTo(UPDATED_ACTIVE);
         assertThat(testEmployee.getCreatedate()).isEqualTo(UPDATED_CREATEDATE);
         assertThat(testEmployee.getUpdatedate()).isEqualTo(UPDATED_UPDATEDATE);
+        assertThat(testEmployee.getMobilenumber()).isEqualTo(UPDATED_MOBILENUMBER);
     }
 
     @Test

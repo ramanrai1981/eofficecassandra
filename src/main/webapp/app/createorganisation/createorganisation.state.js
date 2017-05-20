@@ -33,7 +33,7 @@
         })
 
         .state('createorganisation.new', {
-            parent: 'home',
+            parent: 'myhome',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
@@ -48,19 +48,19 @@
                     resolve: {
                         entity: function () {
                             return {
-                                orgname: null,
-                                hod: null,
-                                address: null,
-                                establishmentyear: null,
-                                active: null,
-                                id: null
+                                 orgname: null,
+                                 address: null,
+                                 active: null,
+                                 owner: null,
+                                 establishmentdate: null,
+                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('home', null, { reload: 'home' });
+                    $state.go('myhome', null, { reload: 'myhome' });
                 }, function() {
-                    $state.go('home');
+                    $state.go('myhome');
                 });
             }]
         })

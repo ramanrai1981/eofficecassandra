@@ -4,72 +4,53 @@
             <button class="btn btn-warning pull-right" ui-sref="addemployee.new" >
                 <span class="glyphicon glyphicon-plus"></span>
                 <span  data-translate="">
-                        Create a new Employee
-                    </span>
+                    Create a new Employee
+                </span>
             </button>
         </div>
     </div>
-</div>
-</br>
+</div></br>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Employee Details</h3>
     </div>
-
-    <div class="panel-body">
-        <div class="input-group">
+        <div class="panel-body">
+            <div class="input-group">
             <!--Have to implement tags-input, for search by title, file no or dept to mark file or open and comment through-->
             <!--pdftron-->
-            <input type="text" class="form-control" ng-model="searchText" id="searchQuery" placeholder="Search Employee..">
-            <div class="input-group-btn">
+                <input type="text" class="form-control" ng-model="searchText" id="searchQuery" placeholder="Search Employee..">
+                <div class="input-group-btn">
                 <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-
-
-
-
+                </div>
             </div>
-        </div>
-
-        <form class="form-horizontal">
+          <form class="form-horizontal">
             <fieldset>
                 <legend></legend>
-
                     <table class="table table-striped table-hover">
                         <thead>
-
-                        <tr class="warning">
+                            <tr class="warning">
                             <th>ID</th>
-                            <th>Employee name</th>
-                            <th>Employee Designation</th>
                             <th>Department</th>
+                            <th>Designation</th>
                             <th>Mobile No.</th>
                             <th>Email-ID</th>
                             <th>Date of Joining</th>
                             <th>Date of Relieving</th>
-                        </tr>
+                            </tr>
                         </thead>
-
                         <tbody>
                         <tr ng-repeat = "employeedetaillist in vm.employees | filter:searchText">
                             <td>{{employeedetaillist.empid}}</td>
-                            <td>{{employeedetaillist.empname}}</td>
                             <td>{{employeedetaillist.department}}</td>
                             <td>{{employeedetaillist.designation}}</td>
                             <td>{{employeedetaillist.mobilenumber}}</td>
                             <td>{{employeedetaillist.emailid}}</td>
-                            <td>{{employeedetaillist.dateofjoining}}</td>
-                            <td>{{employeedetaillist.relievingdate}}</td>
-
-
+                            <td>{{employeedetaillist.dateofjoining| date:'dd-MMMM-yyyy  h:mma'}}</td>
+                            <td>{{employeedetaillist.relievingdate | date:'dd-MMMM-yyyy  h:mma'}}</td>
                         </tr>
                         </tbody>
                     </table>
-
-
-
-
-            </fieldset>
+           </fieldset>
         </form>
-
     </div>
 </div>
