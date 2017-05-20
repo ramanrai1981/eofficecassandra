@@ -19,14 +19,14 @@
             "empname": "Empname",
             "department": "Department",
             "designation": "Designation",
-            "mobilenumber": "Mobilenumber",
             "emailid": "Emailid",
             "dateofbirth": "Dateofbirth",
             "dateofjoining": "Dateofjoining",
             "relievingdate": "Relievingdate",
             "active": "Active",
             "createdate": "Createdate",
-            "updatedate": "Updatedate"
+            "updatedate": "Updatedate",
+            "mobilenumber": "Mobilenumber"
         }
     }
 }

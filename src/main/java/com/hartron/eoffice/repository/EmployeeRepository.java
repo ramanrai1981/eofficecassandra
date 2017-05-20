@@ -44,7 +44,6 @@ public class EmployeeRepository {
                 employee.setEmpname(row.getString("empname"));
                 employee.setDepartment(row.getString("department"));
                 employee.setDesignation(row.getString("designation"));
-                employee.setMobilenumber(row.getInt("mobilenumber"));
                 employee.setEmailid(row.getString("emailid"));
                 employee.setDateofbirth(row.get("dateofbirth", ZonedDateTime.class));
                 employee.setDateofjoining(row.get("dateofjoining", ZonedDateTime.class));
@@ -52,6 +51,7 @@ public class EmployeeRepository {
                 employee.setActive(row.getBool("active"));
                 employee.setCreatedate(row.get("createdate", ZonedDateTime.class));
                 employee.setUpdatedate(row.get("updatedate", ZonedDateTime.class));
+                employee.setMobilenumber(row.getString("mobilenumber"));
                 return employee;
             }
         ).forEach(employeesList::add);

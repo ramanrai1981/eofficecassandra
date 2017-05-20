@@ -5,9 +5,9 @@
         .module('eofficeApp')
         .controller('PendingfilemarktoController', PendingfilemarktoController);
 
-    PendingfilemarktoController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'File', 'selectedfiletomark'];
+    PendingfilemarktoController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'File', 'selectedfiletomark', 'Employee'];
 
-    function PendingfilemarktoController ($scope, Principal, LoginService, $state, File, selectedfiletomark) {
+    function PendingfilemarktoController ($scope, Principal, LoginService, $state, File, selectedfiletomark, Employee) {
         var vm = this;
 
         vm.account = null;
@@ -21,6 +21,16 @@
         $scope.$on('authenticationSuccess', function() {
             getAccount();
         });
+
+
+        loadAllEmployee();
+
+        function loadAllEmployee() {
+            Employee.query(function(result) {
+                vm.employees = result;
+                vm.searchQuery = null;
+            });
+        }
 
         getAccount();
 

@@ -55,6 +55,25 @@
                     controllerAs: 'vm'
                 }
             },
+
+            employee: function () {
+                return {
+                    empid: null,
+                    empname: null,
+                    department: null,
+                    designation: null,
+                    emailid: null,
+                    dateofbirth: null,
+                    dateofjoining: null,
+                    relievingdate: null,
+                    active: null,
+                    createdate: null,
+                    updatedate: null,
+                    mobilenumber: null,
+                    id: null
+                };
+            },
+
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
                     $translatePartialLoader.addPart('pendingfile');
