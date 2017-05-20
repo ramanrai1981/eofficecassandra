@@ -68,7 +68,7 @@ class OrganisationGatlingTest extends Simulation {
             .exec(http("Create new organisation")
             .post("/api/organisations")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "orgname":"SAMPLE_TEXT", "hod":"SAMPLE_TEXT", "address":"SAMPLE_TEXT", "establishmentyear":"2020-01-01T00:00:00.000Z", "active":null, "createdate":"2020-01-01T00:00:00.000Z", "updatedate":"2020-01-01T00:00:00.000Z"}""")).asJSON
+            .body(StringBody("""{"id":null, "orgname":"SAMPLE_TEXT", "address":"SAMPLE_TEXT", "active":null, "createdate":"2020-01-01T00:00:00.000Z", "updatedate":"2020-01-01T00:00:00.000Z", "owner":"SAMPLE_TEXT", "establishmentdate":"2020-01-01T00:00:00.000Z"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_organisation_url"))).exitHereIfFailed
             .pause(10)

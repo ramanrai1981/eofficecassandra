@@ -21,7 +21,7 @@
                 <th> Department</th>
                 <td>{{vm.selectedfiletomark.department}}</td>
                 <th>Upload Date</th>
-                <td>{{vm.selectedfiletomark.uploadDate |date:'medium'}}</td>
+                <td>{{vm.selectedfiletomark.uploadDate |date:'dd-MMMM-yyyy h:mma'}}</td>
             </tr>
             </tbody>
         </table>
@@ -33,24 +33,21 @@
                 <div class="form-group">
                     <label for="select" class="col-lg-2 control-label">Mark To User</label>
                     <div class="col-lg-10">
-                        <select class="form-control" id="select">
-                            <option>Select User</option>
-                            <option>Shyam Sunder</option>
-                            <option>Manjesh</option>
-                            <option>Surender Singh</option>
-                            <option>Ahluwaliya</option>
-                        </select>
-                        <br>
-                        <select multiple="" class="form-control">
-                            <option>HR Dept</option>
-                            <option>Accounts</option>
-                            <option>MD Office</option>
+
+                        <!-- Have to change in Tag for User | Designation | Department-->
+
+                        <select class="form-control" id="select" ng-model="vm.employee.Selected"
+                                ng-options="emp.empname as (emp.empname + ',' + emp.designation + '(' + emp.department + ')') for emp in vm.employees">
+                            <option value="" selected="selected">Select Employee to Mark</option>
                         </select>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                        <button type="submit" class="btn btn-default" ui-sref="pendingfile">Back</button>
+                        <button type="submit" class="btn btn-info" ui-sref="pendingfile"><span
+                            class="glyphicon glyphicon-arrow-left"></span> Back
+                        </button>
                         <button type="reset" class="btn btn-danger">Mark</button>
                     </div>
                 </div>

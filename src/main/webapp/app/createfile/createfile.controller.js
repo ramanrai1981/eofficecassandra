@@ -6,21 +6,19 @@
         .controller('CreatefileController', CreatefileController);
 
 
-    CreatefileController.$inject = ['$scope', '$http', 'Principal', 'file', 'LoginService', '$state', 'File'];
+    CreatefileController.$inject = ['$scope', 'Principal', 'file', 'filemovement', 'FileManagement', 'LoginService', '$state', 'File', 'FileMovement'];
 
-    function CreatefileController ($scope, $http, Principal, file, LoginService, $state, File) {
+    function CreatefileController ($scope, Principal, file, filemovement, FileManagement, LoginService, $state, File, FileMovement) {
         var vm = this;
-
         vm.account = null;
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
         vm.register = register;
-
         vm.file = file;
+        vm.filemovement = filemovement;
         vm.putUpFile = putUpFile;
-
         $scope.$on('authenticationSuccess', function() {
-            getAccount();
+        getAccount();
         });
 
         getAccount();
@@ -40,21 +38,41 @@
             if (vm.file.id !== null) {
                 File.update(vm.file, onPutUpFileSuccess, onPutUpFileError);
             } else {
-                vm.file.uploadDate = new Date();
                 File.save(vm.file, onPutUpFileSuccess, onPutUpFileError);
             }
-            vm.file = "";
-            $state.reload();
         }
 
         function onPutUpFileSuccess (result) {
             $scope.$emit('eofficeApp:fileUpdate', result);
             vm.isSaving = false;
 
-            vm.file =file;
-            alert("File No:"+JSON.stringify(vm.file.fileNo)+"Title:"+JSON.stringify(vm.file.title)+"Put Up file Succeed.");
-            $state.go('createfile');
-            console.log(vm.file);
+            var file= vm.fileDetail.file;
+            FileManagement.saveFile(file, result.id);
+            // Code to save the file in File Movement Entity//
+
+            console.log(result.id);
+            vm.isSaving = true;
+            vm.filemovement.fileId = result.id;
+            vm.filemovement.markFrom = result.id;
+            vm.filemovement.markTo = result.id;
+            vm.filemovement.actionStatus = "Pending";
+            if (vm.filemovement.id !== null) {
+                FileMovement.update(vm.filemovement, onFileMovementSaveSuccess, onFileMovementSaveError);
+            } else {
+                FileMovement.save(vm.filemovement, onFileMovementSaveSuccess, onFileMovementSaveError);
+            }
+
+            function onFileMovementSaveSuccess (result) {
+                $scope.$emit('eofficeApp:fileMovementUpdate', result);
+                vm.isSaving = false;
+                console.log("fileId saved in file Movement entity");
+                $state.go('createfile');
+            }
+
+            function onFileMovementSaveError () {
+                vm.isSaving = false;
+            }
+
         }
 
         function onPutUpFileError () {

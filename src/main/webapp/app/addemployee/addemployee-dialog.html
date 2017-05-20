@@ -6,6 +6,7 @@
                 ng-click="vm.clear()">&times;</button>
         <h4 class="modal-title" id="myEmployeeLabel">Add an Employee</h4>
     </div>
+
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group" ng-show="vm.employee.id">
@@ -13,10 +14,10 @@
             <input type="text" class="form-control" id="id" name="id"
                     ng-model="vm.employee.id" readonly />
         </div>
-        <div class="form-group">
+        <div class="form-group has-success">
             <label class="control-label" for="field_empid">Empolyee ID</label>
             <input type="text" class="form-control" name="empid" id="field_empid"
-                    ng-model="vm.employee.empid"
+                    ng-model="vm.employee.empid" placeholder="Text your Empolyee ID"
                     required/>
             <div ng-show="editForm.empid.$invalid">
                 <p class="help-block"
@@ -31,9 +32,9 @@
                     <!--ng-model="vm.employee.empname"-->
                     <!--/>-->
         <!--</div>-->
-        <div class="form-group">
+        <div class="form-group has-success">
             <label class="control-label" for="field_department">Department</label>
-            <textarea class="form-control" name="department" rows="3" ng-model="vm.employee.department" id="field_department" required/>
+            <textarea class="form-control" name="department" rows="3" ng-model="vm.employee.department" id="field_department" placeholder="Text your Department" required/>
             <div ng-show="editForm.department.$invalid">
                 <p class="help-block"
                    ng-show="editForm.department.$error.required">
@@ -41,10 +42,10 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group has-success">
             <label class="control-label" for="field_designation">Designation</label>
             <input type="text" class="form-control" name="designation" id="field_designation"
-                    ng-model="vm.employee.designation" required/>
+                    ng-model="vm.employee.designation" placeholder="Input your Designation"required/>
             <div ng-show="editForm.designation.$invalid">
                 <p class="help-block"
                    ng-show="editForm.designation.$error.required">
@@ -52,10 +53,10 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group has-success">
             <label class="control-label" for="field_mobilenumber">Mobile Number</label>
             <input type="number" class="form-control" name="mobilenumber" id="field_mobilenumber"
-                    ng-model="vm.employee.mobilenumber" required/>
+                    ng-model="vm.employee.mobilenumber" placeholder="Input your Mobile Number"required/>
             <div ng-show="editForm.mobilenumber.$invalid">
                 <p class="help-block"
                    ng-show="editForm.mobilenumber.$error.required">
@@ -64,10 +65,10 @@
             </div>
 
         </div>
-        <div class="form-group">
+        <div class="form-group has-success">
             <label class="control-label" for="field_emailid">Email ID</label>
             <input type="text" class="form-control" name="emailid" id="field_emailid"
-                    ng-model="vm.employee.emailid" required/>
+                    ng-model="vm.employee.emailid" placeholder="Input your Email ID"required/>
             <div ng-show="editForm.emailid.$invalid">
                 <p class="help-block"
                    ng-show="editForm.emailid.$error.required">
@@ -75,37 +76,37 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group has-success">
             <label class="control-label" for="field_dateofbirth">Date of Birth</label>
                 <div class="input-group">
                     <input id="field_dateofbirth" type="text" class="form-control" name="dateofbirth" datetime-picker="{{dateformat}}" ng-model="vm.employee.dateofbirth" is-open="vm.datePickerOpenStatus.dateofbirth"
-                    />
+                           placeholder="Select your Date of Birth"/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dateofbirth')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
         </div>
-        <div class="form-group">
+        <div class="form-group has-success">
             <label class="control-label" for="field_dateofjoining">Date of Joining</label>
                 <div class="input-group">
                     <input id="field_dateofjoining" type="text" class="form-control" name="dateofjoining" datetime-picker="{{dateformat}}" ng-model="vm.employee.dateofjoining" is-open="vm.datePickerOpenStatus.dateofjoining"
-                    />
+                           placeholder="Select your Date of Joining"/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('dateofjoining')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
         </div>
-        <div class="form-group">
+        <div class="form-group has-success">
             <label class="control-label" for="field_relievingdate">Relieving Date</label>
                 <div class="input-group">
                     <input id="field_relievingdate" type="text" class="form-control" name="relievingdate" datetime-picker="{{dateformat}}" ng-model="vm.employee.relievingdate" is-open="vm.datePickerOpenStatus.relievingdate"
-                    />
+                           placeholder="Select your Releiving Date"/>
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('relievingdate')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </div>
         </div>
-        <div class="form-group">
+        <div class="form-group has-success">
             <label class="control-label" for="field_active">Active</label>
                 <input type="checkbox" name="active" id="field_active"
                           ng-model="vm.employee.active"/>

@@ -25,7 +25,7 @@
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
                     $translatePartialLoader.addPart('createfile');
                     return $translate.refresh();
-                }],
+            }],
 
             file: function () {
                     return {
@@ -33,10 +33,24 @@
                         title: null,
                         tag: null,
                         uploadDate: null,
-                        status: false,
+                        status: true,
                         id: null
                     };
-                }
+            },
+
+            filemovement: function () {
+                    return {
+                        fileId: null,
+                        markFrom: null,
+                        markTo: null,
+                        fileName: null,
+                        markDate: null,
+                        updateDate: null,
+                        actionStatus: null,
+                        comment: null,
+                        id: null
+                    };
+            }
 
             }
         });

@@ -1,0 +1,27 @@
+
+<div>
+    <h2><span data-translate="eofficeApp.department.detail.title">Department</span> {{vm.department.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span data-translate="eofficeApp.department.organisationid">Organisationid</span></dt>
+        <dd>
+            <span>{{vm.department.organisationid}}</span>
+        </dd>
+        <dt><span data-translate="eofficeApp.department.departmentname">Departmentname</span></dt>
+        <dd>
+            <span>{{vm.department.departmentname}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="department-detail.edit({id:vm.department.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

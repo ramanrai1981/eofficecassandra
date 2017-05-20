@@ -2,8 +2,8 @@ package com.hartron.eoffice.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.hartron.eoffice.service.FileService;
-import com.hartron.eoffice.web.rest.util.HeaderUtil;
 import com.hartron.eoffice.service.dto.FileDTO;
+import com.hartron.eoffice.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
+
 import java.util.LinkedList;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing File.
@@ -29,7 +30,7 @@ public class FileResource {
     private final Logger log = LoggerFactory.getLogger(FileResource.class);
 
     private static final String ENTITY_NAME = "file";
-        
+
     private final FileService fileService;
 
     public FileResource(FileService fileService) {
@@ -50,6 +51,10 @@ public class FileResource {
         if (fileDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new file cannot already have an ID")).body(null);
         }
+
+        //for current date and time save in time of put up file automatically
+        fileDTO.setUploadDate(ZonedDateTime.now());
+
         FileDTO result = fileService.save(fileDTO);
         return ResponseEntity.created(new URI("/api/files/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

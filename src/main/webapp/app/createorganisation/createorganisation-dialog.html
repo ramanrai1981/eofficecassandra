@@ -8,39 +8,45 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" ng-show="vm.organisation.id">
+        <div class="form-group " ng-show="vm.organisation.id">
             <label for="id" data-translate="">ID</label>
             <input type="text" class="form-control" id="id" name="id"
                     ng-model="vm.organisation.id" readonly />
         </div>
-        <div class="form-group">
-            <label class="control-label" data-translate="" for="field_orgname">Organisation name</label>
+        <div class="form-group has-success">
+            <label class="control-label" data-translate="" for="field_orgname">Name</label>
             <input type="text" class="form-control" name="orgname" id="field_orgname"
-                    ng-model="vm.organisation.orgname"
+                    ng-model="vm.organisation.orgname" placeholder="Input your Organisation"
                     />
         </div>
-        <div class="form-group">
-            <label class="control-label" data-translate="" for="field_hod">Head of the Department</label>
-            <input type="text" class="form-control" name="hod" id="field_hod"
-                    ng-model="vm.organisation.hod"
-                    />
+        <div class="form-group has-success">
+            <label class="control-label" data-translate="" for="field_owner">Owner</label>
+            <input type="text" class="form-control" name="owner" id="field_owner"
+                   ng-model="vm.organisation.owner"
+                   required/>
+            <div ng-show="editForm.owner.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.owner.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
         </div>
-        <div class="form-group">
+        <div class="form-group has-success">
             <label class="control-label" data-translate="" for="field_address">Address</label>
             <textarea class="form-control" class="form-control" name="address" rows="3" id="field_address"
-                    ng-model="vm.organisation.address"/>
+                    ng-model="vm.organisation.address" placeholder="Text your Address"/>
         </div>
-        <div class="form-group">
-            <label class="control-label" data-translate="" for="field_establishmentyear">Establishment year</label>
-                <div class="input-group">
-                    <input id="field_establishmentyear" type="text" class="form-control" name="establishmentyear" datetime-picker="{{dateformat}}" ng-model="vm.organisation.establishmentyear" is-open="vm.datePickerOpenStatus.establishmentyear"
-                    />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('establishmentyear')"><i class="glyphicon glyphicon-calendar"></i></button>
+        <div class="form-group has-success">
+            <label class="control-label" data-translate="" for="field_establishmentdate">Establishment Date</label>
+            <div class="input-group">
+                <input id="field_establishmentdate" type="text" class="form-control" name="establishmentdate" datetime-picker="{{dateformat}}" ng-model="vm.organisation.establishmentdate" is-open="vm.datePickerOpenStatus.establishmentdate"
+                />
+                <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('establishmentdate')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
-                </div>
+            </div>
         </div>
-        <div class="form-group">
+        <div class="form-group has-success">
             <label class="control-label" data-translate="" for="field_active">Active</label>
                 <input type="checkbox" name="active" id="field_active"
                           ng-model="vm.organisation.active"/>

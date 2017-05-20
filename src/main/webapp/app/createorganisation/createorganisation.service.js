@@ -15,8 +15,10 @@
                 method: 'GET',
                 transformResponse: function (data) {
                     if (data) {
-                        data = angular.fromJson(data);
-                        data.establishmentyear = DateUtils.convertDateTimeFromServer(data.establishmentyear);
+                         data = angular.fromJson(data);
+                         data.createdate = DateUtils.convertDateTimeFromServer(data.createdate);
+                         data.updatedate = DateUtils.convertDateTimeFromServer(data.updatedate);
+                         data.establishmentdate = DateUtils.convertDateTimeFromServer(data.establishmentdate);
                     }
                     return data;
                 }

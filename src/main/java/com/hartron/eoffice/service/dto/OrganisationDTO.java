@@ -2,6 +2,7 @@ package com.hartron.eoffice.service.dto;
 
 
 import java.time.ZonedDateTime;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -15,17 +16,18 @@ public class OrganisationDTO implements Serializable {
 
     private String orgname;
 
-    private String hod;
-
     private String address;
-
-    private ZonedDateTime establishmentyear;
 
     private Boolean active;
 
     private ZonedDateTime createdate;
 
     private ZonedDateTime updatedate;
+
+    @NotNull
+    private String owner;
+
+    private ZonedDateTime establishmentdate;
 
     public UUID getId() {
         return id;
@@ -41,26 +43,12 @@ public class OrganisationDTO implements Serializable {
     public void setOrgname(String orgname) {
         this.orgname = orgname;
     }
-    public String getHod() {
-        return hod;
-    }
-
-    public void setHod(String hod) {
-        this.hod = hod;
-    }
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
-    }
-    public ZonedDateTime getEstablishmentyear() {
-        return establishmentyear;
-    }
-
-    public void setEstablishmentyear(ZonedDateTime establishmentyear) {
-        this.establishmentyear = establishmentyear;
     }
     public Boolean getActive() {
         return active;
@@ -82,6 +70,20 @@ public class OrganisationDTO implements Serializable {
 
     public void setUpdatedate(ZonedDateTime updatedate) {
         this.updatedate = updatedate;
+    }
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+    public ZonedDateTime getEstablishmentdate() {
+        return establishmentdate;
+    }
+
+    public void setEstablishmentdate(ZonedDateTime establishmentdate) {
+        this.establishmentdate = establishmentdate;
     }
 
     @Override
@@ -110,12 +112,12 @@ public class OrganisationDTO implements Serializable {
         return "OrganisationDTO{" +
             "id=" + id +
             ", orgname='" + orgname + "'" +
-            ", hod='" + hod + "'" +
             ", address='" + address + "'" +
-            ", establishmentyear='" + establishmentyear + "'" +
             ", active='" + active + "'" +
             ", createdate='" + createdate + "'" +
             ", updatedate='" + updatedate + "'" +
+            ", owner='" + owner + "'" +
+            ", establishmentdate='" + establishmentdate + "'" +
             '}';
     }
 }

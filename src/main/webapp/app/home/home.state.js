@@ -27,16 +27,6 @@
                     return $translate.refresh();
                 }]
             }
-//            organisation: function () {
-//                return {
-//                    orgname: null,
-//                    hod: null,
-//                    address: null,
-//                    establishmentyear: null,
-//                    active: null,
-//                    id: null
-//                };
-//            }
         });
     }
 })();

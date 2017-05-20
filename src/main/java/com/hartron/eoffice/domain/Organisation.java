@@ -2,6 +2,7 @@ package com.hartron.eoffice.domain;
 
 import com.datastax.driver.mapping.annotations.*;
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -21,17 +22,18 @@ public class Organisation implements Serializable {
 
     private String orgname;
 
-    private String hod;
-
     private String address;
-
-    private ZonedDateTime establishmentyear;
 
     private Boolean active;
 
     private ZonedDateTime createdate;
 
     private ZonedDateTime updatedate;
+
+    @NotNull
+    private String owner;
+
+    private ZonedDateTime establishmentdate;
 
     public UUID getId() {
         return id;
@@ -54,19 +56,6 @@ public class Organisation implements Serializable {
         this.orgname = orgname;
     }
 
-    public String getHod() {
-        return hod;
-    }
-
-    public Organisation hod(String hod) {
-        this.hod = hod;
-        return this;
-    }
-
-    public void setHod(String hod) {
-        this.hod = hod;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -78,19 +67,6 @@ public class Organisation implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public ZonedDateTime getEstablishmentyear() {
-        return establishmentyear;
-    }
-
-    public Organisation establishmentyear(ZonedDateTime establishmentyear) {
-        this.establishmentyear = establishmentyear;
-        return this;
-    }
-
-    public void setEstablishmentyear(ZonedDateTime establishmentyear) {
-        this.establishmentyear = establishmentyear;
     }
 
     public Boolean isActive() {
@@ -132,6 +108,32 @@ public class Organisation implements Serializable {
         this.updatedate = updatedate;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public Organisation owner(String owner) {
+        this.owner = owner;
+        return this;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public ZonedDateTime getEstablishmentdate() {
+        return establishmentdate;
+    }
+
+    public Organisation establishmentdate(ZonedDateTime establishmentdate) {
+        this.establishmentdate = establishmentdate;
+        return this;
+    }
+
+    public void setEstablishmentdate(ZonedDateTime establishmentdate) {
+        this.establishmentdate = establishmentdate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -157,12 +159,12 @@ public class Organisation implements Serializable {
         return "Organisation{" +
             "id=" + id +
             ", orgname='" + orgname + "'" +
-            ", hod='" + hod + "'" +
             ", address='" + address + "'" +
-            ", establishmentyear='" + establishmentyear + "'" +
             ", active='" + active + "'" +
             ", createdate='" + createdate + "'" +
             ", updatedate='" + updatedate + "'" +
+            ", owner='" + owner + "'" +
+            ", establishmentdate='" + establishmentdate + "'" +
             '}';
     }
 }
