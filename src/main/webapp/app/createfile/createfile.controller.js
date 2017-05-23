@@ -15,6 +15,7 @@
         vm.login = LoginService.open;
         vm.register = register;
         vm.file = file;
+        $scope.file = {};//scope object to hold file details
         vm.filemovement = filemovement;
         vm.putUpFile = putUpFile;
         $scope.$on('authenticationSuccess', function() {
