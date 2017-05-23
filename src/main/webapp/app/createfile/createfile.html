@@ -50,14 +50,17 @@
                 <div class="form-group">
                     <label for="file" class="col-lg-2 control-label">Attachment</label>
                     <div class="col-lg-10">
-                        <input class="form-control input" id="file" type="file" file-Model="vm.fileDetail.file" required/>
+                        <input class="form-control input" id="file" type="file" file-Model="vm.fileDetail.file"
+                               required/>
+                        <p ng-show="file.maxSizeError"><font color="red">Max file size exceeded (10 MB)</font></p>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
                         <button type="reset" class="btn btn-default">Reset</button>
-                        <button type="submit" class="btn btn-primary">Put Up File</button>
+                        <button type="submit" ng-disabled="file.maxSizeError" class="btn btn-primary">Put Up File
+                        </button>
                     </div>
                 </div>
             </fieldset>
