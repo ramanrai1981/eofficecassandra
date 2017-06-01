@@ -3,6 +3,7 @@ package com.hartron.eoffice.service;
 import com.hartron.eoffice.domain.User;
 import com.hartron.eoffice.config.Constants;
 import com.hartron.eoffice.repository.UserRepository;
+import com.hartron.eoffice.repository.search.UserSearchRepository;
 import com.hartron.eoffice.security.AuthoritiesConstants;
 import com.hartron.eoffice.security.SecurityUtils;
 import com.hartron.eoffice.service.util.RandomUtil;
@@ -29,9 +30,12 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    private final UserSearchRepository userSearchRepository;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userSearchRepository = userSearchRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -42,6 +46,7 @@ public class UserService {
                 user.setActivated(true);
                 user.setActivationKey(null);
                 userRepository.save(user);
+                userSearchRepository.save(user);
                 log.debug("Activated user: {}", user);
                 return user;
             });
@@ -95,6 +100,7 @@ public class UserService {
         authorities.add(AuthoritiesConstants.USER);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+        userSearchRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
@@ -118,6 +124,7 @@ public class UserService {
         user.setResetDate(new Date());
         user.setActivated(true);
         userRepository.save(user);
+        userSearchRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;
     }
@@ -132,6 +139,7 @@ public class UserService {
             user.setEmail(email);
             user.setLangKey(langKey);
             userRepository.save(user);
+            userSearchRepository.save(user);
             log.debug("Changed Information for User: {}", user);
         });
     }
@@ -160,6 +168,7 @@ public class UserService {
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
             userRepository.delete(user);
+            userSearchRepository.delete(user);
             log.debug("Deleted User: {}", user);
         });
     }

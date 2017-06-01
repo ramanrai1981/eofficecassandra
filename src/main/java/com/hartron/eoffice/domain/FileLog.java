@@ -1,6 +1,7 @@
 package com.hartron.eoffice.domain;
 
 import com.datastax.driver.mapping.annotations.*;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -12,6 +13,7 @@ import java.util.UUID;
  */
 
 @Table(name = "fileLog")
+@Document(indexName = "filelog")
 public class FileLog implements Serializable {
 
     private static final long serialVersionUID = 1L;

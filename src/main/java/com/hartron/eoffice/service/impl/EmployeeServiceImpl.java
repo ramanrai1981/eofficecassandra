@@ -3,6 +3,7 @@ package com.hartron.eoffice.service.impl;
 import com.hartron.eoffice.service.EmployeeService;
 import com.hartron.eoffice.domain.Employee;
 import com.hartron.eoffice.repository.EmployeeRepository;
+import com.hartron.eoffice.repository.search.EmployeeSearchRepository;
 import com.hartron.eoffice.service.dto.EmployeeDTO;
 import com.hartron.eoffice.service.mapper.EmployeeMapper;
 import org.slf4j.Logger;
@@ -13,6 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Employee.
@@ -26,9 +30,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     private final EmployeeMapper employeeMapper;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper) {
+    private final EmployeeSearchRepository employeeSearchRepository;
+
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper, EmployeeSearchRepository employeeSearchRepository) {
         this.employeeRepository = employeeRepository;
         this.employeeMapper = employeeMapper;
+        this.employeeSearchRepository = employeeSearchRepository;
     }
 
     /**
@@ -43,6 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         Employee employee = employeeMapper.employeeDTOToEmployee(employeeDTO);
         employee = employeeRepository.save(employee);
         EmployeeDTO result = employeeMapper.employeeToEmployeeDTO(employee);
+        employeeSearchRepository.save(employee);
         return result;
     }
 
@@ -84,5 +92,21 @@ public class EmployeeServiceImpl implements EmployeeService{
     public void delete(String id) {
         log.debug("Request to delete Employee : {}", id);
         employeeRepository.delete(UUID.fromString(id));
+        employeeSearchRepository.delete(UUID.fromString(id));
+    }
+
+    /**
+     * Search for the employee corresponding to the query.
+     *
+     *  @param query the query of the search
+     *  @return the list of entities
+     */
+    @Override
+    public List<EmployeeDTO> search(String query) {
+        log.debug("Request to search Employees for query {}", query);
+        return StreamSupport
+            .stream(employeeSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .map(employeeMapper::employeeToEmployeeDTO)
+            .collect(Collectors.toList());
     }
 }

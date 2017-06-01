@@ -4,7 +4,8 @@
             "home": {
                 "title": "Organisations",
                 "createLabel": "नया Organisation बनाएँ",
-                "createOrEditLabel": "Organisation बनाएँ या संपादित करें"
+                "createOrEditLabel": "Organisation बनाएँ या संपादित करें",
+                "search": "Organisation खोजें"
             },
             "created": "एक नया Organisation [identifier: {{ param }}] तैयार है",
             "updated": "एक Organisation [identifier: {{ param }}] का अद्यतन हुआ है",

@@ -6,6 +6,7 @@ import com.hartron.eoffice.EofficeApp;
 import com.hartron.eoffice.domain.File;
 import com.hartron.eoffice.repository.FileRepository;
 import com.hartron.eoffice.service.FileService;
+import com.hartron.eoffice.repository.search.FileSearchRepository;
 import com.hartron.eoffice.service.dto.FileDTO;
 import com.hartron.eoffice.service.mapper.FileMapper;
 import com.hartron.eoffice.web.rest.errors.ExceptionTranslator;
@@ -70,6 +71,9 @@ public class FileResourceIntTest extends AbstractCassandraTest {
     private FileService fileService;
 
     @Autowired
+    private FileSearchRepository fileSearchRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -111,6 +115,7 @@ public class FileResourceIntTest extends AbstractCassandraTest {
     @Before
     public void initTest() {
         fileRepository.deleteAll();
+        fileSearchRepository.deleteAll();
         file = createEntity();
     }
 
@@ -135,6 +140,10 @@ public class FileResourceIntTest extends AbstractCassandraTest {
         assertThat(testFile.getTag()).isEqualTo(DEFAULT_TAG);
         assertThat(testFile.getUploadDate()).isEqualTo(DEFAULT_UPLOAD_DATE);
         assertThat(testFile.isStatus()).isEqualTo(DEFAULT_STATUS);
+
+        // Validate the File in Elasticsearch
+        File fileEs = fileSearchRepository.findOne(testFile.getId());
+        assertThat(fileEs).isEqualToComparingFieldByField(testFile);
     }
 
     @Test
@@ -238,6 +247,7 @@ public class FileResourceIntTest extends AbstractCassandraTest {
     public void updateFile() throws Exception {
         // Initialize the database
         fileRepository.save(file);
+        fileSearchRepository.save(file);
         int databaseSizeBeforeUpdate = fileRepository.findAll().size();
 
         // Update the file
@@ -264,6 +274,10 @@ public class FileResourceIntTest extends AbstractCassandraTest {
         assertThat(testFile.getTag()).isEqualTo(UPDATED_TAG);
         assertThat(testFile.getUploadDate()).isEqualTo(UPDATED_UPLOAD_DATE);
         assertThat(testFile.isStatus()).isEqualTo(UPDATED_STATUS);
+
+        // Validate the File in Elasticsearch
+        File fileEs = fileSearchRepository.findOne(testFile.getId());
+        assertThat(fileEs).isEqualToComparingFieldByField(testFile);
     }
 
     @Test
@@ -288,6 +302,7 @@ public class FileResourceIntTest extends AbstractCassandraTest {
     public void deleteFile() throws Exception {
         // Initialize the database
         fileRepository.save(file);
+        fileSearchRepository.save(file);
         int databaseSizeBeforeDelete = fileRepository.findAll().size();
 
         // Get the file
@@ -295,9 +310,31 @@ public class FileResourceIntTest extends AbstractCassandraTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean fileExistsInEs = fileSearchRepository.exists(file.getId());
+        assertThat(fileExistsInEs).isFalse();
+
         // Validate the database is empty
         List<File> fileList = fileRepository.findAll();
         assertThat(fileList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    public void searchFile() throws Exception {
+        // Initialize the database
+        fileRepository.save(file);
+        fileSearchRepository.save(file);
+
+        // Search the file
+        restFileMockMvc.perform(get("/api/_search/files?query=id:" + file.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(file.getId().toString())))
+            .andExpect(jsonPath("$.[*].fileNo").value(hasItem(DEFAULT_FILE_NO.toString())))
+            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
+            .andExpect(jsonPath("$.[*].tag").value(hasItem(DEFAULT_TAG.toString())))
+            .andExpect(jsonPath("$.[*].uploadDate").value(hasItem(sameInstant(DEFAULT_UPLOAD_DATE))))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.booleanValue())));
     }
 
     @Test

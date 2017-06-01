@@ -6,6 +6,7 @@ import com.hartron.eoffice.EofficeApp;
 import com.hartron.eoffice.domain.Organisation;
 import com.hartron.eoffice.repository.OrganisationRepository;
 import com.hartron.eoffice.service.OrganisationService;
+import com.hartron.eoffice.repository.search.OrganisationSearchRepository;
 import com.hartron.eoffice.service.dto.OrganisationDTO;
 import com.hartron.eoffice.service.mapper.OrganisationMapper;
 import com.hartron.eoffice.web.rest.errors.ExceptionTranslator;
@@ -76,6 +77,9 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
     private OrganisationService organisationService;
 
     @Autowired
+    private OrganisationSearchRepository organisationSearchRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -119,6 +123,7 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
     @Before
     public void initTest() {
         organisationRepository.deleteAll();
+        organisationSearchRepository.deleteAll();
         organisation = createEntity();
     }
 
@@ -145,6 +150,10 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
         assertThat(testOrganisation.getUpdatedate()).isEqualTo(DEFAULT_UPDATEDATE);
         assertThat(testOrganisation.getOwner()).isEqualTo(DEFAULT_OWNER);
         assertThat(testOrganisation.getEstablishmentdate()).isEqualTo(DEFAULT_ESTABLISHMENTDATE);
+
+        // Validate the Organisation in Elasticsearch
+        Organisation organisationEs = organisationSearchRepository.findOne(testOrganisation.getId());
+        assertThat(organisationEs).isEqualToComparingFieldByField(testOrganisation);
     }
 
     @Test
@@ -234,6 +243,7 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
     public void updateOrganisation() throws Exception {
         // Initialize the database
         organisationRepository.save(organisation);
+        organisationSearchRepository.save(organisation);
         int databaseSizeBeforeUpdate = organisationRepository.findAll().size();
 
         // Update the organisation
@@ -264,6 +274,10 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
         assertThat(testOrganisation.getUpdatedate()).isEqualTo(UPDATED_UPDATEDATE);
         assertThat(testOrganisation.getOwner()).isEqualTo(UPDATED_OWNER);
         assertThat(testOrganisation.getEstablishmentdate()).isEqualTo(UPDATED_ESTABLISHMENTDATE);
+
+        // Validate the Organisation in Elasticsearch
+        Organisation organisationEs = organisationSearchRepository.findOne(testOrganisation.getId());
+        assertThat(organisationEs).isEqualToComparingFieldByField(testOrganisation);
     }
 
     @Test
@@ -288,6 +302,7 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
     public void deleteOrganisation() throws Exception {
         // Initialize the database
         organisationRepository.save(organisation);
+        organisationSearchRepository.save(organisation);
         int databaseSizeBeforeDelete = organisationRepository.findAll().size();
 
         // Get the organisation
@@ -295,9 +310,33 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean organisationExistsInEs = organisationSearchRepository.exists(organisation.getId());
+        assertThat(organisationExistsInEs).isFalse();
+
         // Validate the database is empty
         List<Organisation> organisationList = organisationRepository.findAll();
         assertThat(organisationList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    public void searchOrganisation() throws Exception {
+        // Initialize the database
+        organisationRepository.save(organisation);
+        organisationSearchRepository.save(organisation);
+
+        // Search the organisation
+        restOrganisationMockMvc.perform(get("/api/_search/organisations?query=id:" + organisation.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(organisation.getId().toString())))
+            .andExpect(jsonPath("$.[*].orgname").value(hasItem(DEFAULT_ORGNAME.toString())))
+            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
+            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
+            .andExpect(jsonPath("$.[*].createdate").value(hasItem(sameInstant(DEFAULT_CREATEDATE))))
+            .andExpect(jsonPath("$.[*].updatedate").value(hasItem(sameInstant(DEFAULT_UPDATEDATE))))
+            .andExpect(jsonPath("$.[*].owner").value(hasItem(DEFAULT_OWNER.toString())))
+            .andExpect(jsonPath("$.[*].establishmentdate").value(hasItem(sameInstant(DEFAULT_ESTABLISHMENTDATE))));
     }
 
     @Test

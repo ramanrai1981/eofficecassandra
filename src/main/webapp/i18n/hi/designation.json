@@ -4,7 +4,8 @@
             "home": {
                 "title": "Designations",
                 "createLabel": "नया Designation बनाएँ",
-                "createOrEditLabel": "Designation बनाएँ या संपादित करें"
+                "createOrEditLabel": "Designation बनाएँ या संपादित करें",
+                "search": "Designation खोजें"
             },
             "created": "एक नया Designation [identifier: {{ param }}] तैयार है",
             "updated": "एक Designation [identifier: {{ param }}] का अद्यतन हुआ है",

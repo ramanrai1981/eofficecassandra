@@ -6,6 +6,7 @@ import com.hartron.eoffice.EofficeApp;
 import com.hartron.eoffice.domain.FileMovement;
 import com.hartron.eoffice.repository.FileMovementRepository;
 import com.hartron.eoffice.service.FileMovementService;
+import com.hartron.eoffice.repository.search.FileMovementSearchRepository;
 import com.hartron.eoffice.service.dto.FileMovementDTO;
 import com.hartron.eoffice.service.mapper.FileMovementMapper;
 import com.hartron.eoffice.web.rest.errors.ExceptionTranslator;
@@ -79,6 +80,9 @@ public class FileMovementResourceIntTest extends AbstractCassandraTest {
     private FileMovementService fileMovementService;
 
     @Autowired
+    private FileMovementSearchRepository fileMovementSearchRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -123,6 +127,7 @@ public class FileMovementResourceIntTest extends AbstractCassandraTest {
     @Before
     public void initTest() {
         fileMovementRepository.deleteAll();
+        fileMovementSearchRepository.deleteAll();
         fileMovement = createEntity();
     }
 
@@ -150,6 +155,10 @@ public class FileMovementResourceIntTest extends AbstractCassandraTest {
         assertThat(testFileMovement.getUpdateDate()).isEqualTo(DEFAULT_UPDATE_DATE);
         assertThat(testFileMovement.getActionStatus()).isEqualTo(DEFAULT_ACTION_STATUS);
         assertThat(testFileMovement.getComment()).isEqualTo(DEFAULT_COMMENT);
+
+        // Validate the FileMovement in Elasticsearch
+        FileMovement fileMovementEs = fileMovementSearchRepository.findOne(testFileMovement.getId());
+        assertThat(fileMovementEs).isEqualToComparingFieldByField(testFileMovement);
     }
 
     @Test
@@ -295,6 +304,7 @@ public class FileMovementResourceIntTest extends AbstractCassandraTest {
     public void updateFileMovement() throws Exception {
         // Initialize the database
         fileMovementRepository.save(fileMovement);
+        fileMovementSearchRepository.save(fileMovement);
         int databaseSizeBeforeUpdate = fileMovementRepository.findAll().size();
 
         // Update the fileMovement
@@ -327,6 +337,10 @@ public class FileMovementResourceIntTest extends AbstractCassandraTest {
         assertThat(testFileMovement.getUpdateDate()).isEqualTo(UPDATED_UPDATE_DATE);
         assertThat(testFileMovement.getActionStatus()).isEqualTo(UPDATED_ACTION_STATUS);
         assertThat(testFileMovement.getComment()).isEqualTo(UPDATED_COMMENT);
+
+        // Validate the FileMovement in Elasticsearch
+        FileMovement fileMovementEs = fileMovementSearchRepository.findOne(testFileMovement.getId());
+        assertThat(fileMovementEs).isEqualToComparingFieldByField(testFileMovement);
     }
 
     @Test
@@ -351,6 +365,7 @@ public class FileMovementResourceIntTest extends AbstractCassandraTest {
     public void deleteFileMovement() throws Exception {
         // Initialize the database
         fileMovementRepository.save(fileMovement);
+        fileMovementSearchRepository.save(fileMovement);
         int databaseSizeBeforeDelete = fileMovementRepository.findAll().size();
 
         // Get the fileMovement
@@ -358,9 +373,34 @@ public class FileMovementResourceIntTest extends AbstractCassandraTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean fileMovementExistsInEs = fileMovementSearchRepository.exists(fileMovement.getId());
+        assertThat(fileMovementExistsInEs).isFalse();
+
         // Validate the database is empty
         List<FileMovement> fileMovementList = fileMovementRepository.findAll();
         assertThat(fileMovementList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    public void searchFileMovement() throws Exception {
+        // Initialize the database
+        fileMovementRepository.save(fileMovement);
+        fileMovementSearchRepository.save(fileMovement);
+
+        // Search the fileMovement
+        restFileMovementMockMvc.perform(get("/api/_search/file-movements?query=id:" + fileMovement.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(fileMovement.getId().toString())))
+            .andExpect(jsonPath("$.[*].fileId").value(hasItem(DEFAULT_FILE_ID.toString())))
+            .andExpect(jsonPath("$.[*].markFrom").value(hasItem(DEFAULT_MARK_FROM.toString())))
+            .andExpect(jsonPath("$.[*].markTo").value(hasItem(DEFAULT_MARK_TO.toString())))
+            .andExpect(jsonPath("$.[*].fileName").value(hasItem(DEFAULT_FILE_NAME.toString())))
+            .andExpect(jsonPath("$.[*].markDate").value(hasItem(sameInstant(DEFAULT_MARK_DATE))))
+            .andExpect(jsonPath("$.[*].updateDate").value(hasItem(sameInstant(DEFAULT_UPDATE_DATE))))
+            .andExpect(jsonPath("$.[*].actionStatus").value(hasItem(DEFAULT_ACTION_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT.toString())));
     }
 
     @Test

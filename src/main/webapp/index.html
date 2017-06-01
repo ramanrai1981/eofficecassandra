@@ -22,12 +22,15 @@
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
+    <page-ribbon></page-ribbon>
     <div ui-view="navbar" ng-cloak></div>
-    <div ui-view="sidebar" ng-cloak></div>
     <div class="container">
         <div class="well" ui-view="content">
             <!-- Angular views -->
+        </div>
+
+        <div class="footer" ng-cloak>
+            <p data-translate="footer">This is your footer</p>
         </div>
     </div>
 
@@ -101,24 +104,28 @@
     <script src="app/entities/organisation/organisation-delete-dialog.controller.js"></script>
     <script src="app/entities/organisation/organisation.state.js"></script>
     <script src="app/entities/organisation/organisation.service.js"></script>
+    <script src="app/entities/organisation/organisation.search.service.js"></script>
     <script src="app/entities/organisation/organisation.controller.js"></script>
     <script src="app/entities/file-movement/file-movement-dialog.controller.js"></script>
     <script src="app/entities/file-movement/file-movement-detail.controller.js"></script>
     <script src="app/entities/file-movement/file-movement-delete-dialog.controller.js"></script>
     <script src="app/entities/file-movement/file-movement.state.js"></script>
     <script src="app/entities/file-movement/file-movement.service.js"></script>
+    <script src="app/entities/file-movement/file-movement.search.service.js"></script>
     <script src="app/entities/file-movement/file-movement.controller.js"></script>
     <script src="app/entities/file-log/file-log-dialog.controller.js"></script>
     <script src="app/entities/file-log/file-log-detail.controller.js"></script>
     <script src="app/entities/file-log/file-log-delete-dialog.controller.js"></script>
     <script src="app/entities/file-log/file-log.state.js"></script>
     <script src="app/entities/file-log/file-log.service.js"></script>
+    <script src="app/entities/file-log/file-log.search.service.js"></script>
     <script src="app/entities/file-log/file-log.controller.js"></script>
     <script src="app/entities/file/file-dialog.controller.js"></script>
     <script src="app/entities/file/file-detail.controller.js"></script>
     <script src="app/entities/file/file-delete-dialog.controller.js"></script>
     <script src="app/entities/file/file.state.js"></script>
     <script src="app/entities/file/file.service.js"></script>
+    <script src="app/entities/file/file.search.service.js"></script>
     <script src="app/entities/file/file.controller.js"></script>
     <script src="app/entities/entity.state.js"></script>
     <script src="app/entities/employee/employee-dialog.controller.js"></script>
@@ -126,18 +133,21 @@
     <script src="app/entities/employee/employee-delete-dialog.controller.js"></script>
     <script src="app/entities/employee/employee.state.js"></script>
     <script src="app/entities/employee/employee.service.js"></script>
+    <script src="app/entities/employee/employee.search.service.js"></script>
     <script src="app/entities/employee/employee.controller.js"></script>
     <script src="app/entities/designation/designation-dialog.controller.js"></script>
     <script src="app/entities/designation/designation-detail.controller.js"></script>
     <script src="app/entities/designation/designation-delete-dialog.controller.js"></script>
     <script src="app/entities/designation/designation.state.js"></script>
     <script src="app/entities/designation/designation.service.js"></script>
+    <script src="app/entities/designation/designation.search.service.js"></script>
     <script src="app/entities/designation/designation.controller.js"></script>
     <script src="app/entities/department/department-dialog.controller.js"></script>
     <script src="app/entities/department/department-detail.controller.js"></script>
     <script src="app/entities/department/department-delete-dialog.controller.js"></script>
     <script src="app/entities/department/department.state.js"></script>
     <script src="app/entities/department/department.service.js"></script>
+    <script src="app/entities/department/department.search.service.js"></script>
     <script src="app/entities/department/department.controller.js"></script>
     <script src="app/dashboard/dashboard.state.js"></script>
     <script src="app/dashboard/dashboard.controller.js"></script>
@@ -205,6 +215,9 @@
     <script src="app/admin/health/health.service.js"></script>
     <script src="app/admin/health/health.modal.controller.js"></script>
     <script src="app/admin/health/health.controller.js"></script>
+    <script src="app/admin/gateway/gateway-routes.service.js"></script>
+    <script src="app/admin/gateway/gateway.state.js"></script>
+    <script src="app/admin/gateway/gateway.controller.js"></script>
     <script src="app/admin/docs/docs.state.js"></script>
     <script src="app/admin/configuration/configuration.state.js"></script>
     <script src="app/admin/configuration/configuration.service.js"></script>
@@ -213,16 +226,10 @@
     <script src="app/admin/audits/audits.service.js"></script>
     <script src="app/admin/audits/audits.controller.js"></script>
     <script src="app/admin/admin.state.js"></script>
-    <script src="app/addorganisation/addorganisation.state.js"></script>
-    <script src="app/addorganisation/addorganisation.controller.js"></script>
     <script src="app/addemployee/addemployee-dialog.controller.js"></script>
     <script src="app/addemployee/addemployee.state.js"></script>
     <script src="app/addemployee/addemployee.service.js"></script>
     <script src="app/addemployee/addemployee.controller.js"></script>
-    <script src="app/adddesignation /adddesignation.state.js"></script>
-    <script src="app/adddesignation /adddesignation.controller.js"></script>
-    <script src="app/adddepartment/adddepartment.state.js"></script>
-    <script src="app/adddepartment/adddepartment.controller.js"></script>
     <script src="app/account/settings/settings.state.js"></script>
     <script src="app/account/settings/settings.controller.js"></script>
     <script src="app/account/reset/request/reset.request.state.js"></script>

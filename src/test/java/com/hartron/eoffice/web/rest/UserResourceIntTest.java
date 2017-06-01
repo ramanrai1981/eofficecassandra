@@ -4,6 +4,7 @@ import com.hartron.eoffice.AbstractCassandraTest;
 import com.hartron.eoffice.EofficeApp;
 import com.hartron.eoffice.domain.User;
 import com.hartron.eoffice.repository.UserRepository;
+import com.hartron.eoffice.repository.search.UserSearchRepository;
 import com.hartron.eoffice.service.UserService;
 import com.hartron.eoffice.service.MailService;
 
@@ -39,11 +40,14 @@ public class UserResourceIntTest extends AbstractCassandraTest {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserSearchRepository userSearchRepository;
+
     private MockMvc restUserMockMvc;
 
     @Before
     public void setup() {
-        UserResource userResource = new UserResource(userRepository, mailService, userService);
+        UserResource userResource = new UserResource(userRepository, mailService, userService, userSearchRepository);
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource).build();
     }
 
