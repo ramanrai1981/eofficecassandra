@@ -4,7 +4,8 @@
             "home": {
                 "title": "Designations",
                 "createLabel": "Create a new Designation",
-                "createOrEditLabel": "Create or edit a Designation"
+                "createOrEditLabel": "Create or edit a Designation",
+                "search": "Search for Designation"
             },
             "created": "A new Designation is created with identifier {{ param }}",
             "updated": "A Designation is updated with identifier {{ param }}",

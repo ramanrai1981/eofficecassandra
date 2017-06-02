@@ -61,3 +61,10 @@ CREATE TABLE IF NOT EXISTS persistent_token_by_user (
     PRIMARY KEY(user_id, persistent_token_series)
 );
 
+CREATE TABLE IF NOT EXISTS gateway_ratelimiting (
+    id text,
+    time_unit text,
+    time timestamp,
+    value counter,
+    PRIMARY KEY ((id, time_unit, time))
+);

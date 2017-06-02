@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Employee.
@@ -117,5 +120,20 @@ public class EmployeeResource {
         employeeService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * SEARCH  /_search/employees?query=:query : search for the employee corresponding
+     * to the query.
+     *
+     * @param query the query of the employee search 
+     * @return the result of the search
+     */
+    @GetMapping("/_search/employees")
+    @Timed
+    public List<EmployeeDTO> searchEmployees(@RequestParam String query) {
+        log.debug("REST request to search Employees for query {}", query);
+        return employeeService.search(query);
+    }
+
 
 }

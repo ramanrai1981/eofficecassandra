@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Department.
@@ -117,5 +120,20 @@ public class DepartmentResource {
         departmentService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * SEARCH  /_search/departments?query=:query : search for the department corresponding
+     * to the query.
+     *
+     * @param query the query of the department search 
+     * @return the result of the search
+     */
+    @GetMapping("/_search/departments")
+    @Timed
+    public List<DepartmentDTO> searchDepartments(@RequestParam String query) {
+        log.debug("REST request to search Departments for query {}", query);
+        return departmentService.search(query);
+    }
+
 
 }

@@ -6,6 +6,7 @@ import com.hartron.eoffice.EofficeApp;
 import com.hartron.eoffice.domain.Employee;
 import com.hartron.eoffice.repository.EmployeeRepository;
 import com.hartron.eoffice.service.EmployeeService;
+import com.hartron.eoffice.repository.search.EmployeeSearchRepository;
 import com.hartron.eoffice.service.dto.EmployeeDTO;
 import com.hartron.eoffice.service.mapper.EmployeeMapper;
 import com.hartron.eoffice.web.rest.errors.ExceptionTranslator;
@@ -91,6 +92,9 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
     private EmployeeService employeeService;
 
     @Autowired
+    private EmployeeSearchRepository employeeSearchRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -139,6 +143,7 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
     @Before
     public void initTest() {
         employeeRepository.deleteAll();
+        employeeSearchRepository.deleteAll();
         employee = createEntity();
     }
 
@@ -170,6 +175,10 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
         assertThat(testEmployee.getCreatedate()).isEqualTo(DEFAULT_CREATEDATE);
         assertThat(testEmployee.getUpdatedate()).isEqualTo(DEFAULT_UPDATEDATE);
         assertThat(testEmployee.getMobilenumber()).isEqualTo(DEFAULT_MOBILENUMBER);
+
+        // Validate the Employee in Elasticsearch
+        Employee employeeEs = employeeSearchRepository.findOne(testEmployee.getId());
+        assertThat(employeeEs).isEqualToComparingFieldByField(testEmployee);
     }
 
     @Test
@@ -287,6 +296,7 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
     public void updateEmployee() throws Exception {
         // Initialize the database
         employeeRepository.save(employee);
+        employeeSearchRepository.save(employee);
         int databaseSizeBeforeUpdate = employeeRepository.findAll().size();
 
         // Update the employee
@@ -327,6 +337,10 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
         assertThat(testEmployee.getCreatedate()).isEqualTo(UPDATED_CREATEDATE);
         assertThat(testEmployee.getUpdatedate()).isEqualTo(UPDATED_UPDATEDATE);
         assertThat(testEmployee.getMobilenumber()).isEqualTo(UPDATED_MOBILENUMBER);
+
+        // Validate the Employee in Elasticsearch
+        Employee employeeEs = employeeSearchRepository.findOne(testEmployee.getId());
+        assertThat(employeeEs).isEqualToComparingFieldByField(testEmployee);
     }
 
     @Test
@@ -351,6 +365,7 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
     public void deleteEmployee() throws Exception {
         // Initialize the database
         employeeRepository.save(employee);
+        employeeSearchRepository.save(employee);
         int databaseSizeBeforeDelete = employeeRepository.findAll().size();
 
         // Get the employee
@@ -358,9 +373,38 @@ public class EmployeeResourceIntTest extends AbstractCassandraTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean employeeExistsInEs = employeeSearchRepository.exists(employee.getId());
+        assertThat(employeeExistsInEs).isFalse();
+
         // Validate the database is empty
         List<Employee> employeeList = employeeRepository.findAll();
         assertThat(employeeList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    public void searchEmployee() throws Exception {
+        // Initialize the database
+        employeeRepository.save(employee);
+        employeeSearchRepository.save(employee);
+
+        // Search the employee
+        restEmployeeMockMvc.perform(get("/api/_search/employees?query=id:" + employee.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(employee.getId().toString())))
+            .andExpect(jsonPath("$.[*].empid").value(hasItem(DEFAULT_EMPID.toString())))
+            .andExpect(jsonPath("$.[*].empname").value(hasItem(DEFAULT_EMPNAME.toString())))
+            .andExpect(jsonPath("$.[*].department").value(hasItem(DEFAULT_DEPARTMENT.toString())))
+            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION.toString())))
+            .andExpect(jsonPath("$.[*].emailid").value(hasItem(DEFAULT_EMAILID.toString())))
+            .andExpect(jsonPath("$.[*].dateofbirth").value(hasItem(sameInstant(DEFAULT_DATEOFBIRTH))))
+            .andExpect(jsonPath("$.[*].dateofjoining").value(hasItem(sameInstant(DEFAULT_DATEOFJOINING))))
+            .andExpect(jsonPath("$.[*].relievingdate").value(hasItem(sameInstant(DEFAULT_RELIEVINGDATE))))
+            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
+            .andExpect(jsonPath("$.[*].createdate").value(hasItem(sameInstant(DEFAULT_CREATEDATE))))
+            .andExpect(jsonPath("$.[*].updatedate").value(hasItem(sameInstant(DEFAULT_UPDATEDATE))))
+            .andExpect(jsonPath("$.[*].mobilenumber").value(hasItem(DEFAULT_MOBILENUMBER.toString())));
     }
 
     @Test

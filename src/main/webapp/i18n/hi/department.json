@@ -4,7 +4,8 @@
             "home": {
                 "title": "Departments",
                 "createLabel": "नया Department बनाएँ",
-                "createOrEditLabel": "Department बनाएँ या संपादित करें"
+                "createOrEditLabel": "Department बनाएँ या संपादित करें",
+                "search": "Department खोजें"
             },
             "created": "एक नया Department [identifier: {{ param }}] तैयार है",
             "updated": "एक Department [identifier: {{ param }}] का अद्यतन हुआ है",

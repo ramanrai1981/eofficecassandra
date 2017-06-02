@@ -4,7 +4,8 @@
             "home": {
                 "title": "Files",
                 "createLabel": "Create a new File",
-                "createOrEditLabel": "Create or edit a File"
+                "createOrEditLabel": "Create or edit a File",
+                "search": "Search for File"
             },
             "created": "A new File is created with identifier {{ param }}",
             "updated": "A File is updated with identifier {{ param }}",

@@ -6,6 +6,7 @@ import com.hartron.eoffice.EofficeApp;
 import com.hartron.eoffice.domain.Designation;
 import com.hartron.eoffice.repository.DesignationRepository;
 import com.hartron.eoffice.service.DesignationService;
+import com.hartron.eoffice.repository.search.DesignationSearchRepository;
 import com.hartron.eoffice.service.dto.DesignationDTO;
 import com.hartron.eoffice.service.mapper.DesignationMapper;
 import com.hartron.eoffice.web.rest.errors.ExceptionTranslator;
@@ -59,6 +60,9 @@ public class DesignationResourceIntTest extends AbstractCassandraTest {
     private DesignationService designationService;
 
     @Autowired
+    private DesignationSearchRepository designationSearchRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -98,6 +102,7 @@ public class DesignationResourceIntTest extends AbstractCassandraTest {
     @Before
     public void initTest() {
         designationRepository.deleteAll();
+        designationSearchRepository.deleteAll();
         designation = createEntity();
     }
 
@@ -120,6 +125,10 @@ public class DesignationResourceIntTest extends AbstractCassandraTest {
         assertThat(testDesignation.getOrganisationid()).isEqualTo(DEFAULT_ORGANISATIONID);
         assertThat(testDesignation.getDepartmentid()).isEqualTo(DEFAULT_DEPARTMENTID);
         assertThat(testDesignation.getDesignation()).isEqualTo(DEFAULT_DESIGNATION);
+
+        // Validate the Designation in Elasticsearch
+        Designation designationEs = designationSearchRepository.findOne(testDesignation.getId());
+        assertThat(designationEs).isEqualToComparingFieldByField(testDesignation);
     }
 
     @Test
@@ -237,6 +246,7 @@ public class DesignationResourceIntTest extends AbstractCassandraTest {
     public void updateDesignation() throws Exception {
         // Initialize the database
         designationRepository.save(designation);
+        designationSearchRepository.save(designation);
         int databaseSizeBeforeUpdate = designationRepository.findAll().size();
 
         // Update the designation
@@ -259,6 +269,10 @@ public class DesignationResourceIntTest extends AbstractCassandraTest {
         assertThat(testDesignation.getOrganisationid()).isEqualTo(UPDATED_ORGANISATIONID);
         assertThat(testDesignation.getDepartmentid()).isEqualTo(UPDATED_DEPARTMENTID);
         assertThat(testDesignation.getDesignation()).isEqualTo(UPDATED_DESIGNATION);
+
+        // Validate the Designation in Elasticsearch
+        Designation designationEs = designationSearchRepository.findOne(testDesignation.getId());
+        assertThat(designationEs).isEqualToComparingFieldByField(testDesignation);
     }
 
     @Test
@@ -283,6 +297,7 @@ public class DesignationResourceIntTest extends AbstractCassandraTest {
     public void deleteDesignation() throws Exception {
         // Initialize the database
         designationRepository.save(designation);
+        designationSearchRepository.save(designation);
         int databaseSizeBeforeDelete = designationRepository.findAll().size();
 
         // Get the designation
@@ -290,9 +305,29 @@ public class DesignationResourceIntTest extends AbstractCassandraTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean designationExistsInEs = designationSearchRepository.exists(designation.getId());
+        assertThat(designationExistsInEs).isFalse();
+
         // Validate the database is empty
         List<Designation> designationList = designationRepository.findAll();
         assertThat(designationList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    public void searchDesignation() throws Exception {
+        // Initialize the database
+        designationRepository.save(designation);
+        designationSearchRepository.save(designation);
+
+        // Search the designation
+        restDesignationMockMvc.perform(get("/api/_search/designations?query=id:" + designation.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(designation.getId().toString())))
+            .andExpect(jsonPath("$.[*].organisationid").value(hasItem(DEFAULT_ORGANISATIONID.toString())))
+            .andExpect(jsonPath("$.[*].departmentid").value(hasItem(DEFAULT_DEPARTMENTID.toString())))
+            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION.toString())));
     }
 
     @Test

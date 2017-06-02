@@ -1,6 +1,7 @@
 package com.hartron.eoffice.domain;
 
 import com.datastax.driver.mapping.annotations.*;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.util.UUID;
  */
 
 @Table(name = "organisation")
+@Document(indexName = "organisation")
 public class Organisation implements Serializable {
 
     private static final long serialVersionUID = 1L;

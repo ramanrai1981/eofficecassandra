@@ -14,9 +14,6 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.ZonedDateTime;
-
-import java.util.LinkedList;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -54,8 +51,8 @@ public class FileResource {
 
         //for current date and time save in time of put up file automatically
         fileDTO.setUploadDate(ZonedDateTime.now());
-
         FileDTO result = fileService.save(fileDTO);
+
         return ResponseEntity.created(new URI("/api/files/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -122,5 +119,20 @@ public class FileResource {
         fileService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * SEARCH  /_search/files?query=:query : search for the file corresponding
+     * to the query.
+     *
+     * @param query the query of the file search
+     * @return the result of the search
+     */
+    @GetMapping("/_search/files")
+    @Timed
+    public List<FileDTO> searchFiles(@RequestParam String query) {
+        log.debug("REST request to search Files for query {}", query);
+        return fileService.search(query);
+    }
+
 
 }

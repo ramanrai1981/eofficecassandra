@@ -37,4 +37,13 @@ public interface DesignationService {
      *  @param id the id of the entity
      */
     void delete(String id);
+
+    /**
+     * Search for the designation corresponding to the query.
+     *
+     *  @param query the query of the search
+     *  
+     *  @return the list of entities
+     */
+    List<DesignationDTO> search(String query);
 }

@@ -4,7 +4,8 @@
             "home": {
                 "title": "File Movements",
                 "createLabel": "Create a new File Movement",
-                "createOrEditLabel": "Create or edit a File Movement"
+                "createOrEditLabel": "Create or edit a File Movement",
+                "search": "Search for File Movement"
             },
             "created": "A new File Movement is created with identifier {{ param }}",
             "updated": "A File Movement is updated with identifier {{ param }}",

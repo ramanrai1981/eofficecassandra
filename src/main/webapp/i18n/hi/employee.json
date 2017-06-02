@@ -4,7 +4,8 @@
             "home": {
                 "title": "Employees",
                 "createLabel": "नया Employee बनाएँ",
-                "createOrEditLabel": "Employee बनाएँ या संपादित करें"
+                "createOrEditLabel": "Employee बनाएँ या संपादित करें",
+                "search": "Employee खोजें"
             },
             "created": "एक नया Employee [identifier: {{ param }}] तैयार है",
             "updated": "एक Employee [identifier: {{ param }}] का अद्यतन हुआ है",

@@ -12,6 +12,7 @@
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/web/rest/package-info.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/service/mapper/DepartmentMapper.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/service/dto/package-info.java
+/home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/web/rest/vm/RouteVM.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/security/package-info.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/service/dto/UserDTO.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/security/jwt/JWTFilter.java
@@ -40,6 +41,7 @@
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/repository/FileLogRepository.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/repository/DesignationRepository.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/web/rest/vm/ManagedUserVM.java
+/home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/config/GatewayConfiguration.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/config/ApplicationProperties.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/config/LoggingAspectConfiguration.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/config/apidoc/GatewaySwaggerResourcesProvider.java
@@ -91,6 +93,7 @@
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/repository/search/EmployeeSearchRepository.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/web/rest/FileManagementResource.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/service/mapper/FileLogMapper.java
+/home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/config/ElasticsearchConfiguration.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/domain/File.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/web/rest/UserJWTController.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/security/SecurityUtils.java
@@ -104,6 +107,7 @@
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/service/dto/FileLogDTO.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/gateway/TokenRelayFilter.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/security/jwt/TokenProvider.java
+/home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/web/rest/GatewayResource.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/web/rest/vm/KeyAndPasswordVM.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/repository/package-info.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/config/LoggingConfiguration.java

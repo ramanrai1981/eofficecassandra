@@ -26,6 +26,15 @@ spring:
             protocolVersion: V4
             compression: NONE
             keyspaceName: cassandra_unit_keyspace
+            repositories:
+                enabled: false
+        elasticsearch:
+            cluster-name:
+            cluster-nodes:
+            properties:
+                path:
+                  logs: target/elasticsearch/log
+                  data: target/elasticsearch/data
     mail:
         host: localhost
     messages:

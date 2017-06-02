@@ -3,6 +3,7 @@ package com.hartron.eoffice.service.impl;
 import com.hartron.eoffice.service.FileLogService;
 import com.hartron.eoffice.domain.FileLog;
 import com.hartron.eoffice.repository.FileLogRepository;
+import com.hartron.eoffice.repository.search.FileLogSearchRepository;
 import com.hartron.eoffice.service.dto.FileLogDTO;
 import com.hartron.eoffice.service.mapper.FileLogMapper;
 import org.slf4j.Logger;
@@ -13,6 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing FileLog.
@@ -26,9 +30,12 @@ public class FileLogServiceImpl implements FileLogService{
 
     private final FileLogMapper fileLogMapper;
 
-    public FileLogServiceImpl(FileLogRepository fileLogRepository, FileLogMapper fileLogMapper) {
+    private final FileLogSearchRepository fileLogSearchRepository;
+
+    public FileLogServiceImpl(FileLogRepository fileLogRepository, FileLogMapper fileLogMapper, FileLogSearchRepository fileLogSearchRepository) {
         this.fileLogRepository = fileLogRepository;
         this.fileLogMapper = fileLogMapper;
+        this.fileLogSearchRepository = fileLogSearchRepository;
     }
 
     /**
@@ -43,6 +50,7 @@ public class FileLogServiceImpl implements FileLogService{
         FileLog fileLog = fileLogMapper.fileLogDTOToFileLog(fileLogDTO);
         fileLog = fileLogRepository.save(fileLog);
         FileLogDTO result = fileLogMapper.fileLogToFileLogDTO(fileLog);
+        fileLogSearchRepository.save(fileLog);
         return result;
     }
 
@@ -84,5 +92,21 @@ public class FileLogServiceImpl implements FileLogService{
     public void delete(String id) {
         log.debug("Request to delete FileLog : {}", id);
         fileLogRepository.delete(UUID.fromString(id));
+        fileLogSearchRepository.delete(UUID.fromString(id));
+    }
+
+    /**
+     * Search for the fileLog corresponding to the query.
+     *
+     *  @param query the query of the search
+     *  @return the list of entities
+     */
+    @Override
+    public List<FileLogDTO> search(String query) {
+        log.debug("Request to search FileLogs for query {}", query);
+        return StreamSupport
+            .stream(fileLogSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .map(fileLogMapper::fileLogToFileLogDTO)
+            .collect(Collectors.toList());
     }
 }

@@ -6,6 +6,7 @@ import com.hartron.eoffice.EofficeApp;
 import com.hartron.eoffice.domain.FileLog;
 import com.hartron.eoffice.repository.FileLogRepository;
 import com.hartron.eoffice.service.FileLogService;
+import com.hartron.eoffice.repository.search.FileLogSearchRepository;
 import com.hartron.eoffice.service.dto.FileLogDTO;
 import com.hartron.eoffice.service.mapper.FileLogMapper;
 import com.hartron.eoffice.web.rest.errors.ExceptionTranslator;
@@ -76,6 +77,9 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
     private FileLogService fileLogService;
 
     @Autowired
+    private FileLogSearchRepository fileLogSearchRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -119,6 +123,7 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
     @Before
     public void initTest() {
         fileLogRepository.deleteAll();
+        fileLogSearchRepository.deleteAll();
         fileLog = createEntity();
     }
 
@@ -145,6 +150,10 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
         assertThat(testFileLog.getMarkDate()).isEqualTo(DEFAULT_MARK_DATE);
         assertThat(testFileLog.getUpdateDate()).isEqualTo(DEFAULT_UPDATE_DATE);
         assertThat(testFileLog.getComment()).isEqualTo(DEFAULT_COMMENT);
+
+        // Validate the FileLog in Elasticsearch
+        FileLog fileLogEs = fileLogSearchRepository.findOne(testFileLog.getId());
+        assertThat(fileLogEs).isEqualToComparingFieldByField(testFileLog);
     }
 
     @Test
@@ -216,6 +225,7 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
     public void updateFileLog() throws Exception {
         // Initialize the database
         fileLogRepository.save(fileLog);
+        fileLogSearchRepository.save(fileLog);
         int databaseSizeBeforeUpdate = fileLogRepository.findAll().size();
 
         // Update the fileLog
@@ -246,6 +256,10 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
         assertThat(testFileLog.getMarkDate()).isEqualTo(UPDATED_MARK_DATE);
         assertThat(testFileLog.getUpdateDate()).isEqualTo(UPDATED_UPDATE_DATE);
         assertThat(testFileLog.getComment()).isEqualTo(UPDATED_COMMENT);
+
+        // Validate the FileLog in Elasticsearch
+        FileLog fileLogEs = fileLogSearchRepository.findOne(testFileLog.getId());
+        assertThat(fileLogEs).isEqualToComparingFieldByField(testFileLog);
     }
 
     @Test
@@ -270,6 +284,7 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
     public void deleteFileLog() throws Exception {
         // Initialize the database
         fileLogRepository.save(fileLog);
+        fileLogSearchRepository.save(fileLog);
         int databaseSizeBeforeDelete = fileLogRepository.findAll().size();
 
         // Get the fileLog
@@ -277,9 +292,33 @@ public class FileLogResourceIntTest extends AbstractCassandraTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean fileLogExistsInEs = fileLogSearchRepository.exists(fileLog.getId());
+        assertThat(fileLogExistsInEs).isFalse();
+
         // Validate the database is empty
         List<FileLog> fileLogList = fileLogRepository.findAll();
         assertThat(fileLogList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    public void searchFileLog() throws Exception {
+        // Initialize the database
+        fileLogRepository.save(fileLog);
+        fileLogSearchRepository.save(fileLog);
+
+        // Search the fileLog
+        restFileLogMockMvc.perform(get("/api/_search/file-logs?query=id:" + fileLog.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(fileLog.getId().toString())))
+            .andExpect(jsonPath("$.[*].fileNo").value(hasItem(DEFAULT_FILE_NO.toString())))
+            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
+            .andExpect(jsonPath("$.[*].markFrom").value(hasItem(DEFAULT_MARK_FROM.toString())))
+            .andExpect(jsonPath("$.[*].markTo").value(hasItem(DEFAULT_MARK_TO.toString())))
+            .andExpect(jsonPath("$.[*].markDate").value(hasItem(sameInstant(DEFAULT_MARK_DATE))))
+            .andExpect(jsonPath("$.[*].updateDate").value(hasItem(sameInstant(DEFAULT_UPDATE_DATE))))
+            .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT.toString())));
     }
 
     @Test
