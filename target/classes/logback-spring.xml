@@ -22,7 +22,7 @@
     </appender>
 -->
 
-    <logger name="com.hartron.eoffice" level="DEBUG"/>
+    <logger name="com.hartron.eoffice" level="INFO"/>
 
     <logger name="io.github.jhipster" level="DEBUG"/>
 
@@ -56,7 +56,7 @@
         <resetJUL>true</resetJUL>
     </contextListener>
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
 
