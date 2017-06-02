@@ -11,8 +11,10 @@
 /home/raman/hartronapp/eofficecassandra/src/test/java/com/hartron/eoffice/service/UserServiceIntTest.java
 /home/raman/hartronapp/eofficecassandra/src/test/java/com/hartron/eoffice/web/rest/FileLogResourceIntTest.java
 /home/raman/hartronapp/eofficecassandra/src/test/java/com/hartron/eoffice/AbstractCassandraTest.java
+/home/raman/hartronapp/eofficecassandra/src/test/java/com/hartron/eoffice/config/elasticsearch/IndexReinitializer.java
 /home/raman/hartronapp/eofficecassandra/src/test/java/com/hartron/eoffice/web/rest/DepartmentResourceIntTest.java
 /home/raman/hartronapp/eofficecassandra/src/test/java/com/hartron/eoffice/security/jwt/TokenProviderTest.java
 /home/raman/hartronapp/eofficecassandra/src/test/java/com/hartron/eoffice/web/rest/TestUtil.java
 /home/raman/hartronapp/eofficecassandra/src/test/java/com/hartron/eoffice/web/rest/EmployeeResourceIntTest.java
 /home/raman/hartronapp/eofficecassandra/src/test/java/com/hartron/eoffice/config/CassandraTestConfiguration.java
+/home/raman/hartronapp/eofficecassandra/src/test/java/com/hartron/eoffice/gateway/responserewriting/SwaggerBasePathRewritingFilterTest.java

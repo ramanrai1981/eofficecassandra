@@ -1,4 +1,5 @@
 com/hartron/eoffice/AbstractCassandraTest.class
+com/hartron/eoffice/gateway/responserewriting/SwaggerBasePathRewritingFilterTest.class
 com/hartron/eoffice/security/jwt/TokenProviderTest.class
 com/hartron/eoffice/CassandraKeyspaceUnitTest.class
 com/hartron/eoffice/web/rest/UserResourceIntTest.class
@@ -11,6 +12,7 @@ com/hartron/eoffice/web/rest/FileMovementResourceIntTest.class
 com/hartron/eoffice/web/rest/OrganisationResourceIntTest.class
 com/hartron/eoffice/web/rest/EmployeeResourceIntTest.class
 com/hartron/eoffice/web/rest/LogsResourceIntTest.class
+com/hartron/eoffice/config/elasticsearch/IndexReinitializer.class
 com/hartron/eoffice/web/rest/ProfileInfoResourceIntTest.class
 com/hartron/eoffice/config/CassandraTestConfiguration.class
 com/hartron/eoffice/web/rest/DepartmentResourceIntTest.class
