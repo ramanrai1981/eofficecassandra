@@ -1,6 +1,7 @@
 com/hartron/eoffice/service/DepartmentService.class
 com/hartron/eoffice/domain/FileMovement.class
 com/hartron/eoffice/service/mapper/DepartmentMapper.class
+com/hartron/eoffice/web/rest/EmployeeUpdatedResource.class
 com/hartron/eoffice/repository/DepartmentRepository.class
 com/hartron/eoffice/web/rest/errors/FieldErrorVM.class
 com/hartron/eoffice/service/mapper/DesignationMapperImpl.class
@@ -65,6 +66,7 @@ com/hartron/eoffice/security/jwt/TokenProvider.class
 com/hartron/eoffice/config/cassandra/CassandraConfiguration.class
 com/hartron/eoffice/service/DesignationService.class
 com/hartron/eoffice/domain/Employee.class
+com/hartron/eoffice/web/rest/OrganisationUpdatedResource.class
 com/hartron/eoffice/service/dto/OrganisationDTO.class
 com/hartron/eoffice/service/mapper/FileLogMapperImpl.class
 com/hartron/eoffice/repository/EmployeeRepository.class

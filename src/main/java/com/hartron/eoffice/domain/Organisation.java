@@ -35,6 +35,8 @@ public class Organisation implements Serializable {
 
     private ZonedDateTime establishmentdate;
 
+    private String createdby;
+
     public UUID getId() {
         return id;
     }
@@ -134,6 +136,19 @@ public class Organisation implements Serializable {
         this.establishmentdate = establishmentdate;
     }
 
+    public String getCreatedby() {
+        return createdby;
+    }
+
+    public Organisation createdby(String createdby) {
+        this.createdby = createdby;
+        return this;
+    }
+
+    public void setCreatedby(String createdby) {
+        this.createdby = createdby;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -165,6 +180,7 @@ public class Organisation implements Serializable {
             ", updatedate='" + updatedate + "'" +
             ", owner='" + owner + "'" +
             ", establishmentdate='" + establishmentdate + "'" +
+            ", createdby='" + createdby + "'" +
             '}';
     }
 }

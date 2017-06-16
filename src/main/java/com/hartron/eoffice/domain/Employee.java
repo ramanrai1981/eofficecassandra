@@ -46,6 +46,8 @@ public class Employee implements Serializable {
     @NotNull
     private String mobilenumber;
 
+    private String createdby;
+
     public UUID getId() {
         return id;
     }
@@ -210,6 +212,19 @@ public class Employee implements Serializable {
         this.mobilenumber = mobilenumber;
     }
 
+    public String getCreatedby() {
+        return createdby;
+    }
+
+    public Employee createdby(String createdby) {
+        this.createdby = createdby;
+        return this;
+    }
+
+    public void setCreatedby(String createdby) {
+        this.createdby = createdby;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -246,6 +261,7 @@ public class Employee implements Serializable {
             ", createdate='" + createdate + "'" +
             ", updatedate='" + updatedate + "'" +
             ", mobilenumber='" + mobilenumber + "'" +
+            ", createdby='" + createdby + "'" +
             '}';
     }
 }

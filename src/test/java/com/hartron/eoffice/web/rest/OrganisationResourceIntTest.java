@@ -66,6 +66,9 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
     private static final ZonedDateTime DEFAULT_ESTABLISHMENTDATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_ESTABLISHMENTDATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
+    private static final String DEFAULT_CREATEDBY = "AAAAAAAAAA";
+    private static final String UPDATED_CREATEDBY = "BBBBBBBBBB";
+
     @Autowired
     private OrganisationRepository organisationRepository;
 
@@ -112,7 +115,8 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
                 .createdate(DEFAULT_CREATEDATE)
                 .updatedate(DEFAULT_UPDATEDATE)
                 .owner(DEFAULT_OWNER)
-                .establishmentdate(DEFAULT_ESTABLISHMENTDATE);
+                .establishmentdate(DEFAULT_ESTABLISHMENTDATE)
+                .createdby(DEFAULT_CREATEDBY);
         return organisation;
     }
 
@@ -145,6 +149,7 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
         assertThat(testOrganisation.getUpdatedate()).isEqualTo(DEFAULT_UPDATEDATE);
         assertThat(testOrganisation.getOwner()).isEqualTo(DEFAULT_OWNER);
         assertThat(testOrganisation.getEstablishmentdate()).isEqualTo(DEFAULT_ESTABLISHMENTDATE);
+        assertThat(testOrganisation.getCreatedby()).isEqualTo(DEFAULT_CREATEDBY);
     }
 
     @Test
@@ -201,7 +206,8 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
             .andExpect(jsonPath("$.[*].createdate").value(hasItem(sameInstant(DEFAULT_CREATEDATE))))
             .andExpect(jsonPath("$.[*].updatedate").value(hasItem(sameInstant(DEFAULT_UPDATEDATE))))
             .andExpect(jsonPath("$.[*].owner").value(hasItem(DEFAULT_OWNER.toString())))
-            .andExpect(jsonPath("$.[*].establishmentdate").value(hasItem(sameInstant(DEFAULT_ESTABLISHMENTDATE))));
+            .andExpect(jsonPath("$.[*].establishmentdate").value(hasItem(sameInstant(DEFAULT_ESTABLISHMENTDATE))))
+            .andExpect(jsonPath("$.[*].createdby").value(hasItem(DEFAULT_CREATEDBY.toString())));
     }
 
     @Test
@@ -220,7 +226,8 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
             .andExpect(jsonPath("$.createdate").value(sameInstant(DEFAULT_CREATEDATE)))
             .andExpect(jsonPath("$.updatedate").value(sameInstant(DEFAULT_UPDATEDATE)))
             .andExpect(jsonPath("$.owner").value(DEFAULT_OWNER.toString()))
-            .andExpect(jsonPath("$.establishmentdate").value(sameInstant(DEFAULT_ESTABLISHMENTDATE)));
+            .andExpect(jsonPath("$.establishmentdate").value(sameInstant(DEFAULT_ESTABLISHMENTDATE)))
+            .andExpect(jsonPath("$.createdby").value(DEFAULT_CREATEDBY.toString()));
     }
 
     @Test
@@ -245,7 +252,8 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
                 .createdate(UPDATED_CREATEDATE)
                 .updatedate(UPDATED_UPDATEDATE)
                 .owner(UPDATED_OWNER)
-                .establishmentdate(UPDATED_ESTABLISHMENTDATE);
+                .establishmentdate(UPDATED_ESTABLISHMENTDATE)
+                .createdby(UPDATED_CREATEDBY);
         OrganisationDTO organisationDTO = organisationMapper.organisationToOrganisationDTO(updatedOrganisation);
 
         restOrganisationMockMvc.perform(put("/api/organisations")
@@ -264,6 +272,7 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
         assertThat(testOrganisation.getUpdatedate()).isEqualTo(UPDATED_UPDATEDATE);
         assertThat(testOrganisation.getOwner()).isEqualTo(UPDATED_OWNER);
         assertThat(testOrganisation.getEstablishmentdate()).isEqualTo(UPDATED_ESTABLISHMENTDATE);
+        assertThat(testOrganisation.getCreatedby()).isEqualTo(UPDATED_CREATEDBY);
     }
 
     @Test

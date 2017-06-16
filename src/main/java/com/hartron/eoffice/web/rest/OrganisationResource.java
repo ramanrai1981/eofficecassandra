@@ -1,6 +1,7 @@
 package com.hartron.eoffice.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.hartron.eoffice.security.SecurityUtils;
 import com.hartron.eoffice.service.OrganisationService;
 import com.hartron.eoffice.web.rest.util.HeaderUtil;
 import com.hartron.eoffice.service.dto.OrganisationDTO;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +31,7 @@ public class OrganisationResource {
     private final Logger log = LoggerFactory.getLogger(OrganisationResource.class);
 
     private static final String ENTITY_NAME = "organisation";
-        
+
     private final OrganisationService organisationService;
 
     public OrganisationResource(OrganisationService organisationService) {
@@ -50,6 +52,7 @@ public class OrganisationResource {
         if (organisationDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new organisation cannot already have an ID")).body(null);
         }
+
         OrganisationDTO result = organisationService.save(organisationDTO);
         return ResponseEntity.created(new URI("/api/organisations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -72,6 +75,7 @@ public class OrganisationResource {
         if (organisationDTO.getId() == null) {
             return createOrganisation(organisationDTO);
         }
+
         OrganisationDTO result = organisationService.save(organisationDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, organisationDTO.getId().toString()))

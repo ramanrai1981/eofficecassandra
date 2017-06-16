@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('eofficeApp')
-        .factory('Addemployee', Addemployee);
+        .factory('Employeesupdated', Employeesupdated);
 
-   Addemployee.$inject = ['$resource', 'DateUtils'];
+   Employeesupdated.$inject = ['$resource', 'DateUtils'];
 
-    function Addemployee ($resource, DateUtils) {
-        var resourceUrl =  'api/employees/:id';
+    function Employeesupdated ($resource, DateUtils) {
+        var resourceUrl =  'api/employeesupdated/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

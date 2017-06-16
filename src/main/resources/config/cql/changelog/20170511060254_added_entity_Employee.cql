@@ -13,5 +13,6 @@ CREATE TABLE IF NOT EXISTS employee (
     createdate timestamp,
     updatedate timestamp,
     mobilenumber text,
+    createdby text,
     PRIMARY KEY(id)
 );

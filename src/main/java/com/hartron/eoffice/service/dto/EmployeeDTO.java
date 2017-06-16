@@ -40,6 +40,8 @@ public class EmployeeDTO implements Serializable {
     @NotNull
     private String mobilenumber;
 
+    private String createdby;
+
     public UUID getId() {
         return id;
     }
@@ -131,6 +133,13 @@ public class EmployeeDTO implements Serializable {
     public void setMobilenumber(String mobilenumber) {
         this.mobilenumber = mobilenumber;
     }
+    public String getCreatedby() {
+        return createdby;
+    }
+
+    public void setCreatedby(String createdby) {
+        this.createdby = createdby;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -169,6 +178,7 @@ public class EmployeeDTO implements Serializable {
             ", createdate='" + createdate + "'" +
             ", updatedate='" + updatedate + "'" +
             ", mobilenumber='" + mobilenumber + "'" +
+            ", createdby='" + createdby + "'" +
             '}';
     }
 }

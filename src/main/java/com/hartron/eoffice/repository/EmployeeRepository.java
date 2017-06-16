@@ -52,6 +52,7 @@ public class EmployeeRepository {
                 employee.setCreatedate(row.get("createdate", ZonedDateTime.class));
                 employee.setUpdatedate(row.get("updatedate", ZonedDateTime.class));
                 employee.setMobilenumber(row.getString("mobilenumber"));
+                employee.setCreatedby(row.getString("createdby"));
                 return employee;
             }
         ).forEach(employeesList::add);

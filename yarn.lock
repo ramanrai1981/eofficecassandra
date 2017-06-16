@@ -110,6 +110,10 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angucomplete-alt@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/angucomplete-alt/-/angucomplete-alt-3.0.0.tgz#7c59bec4e9b7f9563a0dc6153c83386e4ac251df"
+
 ansi-escapes@^1.1.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-1.4.0.tgz#d3a8a83b319aa67793662b13e761c7911422306e"
@@ -3616,7 +3620,7 @@ generator-jhipster@4.0.7:
     yeoman-generator "0.24.1"
     yo "1.8.5"
 
-generator-jhipster@4.2.0, generator-jhipster@>2.26.0, generator-jhipster@>3.0.0, generator-jhipster@>3.1.0, generator-jhipster@>3.6.0, generator-jhipster@>=2.26.0, generator-jhipster@>=3.0.0, generator-jhipster@>=3.6.1, generator-jhipster@>=4.0.0, generator-jhipster@>=4.1.0:
+generator-jhipster@4.2.0, generator-jhipster@>2.26.0, generator-jhipster@>3.1.0, generator-jhipster@>3.6.0, generator-jhipster@>=2.26.0, generator-jhipster@>=2.27.0, generator-jhipster@>=3.0.0, generator-jhipster@>=3.6.1, generator-jhipster@>=4.1.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/generator-jhipster/-/generator-jhipster-4.2.0.tgz#cddd97d5e03904d00a6829eb8d59e7de687e0110"
   dependencies:
@@ -3637,7 +3641,7 @@ generator-jhipster@4.2.0, generator-jhipster@>2.26.0, generator-jhipster@>3.0.0,
     yeoman-generator "1.1.1"
     yo "1.8.5"
 
-generator-jhipster@>=2.26.2, generator-jhipster@>=2.27.0, generator-jhipster@latest:
+generator-jhipster@>3.0.0, generator-jhipster@>=2.26.2, generator-jhipster@>=4.0.0, generator-jhipster@latest:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/generator-jhipster/-/generator-jhipster-4.3.0.tgz#2538007c235446ed73f1a729d25ae2619398ce1b"
   dependencies:
@@ -4374,7 +4378,7 @@ gulp-util@*, gulp-util@3.0.7, gulp-util@^3, gulp-util@^3.0.0, gulp-util@^3.0.1, 
     through2 "^2.0.0"
     vinyl "^0.5.0"
 
-gulp@3.9.1:
+gulp@^3.9.1:
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/gulp/-/gulp-3.9.1.tgz#571ce45928dd40af6514fc4011866016c13845b4"
   dependencies:
@@ -5439,7 +5443,7 @@ js-yaml@3.6.1:
     argparse "^1.0.7"
     esprima "^2.6.0"
 
-js-yaml@3.8.1, js-yaml@3.x, js-yaml@^3.2.7, js-yaml@^3.5.1:
+js-yaml@3.8.1, js-yaml@^3.2.7:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.8.1.tgz#782ba50200be7b9e5a8537001b7804db3ad02628"
   dependencies:
@@ -5453,7 +5457,7 @@ js-yaml@3.8.2:
     argparse "^1.0.7"
     esprima "^3.1.1"
 
-js-yaml@3.8.3:
+js-yaml@3.8.3, js-yaml@3.x, js-yaml@^3.5.1:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.8.3.tgz#33a05ec481c850c8875929166fe1beb61c728766"
   dependencies:
@@ -6493,6 +6497,10 @@ ng-dependencies@~0.2.0:
     estraverse "^1.5.1"
     lodash "^3.0.1"
 
+ng-tags-input@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/ng-tags-input/-/ng-tags-input-3.2.0.tgz#91282de575130c8ab794797febf0972b0f3bba3e"
+
 no-case@^2.2.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.1.tgz#7aeba1c73a52184265554b7dc03baf720df80081"
@@ -7190,10 +7198,6 @@ path-is-inside@^1.0.1, path-is-inside@~1.0.0:
 path-key@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
-
-path-parse@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.5.tgz#3c1adf871ea9cd6c9431b6ea2bd74a0ff055c4c1"
 
 path-platform@~0.11.15:
   version "0.11.15"
@@ -8175,15 +8179,9 @@ resolve-from@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-1.0.1.tgz#26cbfe935d1aeeeabb29bc3fe5aeb01e93d44226"
 
-resolve@1.1.7, resolve@1.1.x:
+resolve@1.1.7, resolve@1.1.x, resolve@^1.1.3, resolve@^1.1.4, resolve@^1.1.6, resolve@^1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.1.7.tgz#203114d82ad2c5ed9e8e0411b3932875e889e97b"
-
-resolve@^1.1.3, resolve@^1.1.4, resolve@^1.1.6, resolve@^1.1.7:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.3.3.tgz#655907c3469a8680dc2de3a275a8fdd69691f0e5"
-  dependencies:
-    path-parse "^1.0.5"
 
 resp-modifier@6.0.2:
   version "6.0.2"
@@ -8507,7 +8505,7 @@ shelljs@0.7.5:
     interpret "^1.0.0"
     rechoir "^0.6.2"
 
-shelljs@0.7.6, shelljs@^0.7.0, shelljs@^0.7.5:
+shelljs@0.7.6, shelljs@^0.7.0:
   version "0.7.6"
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.7.6.tgz#379cccfb56b91c8601e4793356eb5382924de9ad"
   dependencies:
@@ -8515,7 +8513,7 @@ shelljs@0.7.6, shelljs@^0.7.0, shelljs@^0.7.5:
     interpret "^1.0.0"
     rechoir "^0.6.2"
 
-shelljs@0.7.7:
+shelljs@0.7.7, shelljs@^0.7.5:
   version "0.7.7"
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.7.7.tgz#b2f5c77ef97148f4b4f6e22682e10bba8667cff1"
   dependencies:
@@ -10545,7 +10543,7 @@ yo@1.8.5:
     yeoman-environment "^1.6.1"
     yosay "^1.0.0"
 
-yosay@1.0.2, yosay@^1.0.2:
+yosay@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/yosay/-/yosay-1.0.2.tgz#cf1f487ed56f254ee4914283de853bd0d1bd096a"
   dependencies:
@@ -10559,7 +10557,7 @@ yosay@1.0.2, yosay@^1.0.2:
     taketalk "^1.0.0"
     word-wrap "^1.0.0"
 
-yosay@1.2.0, yosay@^1.0.0, yosay@^1.0.4:
+yosay@1.2.0, yosay@^1.0.0, yosay@^1.0.2, yosay@^1.0.4:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/yosay/-/yosay-1.2.0.tgz#34ac105e02d019c07ae7ab8c63ab43aeaad4c615"
   dependencies:

@@ -5,9 +5,9 @@
         .module('eofficeApp')
         .controller('CreateorganisationDialogController', CreateorganisationDialogController);
 
-    CreateorganisationDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Createorganisation', 'Organisation'];
+    CreateorganisationDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Organisationsupdated'];
 
-    function CreateorganisationDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Createorganisation, Organisation) {
+    function CreateorganisationDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Organisationsupdated) {
         var vm = this;
 
         vm.organisation = entity;
@@ -23,13 +23,12 @@
         function clear () {
             $uibModalInstance.dismiss('cancel');
         }
-
         function save () {
             vm.isSaving = true;
             if (vm.organisation.id !== null) {
-                Organisation.update(vm.organisation, onSaveSuccess, onSaveError);
+                Organisationsupdated.update(vm.organisation, onSaveSuccess, onSaveError);
             } else {
-                Organisation.save(vm.organisation, onSaveSuccess, onSaveError);
+                Organisationsupdated.save(vm.organisation, onSaveSuccess, onSaveError);
             }
         }
 

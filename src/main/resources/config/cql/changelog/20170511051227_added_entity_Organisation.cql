@@ -8,5 +8,6 @@ CREATE TABLE IF NOT EXISTS organisation (
     updatedate timestamp,
     owner text,
     establishmentdate timestamp,
+    createdby text,
     PRIMARY KEY(id)
 );

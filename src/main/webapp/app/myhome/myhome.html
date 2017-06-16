@@ -27,7 +27,7 @@
     </div>
 </div><br>
 <div class="row">
-    <div class="col-md-6" ng-repeat = "orglist in vm.organisations | orderBy:'-establishmentdate' | filter:searchText" >
+    <div class="col-md-6" ng-repeat = "orglist in vm.organisations | orderBy:'-createdate' | filter:searchText" >
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">{{orglist.orgname}}
@@ -40,7 +40,7 @@
                 <tbody>
                     <tbody>
                      <thead>
-                     <tr><th>Owner</th><td >{{orglist.owner}}</td></tr>
+                     <tr><th>Owner Name</th><td >{{orglist.owner}}</td></tr>
                      <tr><th>Address</th><td >{{orglist.address}}</td></tr>
                      <tr><th>Establishment Date</th><td >{{orglist.establishmentdate| date:'dd-MMMM-yyyy  h:mma'}}</td></tr>
                      <tr><th>Active</th><td >{{orglist.active}}</td></tr>
