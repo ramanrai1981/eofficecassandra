@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class OrganisationServiceImpl implements OrganisationService{
 
     private final Logger log = LoggerFactory.getLogger(OrganisationServiceImpl.class);
-    
+
     private final OrganisationRepository organisationRepository;
 
     private final OrganisationMapper organisationMapper;
@@ -48,7 +48,7 @@ public class OrganisationServiceImpl implements OrganisationService{
 
     /**
      *  Get all the organisations.
-     *  
+     *
      *  @return the list of entities
      */
     @Override
@@ -85,4 +85,15 @@ public class OrganisationServiceImpl implements OrganisationService{
         log.debug("Request to delete Organisation : {}", id);
         organisationRepository.delete(UUID.fromString(id));
     }
+    public List<OrganisationDTO> findAllByCreatedby(String createdby) {
+        log.debug("Request to get all organisation by createdby");
+        List<OrganisationDTO> result = organisationRepository.findAllByCreatedby(createdby).stream()
+            .map(organisationMapper::organisationToOrganisationDTO)
+            .collect(Collectors.toCollection(LinkedList::new));
+
+        return result;
+    }
+
 }
+
+

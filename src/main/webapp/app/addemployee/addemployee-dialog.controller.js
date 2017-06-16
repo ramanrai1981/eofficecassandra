@@ -5,9 +5,9 @@
         .module('eofficeApp')
         .controller('AddemployeeDialogController', AddemployeeDialogController);
 
-    AddemployeeDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity','Employee'];
+    AddemployeeDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity','Employeesupdated'];
 
-    function AddemployeeDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Employee) {
+    function AddemployeeDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Employeesupdated) {
         var vm = this;
 
         vm.employee = entity;
@@ -25,16 +25,16 @@
         }
 
         function save () {
-            vm.isSaving = true;
+           vm.isSaving = true;
             if (vm.employee.id !== null) {
-                Employee.update(vm.employee, onSaveSuccess, onSaveError);
+                Employeesupdated.update(vm.employee, onSaveSuccess, onSaveError);
             } else {
-                Employee.save(vm.employee, onSaveSuccess, onSaveError);
+                Employeesupdated.save(vm.employee, onSaveSuccess, onSaveError);
             }
         }
 
         function onSaveSuccess (result) {
-            $scope.$emit('eofficeApp:employeeUpdate', result);
+            $scope.$emit('eofficeApp:addemployeeUpdate', result);
             $uibModalInstance.close(result);
             vm.isSaving = false;
         }

@@ -51,7 +51,9 @@
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/service/impl/FileManagementServiceImpl.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/web/rest/errors/ParameterizedErrorVM.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/web/rest/LogsResource.java
+/home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/web/rest/EmployeeUpdatedResource.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/config/cassandra/package-info.java
+/home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/web/rest/OrganisationUpdatedResource.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/domain/FileLog.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/config/WebConfigurer.java
 /home/raman/hartronapp/eofficecassandra/src/main/java/com/hartron/eoffice/service/FileService.java

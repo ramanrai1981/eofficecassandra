@@ -6,9 +6,9 @@
         .controller('CreatefileController', CreatefileController);
 
 
-    CreatefileController.$inject = ['$scope', 'Principal', 'file', 'filemovement', 'FileManagement', 'LoginService', '$state', 'File', 'FileMovement'];
+    CreatefileController.$inject = ['$scope', '$http', 'Principal', 'file', 'filemovement', 'FileManagement', 'LoginService', '$state', 'File', 'FileMovement'];
 
-    function CreatefileController ($scope, Principal, file, filemovement, FileManagement, LoginService, $state, File, FileMovement) {
+    function CreatefileController ($scope, $http, Principal, file, filemovement, FileManagement, LoginService, $state, File, FileMovement) {
         var vm = this;
         vm.account = null;
         vm.isAuthenticated = null;
@@ -24,12 +24,12 @@
 
         getAccount();
 
-        vm.addtags = [{"id": "10","name": "Noting"},{"id": "11","name": "DO"},{"id": "15","name": "General Note"}];
+        // implemented through tags
+        $scope.tags = [{"text": "Noting"},{"text": "General Notice"},{"text": "Office Order"},{"text": "DO Order"}];
 
-        // to implement through tag and auto-complete
-        $scope.tags = [{"tag": "Noting"},{"tag": "General Notice"},{"tag": "Office Order"}];
-             $scope.loadTags = function(query) {
-                return $http.get('tags.json');
+        $scope.loadTags = function(query) {
+//                return $http.get('/tags?query=' + query);
+        return $http.get('#/createfile/tags.json');
         }
 
 //        For Put Up File functionality

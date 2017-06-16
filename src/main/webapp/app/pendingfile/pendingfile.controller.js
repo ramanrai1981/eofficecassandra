@@ -21,12 +21,21 @@
 
         getAccount();
 
+//        $scope.selectedTitle = function(selected) {
+//              if (selected) {
+//                window.alert('You have selected ' + selected.title);
+//              } else {
+//                console.log('cleared');
+//              }
+//        };
+//
+
         loadAllFiles();
 
         function loadAllFiles() {
             File.query(function(result) {
                 vm.files = result;
-                console.log(vm.files);
+//                console.log(vm.files);
 
             });
         }

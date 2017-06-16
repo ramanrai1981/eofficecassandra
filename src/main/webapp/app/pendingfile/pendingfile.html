@@ -9,7 +9,10 @@
         <div class="input-group">
             <!--Have to implement tags-input, for search by title, file no or dept to mark file or open and comment through-->
             <!--pdftron-->
-            <input type="text" class="form-control" ng-model="searchText" id="searchQuery" placeholder="Search by title or tag or by department..">
+
+            <input type="text" class="form-control" ng-model="searchText" id="searchQuery"
+                   placeholder="Search by title or tag or by department..">
+
             <div class="input-group-btn">
                 <button class="btn btn-info"><i class="glyphicon glyphicon-search"></i></button>
 
@@ -33,7 +36,6 @@
                     <button class="btn btn-primary btn-xs">
                         <i class="glyphicon glyphicon-plus"></i></button>
                 </a>
-
             </div>
         </div>
 
@@ -41,36 +43,41 @@
             <fieldset>
                 <legend></legend>
 
-                    <table class="table table-condensed table-hover">
-                        <thead>
-                        <tr class="danger">
-                            <th>File No</th>
-                            <th>Title</th>
-                            <th>Tags</th>
-                            <th>Mark From User</th>
-                            <th>Department</th>
-                            <th>Upload Date</th>
-                            <th></th>
+                <table class="table table-condensed table-hover">
+                    <thead>
+                    <tr class="danger">
+                        <th>File No</th>
+                        <th>Title</th>
+                        <th>Tags</th>
+                        <th>Mark From User</th>
+                        <th>Department</th>
+                        <th>Upload Date</th>
+                        <th></th>
 
-                        </tr>
-                        </thead>
+                    </tr>
+                    </thead>
 
-                        <tbody>
-                        <tr ng-repeat = "pendinglist in vm.files | filter:searchText">
-                            <td>{{pendinglist.fileNo}}</td>
-                            <td>{{pendinglist.title}}</td>
-                            <td>{{pendinglist.tag}}</td>
-                            <td>{{pendinglist.username}}</td>
-                            <td>{{pendinglist.departmentname}}</td>
-                            <td>{{pendinglist.uploadDate | date:'dd-MMMM-yyyy h:mma'}}</td>
-                            <td class="action verticalalign">
-                                <button type="submit" ui-sref="pdftron({fileNo:pendinglist.fileNo})" class="btn btn-primary btn-sm" style="float: right">Open/eSign/Comment</button>
-                                <button type="submit" ui-sref="pendingfile-markto-user({fileid:pendinglist.id})" class="btn btn-info btn-sm" style="float: right">Mark To User</button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <tbody>
+                    <tr ng-repeat="pendinglist in vm.files | filter:searchText">
+                        <td>{{pendinglist.fileNo}}</td>
+                        <td>{{pendinglist.title}}</td>
+                        <td>{{pendinglist.tag}}</td>
+                        <td>{{pendinglist.username}}</td>
+                        <td>{{pendinglist.departmentname}}</td>
+                        <td>{{pendinglist.uploadDate | date:'dd-MMMM-yyyy h:mma'}}</td>
+                        <td class="action verticalalign">
+                            <button type="submit" ui-sref="pdftron({fileNo:pendinglist.fileNo})"
+                                    class="btn btn-primary btn-sm" style="float: right">Open/eSign/Comment
+                            </button>
+                            <button type="submit" ui-sref="pendingfile-markto-user({fileid:pendinglist.id})"
+                                    class="btn btn-info btn-sm" style="float: right">Mark To User
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </fieldset>
+
         </form>
 
     </div>

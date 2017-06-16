@@ -5,9 +5,9 @@
         .module('eofficeApp')
         .controller('CreateorganisationController', CreateorganisationController);
 
-    CreateorganisationController.$inject = ['Createorganisation'];
+    CreateorganisationController.$inject = ['Organisationsupdated'];
 
-    function CreateorganisationController(Createorganisation) {
+    function CreateorganisationController(Organisationsupdated) {
 
         var vm = this;
 
@@ -16,7 +16,7 @@
         loadAll();
 
         function loadAll() {
-            Createorganisation.query(function(result) {
+            Organisationsupdated.query(function(result) {
                 vm.createorganisations = result;
                 vm.searchQuery = null;
             });

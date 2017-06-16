@@ -18,7 +18,7 @@ public interface OrganisationService {
 
     /**
      *  Get all the organisations.
-     *  
+     *
      *  @return the list of entities
      */
     List<OrganisationDTO> findAll();
@@ -37,4 +37,6 @@ public interface OrganisationService {
      *  @param id the id of the entity
      */
     void delete(String id);
+
+    List<OrganisationDTO> findAllByCreatedby(String createdby);
 }
