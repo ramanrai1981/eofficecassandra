@@ -17,7 +17,7 @@ node {
             }
 
             stage('install tools') {
-                sh "./mvnw com.github.eirslett:frontend-maven-plugin:install-node-and-yarn -DnodeVersion=v6.9.5 -DyarnVersion=v0.20.3"
+                sh "./mvnw com.github.eirslett:frontend-maven-plugin:install-node-and-yarn -DnodeVersion=v6.10.3 -DyarnVersion=v0.24.4"
             }
 
             stage('yarn install') {
@@ -45,7 +45,7 @@ node {
             }
 
             stage('package and deploy') {
-                sh "./mvnw com.heroku.sdk:heroku-maven-plugin:1.1.1:deploy-war -DskipTests -Pprod -Dheroku.appName="
+                sh "./mvnw com.heroku.sdk:heroku-maven-plugin:1.1.1:deploy -DskipTests -Pprod -Dheroku.appName="
                 archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
             }
 
@@ -53,6 +53,19 @@ node {
                 withSonarQubeEnv('Sonar') {
                     sh "./mvnw sonar:sonar"
                 }
+            }
+        }
+
+        def dockerImage
+        stage('build docker') {
+            sh "cp -R src/main/docker target/"
+            sh "cp target/*.war target/docker/"
+            dockerImage = docker.build('eoffice', 'target/docker')
+        }
+
+        stage('publish docker') {
+            docker.withRegistry('https://hub.docker.com/r/ramanrai1981/eofficecassandra/', 'docker-login') {
+                dockerImage.push 'latest'
             }
         }
     }

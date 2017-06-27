@@ -1,13 +1,28 @@
+<%#
+ Copyright 2013-2017 the original author or authors from the JHipster project.
+
+ This file is part of the JHipster project, see https://jhipster.github.io/
+ for more information.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-%>
 package <%=packageName%>.config;
 
 import io.github.jhipster.config.JHipsterProperties;
 
 import <%=packageName%>.gateway.ratelimiting.RateLimitingFilter;
-import <%=packageName%>.gateway.ratelimiting.RateLimitingRepository;
 import <%=packageName%>.gateway.accesscontrol.AccessControlFilter;
 import <%=packageName%>.gateway.responserewriting.SwaggerBasePathRewritingFilter;
-
-import com.datastax.driver.core.*;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
@@ -38,15 +53,7 @@ public class GatewayConfiguration {
     /**
      * Configures the Zuul filter that limits the number of API calls per user.
      * <p>
-     * For this filter to work, you need to have:
-     * <ul>
-     * <li>A working Cassandra cluster
-     * <li>A schema with the JHipster rate-limiting tables configured, using the
-     * "create_keyspace.cql" and "create_tables.cql" scripts from the
-     * "src/main/resources/config/cql" directory
-     * <li>Your cluster configured in your application-*.yml files, using the
-     * "spring.data.cassandra" keys
-     * </ul>
+     * This uses Bucke4J to limit the API calls, see {@link <%=packageName%>.gateway.ratelimiting.RateLimitingFilter}.
      */
     @Configuration
     @ConditionalOnProperty("jhipster.gateway.rate-limiting.enabled")
@@ -59,13 +66,8 @@ public class GatewayConfiguration {
         }
 
         @Bean
-        public RateLimitingRepository rateLimitingRepository(Session session) {
-            return new RateLimitingRepository(session);
-        }
-
-        @Bean
-        public RateLimitingFilter rateLimitingFilter(RateLimitingRepository rateLimitingRepository) {
-            return new RateLimitingFilter(rateLimitingRepository, jHipsterProperties);
+        public RateLimitingFilter rateLimitingFilter() {
+            return new RateLimitingFilter(jHipsterProperties);
         }
     }
 }

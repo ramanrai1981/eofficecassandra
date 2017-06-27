@@ -2,7 +2,7 @@ var exec = require('child_process').exec;
 var Q = require('q');
 
 var REGEX = {
-  package: /^([│ ]*)[└├+`][─-]+┬?\s+(.*)@(.*)$/,
+  package: /^([│ ]*)[└├+`][─-]+┬?\s+((?:@(?:[^\/]+?)[\/])?(?:[^\/]+?))@(\S*).*$/,
   invalid: /^(.*)\s+invalid$/,
   unmet: /^.*UNMET DEPENDENCY\s+(.*)$/,
   version: /^([\d.]*)(?:\s+->\s+(.*))$/
