@@ -4,7 +4,8 @@
             "home": {
                 "title": "FileLogs",
                 "createLabel": "नया File Log बनाएँ",
-                "createOrEditLabel": "File Log बनाएँ या संपादित करें"
+                "createOrEditLabel": "File Log बनाएँ या संपादित करें",
+                "search": "File Log खोजें"
             },
             "created": "एक नया File Log [identifier: {{ param }}] तैयार है",
             "updated": "एक File Log [identifier: {{ param }}] का अद्यतन हुआ है",

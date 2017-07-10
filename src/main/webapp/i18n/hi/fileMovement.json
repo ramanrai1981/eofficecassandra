@@ -4,7 +4,8 @@
             "home": {
                 "title": "FileMovements",
                 "createLabel": "नया File Movement बनाएँ",
-                "createOrEditLabel": "File Movement बनाएँ या संपादित करें"
+                "createOrEditLabel": "File Movement बनाएँ या संपादित करें",
+                "search": "File Movement खोजें"
             },
             "created": "एक नया File Movement [identifier: {{ param }}] तैयार है",
             "updated": "एक File Movement [identifier: {{ param }}] का अद्यतन हुआ है",

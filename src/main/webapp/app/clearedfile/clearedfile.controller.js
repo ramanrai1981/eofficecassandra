@@ -21,7 +21,7 @@
         getAccount();
 
         vm.addtags = [{"id": "10","name": "Noting"},{"id": "11","name": "DO"},{"id": "15","name": "General Note"}];
-//        console.log(vm.tags);
+        console.log(vm.tags);
 
         vm.clearedfiles = [{"id": "10","fileNo": "SK/30202","title": "PC purchase","tag": "Noting","fromusername": "Shyam Sunder","fromdepartmentname": "Accounts","byusername": "Madhwi","bydepartmentname": "MD Office","fileclosedby": "Shyam Sunder"},
         {"id": "30","fileNo": "SK/564402","title": "Tender for Chair Purchase","tag": "Office Order","fromusername": "Mukesh Singh","fromdepartmentname": "HR Dept","byusername": "Madhwi","bydepartmentname": "MD Office","fileclosedby": "Mukesh Singh"},

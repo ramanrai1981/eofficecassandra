@@ -50,12 +50,9 @@
                             return {
                                  orgname: null,
                                  address: null,
-                                 active: true,
-                                 createdate: null,
-                                 updatedate: null,
+                                 active: null,
                                  owner: null,
                                  establishmentdate: null,
-                                 createdby: null,
                                  id: null
                             };
                         }

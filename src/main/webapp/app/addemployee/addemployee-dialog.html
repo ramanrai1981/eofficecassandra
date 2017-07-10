@@ -26,16 +26,10 @@
                 </p>
             </div>
         </div>
-        <div class="form-group has-success">
+        <div class="form-group">
             <label class="control-label" for="field_empname">Empname</label>
             <input type="text" class="form-control" name="empname" id="field_empname"
-                    ng-model="vm.employee.empname" required/>
-            <div ng-show="editForm.empname.$invalid">
-                <p class="help-block"
-                   ng-show="editForm.empname.$error.required">
-                    This field is required.
-                </p>
-            </div>
+                    ng-model="vm.employee.empname" placeholder="Empolyee Name" required/>
         </div>
         <div class="form-group has-success">
             <label class="control-label" for="field_department">Department</label>
@@ -68,6 +62,7 @@
                     This field is required.
                 </p>
             </div>
+
         </div>
         <div class="form-group has-success">
             <label class="control-label" for="field_emailid">Email ID</label>
@@ -115,6 +110,27 @@
                 <input type="checkbox" name="active" id="field_active"
                           ng-model="vm.employee.active"/>
         </div>
+        <!--<div class="form-group">-->
+            <!--<label class="control-label" for="field_createdate">Create Date</label>-->
+                <!--<div class="input-group">-->
+                    <!--<input id="field_createdate" type="text" class="form-control" name="createdate" datetime-picker="{{dateformat}}" ng-model="vm.employee.createdate" is-open="vm.datePickerOpenStatus.createdate"-->
+                    <!--/>-->
+                    <!--<span class="input-group-btn">-->
+                        <!--<button type="button" class="btn btn-default" ng-click="vm.openCalendar('createdate')"><i class="glyphicon glyphicon-calendar"></i></button>-->
+                    <!--</span>-->
+                <!--</div>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label class="control-label" for="field_updatedate">Update Date</label>-->
+                <!--<div class="input-group">-->
+                    <!--<input id="field_updatedate" type="text" class="form-control" name="updatedate" datetime-picker="{{dateformat}}" ng-model="vm.employee.updatedate" is-open="vm.datePickerOpenStatus.updatedate"-->
+                    <!--/>-->
+                    <!--<span class="input-group-btn">-->
+                        <!--<button type="button" class="btn btn-default" ng-click="vm.openCalendar('updatedate')"><i class="glyphicon glyphicon-calendar"></i></button>-->
+                    <!--</span>-->
+                <!--</div>-->
+        <!--</div>-->
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

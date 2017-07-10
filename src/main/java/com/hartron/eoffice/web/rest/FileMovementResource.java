@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing FileMovement.
@@ -117,5 +120,20 @@ public class FileMovementResource {
         fileMovementService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * SEARCH  /_search/file-movements?query=:query : search for the fileMovement corresponding
+     * to the query.
+     *
+     * @param query the query of the fileMovement search 
+     * @return the result of the search
+     */
+    @GetMapping("/_search/file-movements")
+    @Timed
+    public List<FileMovementDTO> searchFileMovements(@RequestParam String query) {
+        log.debug("REST request to search FileMovements for query {}", query);
+        return fileMovementService.search(query);
+    }
+
 
 }

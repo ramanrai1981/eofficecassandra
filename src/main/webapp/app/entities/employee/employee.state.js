@@ -116,7 +116,6 @@
                                 createdate: null,
                                 updatedate: null,
                                 mobilenumber: null,
-                                createdby: null,
                                 id: null
                             };
                         }

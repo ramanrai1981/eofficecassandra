@@ -37,4 +37,13 @@ public interface FileMovementService {
      *  @param id the id of the entity
      */
     void delete(String id);
+
+    /**
+     * Search for the fileMovement corresponding to the query.
+     *
+     *  @param query the query of the search
+     *  
+     *  @return the list of entities
+     */
+    List<FileMovementDTO> search(String query);
 }

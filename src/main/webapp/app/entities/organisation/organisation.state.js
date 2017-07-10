@@ -111,7 +111,6 @@
                                 updatedate: null,
                                 owner: null,
                                 establishmentdate: null,
-                                createdby: null,
                                 id: null
                             };
                         }

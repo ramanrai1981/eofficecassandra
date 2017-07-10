@@ -3,6 +3,7 @@ package com.hartron.eoffice.service.impl;
 import com.hartron.eoffice.service.FileService;
 import com.hartron.eoffice.domain.File;
 import com.hartron.eoffice.repository.FileRepository;
+import com.hartron.eoffice.repository.search.FileSearchRepository;
 import com.hartron.eoffice.service.dto.FileDTO;
 import com.hartron.eoffice.service.mapper.FileMapper;
 import org.slf4j.Logger;
@@ -13,6 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing File.
@@ -26,9 +30,12 @@ public class FileServiceImpl implements FileService{
 
     private final FileMapper fileMapper;
 
-    public FileServiceImpl(FileRepository fileRepository, FileMapper fileMapper) {
+    private final FileSearchRepository fileSearchRepository;
+
+    public FileServiceImpl(FileRepository fileRepository, FileMapper fileMapper, FileSearchRepository fileSearchRepository) {
         this.fileRepository = fileRepository;
         this.fileMapper = fileMapper;
+        this.fileSearchRepository = fileSearchRepository;
     }
 
     /**
@@ -43,6 +50,7 @@ public class FileServiceImpl implements FileService{
         File file = fileMapper.fileDTOToFile(fileDTO);
         file = fileRepository.save(file);
         FileDTO result = fileMapper.fileToFileDTO(file);
+        fileSearchRepository.save(file);
         return result;
     }
 
@@ -84,5 +92,21 @@ public class FileServiceImpl implements FileService{
     public void delete(String id) {
         log.debug("Request to delete File : {}", id);
         fileRepository.delete(UUID.fromString(id));
+        fileSearchRepository.delete(UUID.fromString(id));
+    }
+
+    /**
+     * Search for the file corresponding to the query.
+     *
+     *  @param query the query of the search
+     *  @return the list of entities
+     */
+    @Override
+    public List<FileDTO> search(String query) {
+        log.debug("Request to search Files for query {}", query);
+        return StreamSupport
+            .stream(fileSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .map(fileMapper::fileToFileDTO)
+            .collect(Collectors.toList());
     }
 }

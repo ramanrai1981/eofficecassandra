@@ -17,7 +17,7 @@ node {
             }
 
             stage('install tools') {
-                sh "./mvnw com.github.eirslett:frontend-maven-plugin:install-node-and-yarn -DnodeVersion=v6.10.3 -DyarnVersion=v0.24.4"
+                sh "./mvnw com.github.eirslett:frontend-maven-plugin:install-node-and-yarn -DnodeVersion=v6.11.0 -DyarnVersion=v0.24.6"
             }
 
             stage('yarn install') {
@@ -49,11 +49,6 @@ node {
                 archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
             }
 
-            stage('quality analysis') {
-                withSonarQubeEnv('Sonar') {
-                    sh "./mvnw sonar:sonar"
-                }
-            }
         }
 
         def dockerImage
@@ -64,7 +59,7 @@ node {
         }
 
         stage('publish docker') {
-            docker.withRegistry('https://hub.docker.com/r/ramanrai1981/eofficecassandra/', 'docker-login') {
+            docker.withRegistry('https://registry.hub.docker.com', '35761f30-48fc-4e76-8a6a-8b4755db0b75') {
                 dockerImage.push 'latest'
             }
         }

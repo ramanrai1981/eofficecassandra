@@ -18,7 +18,7 @@ public interface OrganisationService {
 
     /**
      *  Get all the organisations.
-     *
+     *  
      *  @return the list of entities
      */
     List<OrganisationDTO> findAll();
@@ -38,5 +38,12 @@ public interface OrganisationService {
      */
     void delete(String id);
 
-    List<OrganisationDTO> findAllByCreatedby(String createdby);
+    /**
+     * Search for the organisation corresponding to the query.
+     *
+     *  @param query the query of the search
+     *  
+     *  @return the list of entities
+     */
+    List<OrganisationDTO> search(String query);
 }

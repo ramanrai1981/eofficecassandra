@@ -16,9 +16,7 @@
             'ui.router',
             'infinite-scroll',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
-            'angular-loading-bar',
-            'angucomplete-alt',
-            'ngTagsInput'
+            'angular-loading-bar'
         ])
         .run(run);
 

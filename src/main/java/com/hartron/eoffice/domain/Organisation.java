@@ -1,6 +1,7 @@
 package com.hartron.eoffice.domain;
 
 import com.datastax.driver.mapping.annotations.*;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.util.UUID;
  */
 
 @Table(name = "organisation")
+@Document(indexName = "organisation")
 public class Organisation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,8 +36,6 @@ public class Organisation implements Serializable {
     private String owner;
 
     private ZonedDateTime establishmentdate;
-
-    private String createdby;
 
     public UUID getId() {
         return id;
@@ -136,19 +136,6 @@ public class Organisation implements Serializable {
         this.establishmentdate = establishmentdate;
     }
 
-    public String getCreatedby() {
-        return createdby;
-    }
-
-    public Organisation createdby(String createdby) {
-        this.createdby = createdby;
-        return this;
-    }
-
-    public void setCreatedby(String createdby) {
-        this.createdby = createdby;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -180,7 +167,6 @@ public class Organisation implements Serializable {
             ", updatedate='" + updatedate + "'" +
             ", owner='" + owner + "'" +
             ", establishmentdate='" + establishmentdate + "'" +
-            ", createdby='" + createdby + "'" +
             '}';
     }
 }

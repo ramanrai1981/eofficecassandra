@@ -4,7 +4,8 @@
             "home": {
                 "title": "File Logs",
                 "createLabel": "Create a new File Log",
-                "createOrEditLabel": "Create or edit a File Log"
+                "createOrEditLabel": "Create or edit a File Log",
+                "search": "Search for File Log"
             },
             "created": "A new File Log is created with identifier {{ param }}",
             "updated": "A File Log is updated with identifier {{ param }}",

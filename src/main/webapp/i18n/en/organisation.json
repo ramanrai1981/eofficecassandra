@@ -4,7 +4,8 @@
             "home": {
                 "title": "Organisations",
                 "createLabel": "Create a new Organisation",
-                "createOrEditLabel": "Create or edit a Organisation"
+                "createOrEditLabel": "Create or edit a Organisation",
+                "search": "Search for Organisation"
             },
             "created": "A new Organisation is created with identifier {{ param }}",
             "updated": "A Organisation is updated with identifier {{ param }}",
@@ -21,8 +22,7 @@
             "createdate": "Createdate",
             "updatedate": "Updatedate",
             "owner": "Owner",
-            "establishmentdate": "Establishmentdate",
-            "createdby": "Createdby"
+            "establishmentdate": "Establishmentdate"
         }
     }
 }

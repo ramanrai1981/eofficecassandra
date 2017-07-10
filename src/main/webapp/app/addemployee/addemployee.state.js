@@ -52,6 +52,7 @@
                                 empname: null,
                                 department: null,
                                 designation: null,
+                                mobilenumber: null,
                                 emailid: null,
                                 dateofbirth: null,
                                 dateofjoining: null,
@@ -59,8 +60,6 @@
                                 active: null,
                                 createdate: null,
                                 updatedate: null,
-                                mobilenumber: null,
-                                createdby: null,
                                 id: null
                             };
                         }

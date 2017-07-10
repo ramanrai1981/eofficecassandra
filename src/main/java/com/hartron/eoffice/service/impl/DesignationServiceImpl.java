@@ -3,6 +3,7 @@ package com.hartron.eoffice.service.impl;
 import com.hartron.eoffice.service.DesignationService;
 import com.hartron.eoffice.domain.Designation;
 import com.hartron.eoffice.repository.DesignationRepository;
+import com.hartron.eoffice.repository.search.DesignationSearchRepository;
 import com.hartron.eoffice.service.dto.DesignationDTO;
 import com.hartron.eoffice.service.mapper.DesignationMapper;
 import org.slf4j.Logger;
@@ -13,6 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Designation.
@@ -26,9 +30,12 @@ public class DesignationServiceImpl implements DesignationService{
 
     private final DesignationMapper designationMapper;
 
-    public DesignationServiceImpl(DesignationRepository designationRepository, DesignationMapper designationMapper) {
+    private final DesignationSearchRepository designationSearchRepository;
+
+    public DesignationServiceImpl(DesignationRepository designationRepository, DesignationMapper designationMapper, DesignationSearchRepository designationSearchRepository) {
         this.designationRepository = designationRepository;
         this.designationMapper = designationMapper;
+        this.designationSearchRepository = designationSearchRepository;
     }
 
     /**
@@ -43,6 +50,7 @@ public class DesignationServiceImpl implements DesignationService{
         Designation designation = designationMapper.designationDTOToDesignation(designationDTO);
         designation = designationRepository.save(designation);
         DesignationDTO result = designationMapper.designationToDesignationDTO(designation);
+        designationSearchRepository.save(designation);
         return result;
     }
 
@@ -84,5 +92,21 @@ public class DesignationServiceImpl implements DesignationService{
     public void delete(String id) {
         log.debug("Request to delete Designation : {}", id);
         designationRepository.delete(UUID.fromString(id));
+        designationSearchRepository.delete(UUID.fromString(id));
+    }
+
+    /**
+     * Search for the designation corresponding to the query.
+     *
+     *  @param query the query of the search
+     *  @return the list of entities
+     */
+    @Override
+    public List<DesignationDTO> search(String query) {
+        log.debug("Request to search Designations for query {}", query);
+        return StreamSupport
+            .stream(designationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .map(designationMapper::designationToDesignationDTO)
+            .collect(Collectors.toList());
     }
 }

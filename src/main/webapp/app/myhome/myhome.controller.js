@@ -5,9 +5,9 @@
         .module('eofficeApp')
         .controller('MyHomeController', MyHomeController);
 
-    MyHomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'Organisationsupdated'];
+    MyHomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state', 'Organisation'];
 
-    function MyHomeController ($scope, Principal, LoginService, $state, Organisationsupdated) {
+    function MyHomeController ($scope, Principal, LoginService, $state, Organisation) {
         var vm = this;
         vm.account = null;
         vm.isAuthenticated = null;
@@ -22,7 +22,7 @@
         loadAll();
 
                 function loadAll() {
-                    Organisationsupdated.query(function(result) {
+                    Organisation.query(function(result) {
                         vm.organisations = result;
                         vm.searchQuery = null;
                     });

@@ -6,6 +6,7 @@ import java.util.Date;
 import com.datastax.driver.mapping.annotations.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -19,6 +20,7 @@ import java.util.Set;
  * A user.
  */
 @Table(name = "user")
+@Document(indexName = "user")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

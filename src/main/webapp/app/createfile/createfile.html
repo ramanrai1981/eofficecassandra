@@ -1,14 +1,14 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <title>Create File   </title>
+    <title>Create File </title>
     <link rel="stylesheet" href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css"/>
     <script src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
 </head>
 
 <div class="panel panel-primary">
 
-    <a href="#/pendingfile" class="btn btn-primary" style="float: right">Pending Files  <span
+    <a href="#/pendingfile" class="btn btn-primary" style="float: right">Pending Files<span
         class="glyphicon glyphicon-eye-open"></span></a>
     <a href="#/clearedfile" class="btn btn-primary" style="float: right">Cleared Files<span
         class="glyphicon glyphicon-ok"></span></a>
@@ -43,7 +43,7 @@
                         <tags-input ng-model="tags" add-on-paste="true">
                             <auto-complete source="loadTags($query)"></auto-complete>
                         </tags-input>
-                        Tags: {{tags}}
+                        Model: {{$query}}
                     </div>
                 </div>
 

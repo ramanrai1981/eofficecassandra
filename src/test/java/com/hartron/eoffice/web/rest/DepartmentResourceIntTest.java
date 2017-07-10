@@ -6,6 +6,7 @@ import com.hartron.eoffice.EofficeApp;
 import com.hartron.eoffice.domain.Department;
 import com.hartron.eoffice.repository.DepartmentRepository;
 import com.hartron.eoffice.service.DepartmentService;
+import com.hartron.eoffice.repository.search.DepartmentSearchRepository;
 import com.hartron.eoffice.service.dto.DepartmentDTO;
 import com.hartron.eoffice.service.mapper.DepartmentMapper;
 import com.hartron.eoffice.web.rest.errors.ExceptionTranslator;
@@ -56,6 +57,9 @@ public class DepartmentResourceIntTest extends AbstractCassandraTest {
     private DepartmentService departmentService;
 
     @Autowired
+    private DepartmentSearchRepository departmentSearchRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -94,6 +98,7 @@ public class DepartmentResourceIntTest extends AbstractCassandraTest {
     @Before
     public void initTest() {
         departmentRepository.deleteAll();
+        departmentSearchRepository.deleteAll();
         department = createEntity();
     }
 
@@ -115,6 +120,10 @@ public class DepartmentResourceIntTest extends AbstractCassandraTest {
         Department testDepartment = departmentList.get(departmentList.size() - 1);
         assertThat(testDepartment.getOrganisationid()).isEqualTo(DEFAULT_ORGANISATIONID);
         assertThat(testDepartment.getDepartmentname()).isEqualTo(DEFAULT_DEPARTMENTNAME);
+
+        // Validate the Department in Elasticsearch
+        Department departmentEs = departmentSearchRepository.findOne(testDepartment.getId());
+        assertThat(departmentEs).isEqualToComparingFieldByField(testDepartment);
     }
 
     @Test
@@ -194,6 +203,7 @@ public class DepartmentResourceIntTest extends AbstractCassandraTest {
     public void updateDepartment() throws Exception {
         // Initialize the database
         departmentRepository.save(department);
+        departmentSearchRepository.save(department);
         int databaseSizeBeforeUpdate = departmentRepository.findAll().size();
 
         // Update the department
@@ -214,6 +224,10 @@ public class DepartmentResourceIntTest extends AbstractCassandraTest {
         Department testDepartment = departmentList.get(departmentList.size() - 1);
         assertThat(testDepartment.getOrganisationid()).isEqualTo(UPDATED_ORGANISATIONID);
         assertThat(testDepartment.getDepartmentname()).isEqualTo(UPDATED_DEPARTMENTNAME);
+
+        // Validate the Department in Elasticsearch
+        Department departmentEs = departmentSearchRepository.findOne(testDepartment.getId());
+        assertThat(departmentEs).isEqualToComparingFieldByField(testDepartment);
     }
 
     @Test
@@ -238,6 +252,7 @@ public class DepartmentResourceIntTest extends AbstractCassandraTest {
     public void deleteDepartment() throws Exception {
         // Initialize the database
         departmentRepository.save(department);
+        departmentSearchRepository.save(department);
         int databaseSizeBeforeDelete = departmentRepository.findAll().size();
 
         // Get the department
@@ -245,9 +260,28 @@ public class DepartmentResourceIntTest extends AbstractCassandraTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean departmentExistsInEs = departmentSearchRepository.exists(department.getId());
+        assertThat(departmentExistsInEs).isFalse();
+
         // Validate the database is empty
         List<Department> departmentList = departmentRepository.findAll();
         assertThat(departmentList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    public void searchDepartment() throws Exception {
+        // Initialize the database
+        departmentRepository.save(department);
+        departmentSearchRepository.save(department);
+
+        // Search the department
+        restDepartmentMockMvc.perform(get("/api/_search/departments?query=id:" + department.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(department.getId().toString())))
+            .andExpect(jsonPath("$.[*].organisationid").value(hasItem(DEFAULT_ORGANISATIONID.toString())))
+            .andExpect(jsonPath("$.[*].departmentname").value(hasItem(DEFAULT_DEPARTMENTNAME.toString())));
     }
 
     @Test

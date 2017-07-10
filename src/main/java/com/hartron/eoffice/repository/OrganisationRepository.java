@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -27,15 +26,11 @@ public class OrganisationRepository {
 
     private PreparedStatement truncateStmt;
 
-    private PreparedStatement findAllByCreatedbyStmt;
-
     public OrganisationRepository(Session session) {
         this.session = session;
         this.mapper = new MappingManager(session).mapper(Organisation.class);
         this.findAllStmt = session.prepare("SELECT * FROM organisation");
         this.truncateStmt = session.prepare("TRUNCATE organisation");
-
-        this.findAllByCreatedbyStmt = session.prepare("select * from organisationbylogin where createdby=:createdby");
     }
 
     public List<Organisation> findAll() {
@@ -52,7 +47,6 @@ public class OrganisationRepository {
                 organisation.setUpdatedate(row.get("updatedate", ZonedDateTime.class));
                 organisation.setOwner(row.getString("owner"));
                 organisation.setEstablishmentdate(row.get("establishmentdate", ZonedDateTime.class));
-                organisation.setCreatedby(row.getString("createdby"));
                 return organisation;
             }
         ).forEach(organisationsList::add);
@@ -79,23 +73,4 @@ public class OrganisationRepository {
         BoundStatement stmt = truncateStmt.bind();
         session.execute(stmt);
     }
-    public List<Organisation> findAllByCreatedby(String createdby) {
-        BoundStatement stmt = findAllByCreatedbyStmt.bind();
-        stmt.setString("createdby", createdby);
-        return findAllFromIndex(stmt);
-    }
-    private List<Organisation> findAllFromIndex(BoundStatement stmt) {
-        ResultSet rs = session.execute(stmt);
-        List<Organisation> organisationList=new ArrayList<>();
-        while (!(rs.isExhausted())) {
-            Organisation organisation=new Organisation();
-            organisation= Optional.ofNullable(rs.one().getUUID("id"))
-                .map(id -> Optional.ofNullable(mapper.get(id)))
-                .get().get();
-            organisationList.add(organisation);
-        }
-        return organisationList;
-    }
-
-
 }

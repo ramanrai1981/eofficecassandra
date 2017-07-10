@@ -6,6 +6,7 @@ import com.hartron.eoffice.EofficeApp;
 import com.hartron.eoffice.domain.Organisation;
 import com.hartron.eoffice.repository.OrganisationRepository;
 import com.hartron.eoffice.service.OrganisationService;
+import com.hartron.eoffice.repository.search.OrganisationSearchRepository;
 import com.hartron.eoffice.service.dto.OrganisationDTO;
 import com.hartron.eoffice.service.mapper.OrganisationMapper;
 import com.hartron.eoffice.web.rest.errors.ExceptionTranslator;
@@ -66,9 +67,6 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
     private static final ZonedDateTime DEFAULT_ESTABLISHMENTDATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_ESTABLISHMENTDATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
-    private static final String DEFAULT_CREATEDBY = "AAAAAAAAAA";
-    private static final String UPDATED_CREATEDBY = "BBBBBBBBBB";
-
     @Autowired
     private OrganisationRepository organisationRepository;
 
@@ -77,6 +75,9 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
 
     @Autowired
     private OrganisationService organisationService;
+
+    @Autowired
+    private OrganisationSearchRepository organisationSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -115,14 +116,14 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
                 .createdate(DEFAULT_CREATEDATE)
                 .updatedate(DEFAULT_UPDATEDATE)
                 .owner(DEFAULT_OWNER)
-                .establishmentdate(DEFAULT_ESTABLISHMENTDATE)
-                .createdby(DEFAULT_CREATEDBY);
+                .establishmentdate(DEFAULT_ESTABLISHMENTDATE);
         return organisation;
     }
 
     @Before
     public void initTest() {
         organisationRepository.deleteAll();
+        organisationSearchRepository.deleteAll();
         organisation = createEntity();
     }
 
@@ -149,7 +150,10 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
         assertThat(testOrganisation.getUpdatedate()).isEqualTo(DEFAULT_UPDATEDATE);
         assertThat(testOrganisation.getOwner()).isEqualTo(DEFAULT_OWNER);
         assertThat(testOrganisation.getEstablishmentdate()).isEqualTo(DEFAULT_ESTABLISHMENTDATE);
-        assertThat(testOrganisation.getCreatedby()).isEqualTo(DEFAULT_CREATEDBY);
+
+        // Validate the Organisation in Elasticsearch
+        Organisation organisationEs = organisationSearchRepository.findOne(testOrganisation.getId());
+        assertThat(organisationEs).isEqualToComparingFieldByField(testOrganisation);
     }
 
     @Test
@@ -206,8 +210,7 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
             .andExpect(jsonPath("$.[*].createdate").value(hasItem(sameInstant(DEFAULT_CREATEDATE))))
             .andExpect(jsonPath("$.[*].updatedate").value(hasItem(sameInstant(DEFAULT_UPDATEDATE))))
             .andExpect(jsonPath("$.[*].owner").value(hasItem(DEFAULT_OWNER.toString())))
-            .andExpect(jsonPath("$.[*].establishmentdate").value(hasItem(sameInstant(DEFAULT_ESTABLISHMENTDATE))))
-            .andExpect(jsonPath("$.[*].createdby").value(hasItem(DEFAULT_CREATEDBY.toString())));
+            .andExpect(jsonPath("$.[*].establishmentdate").value(hasItem(sameInstant(DEFAULT_ESTABLISHMENTDATE))));
     }
 
     @Test
@@ -226,8 +229,7 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
             .andExpect(jsonPath("$.createdate").value(sameInstant(DEFAULT_CREATEDATE)))
             .andExpect(jsonPath("$.updatedate").value(sameInstant(DEFAULT_UPDATEDATE)))
             .andExpect(jsonPath("$.owner").value(DEFAULT_OWNER.toString()))
-            .andExpect(jsonPath("$.establishmentdate").value(sameInstant(DEFAULT_ESTABLISHMENTDATE)))
-            .andExpect(jsonPath("$.createdby").value(DEFAULT_CREATEDBY.toString()));
+            .andExpect(jsonPath("$.establishmentdate").value(sameInstant(DEFAULT_ESTABLISHMENTDATE)));
     }
 
     @Test
@@ -241,6 +243,7 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
     public void updateOrganisation() throws Exception {
         // Initialize the database
         organisationRepository.save(organisation);
+        organisationSearchRepository.save(organisation);
         int databaseSizeBeforeUpdate = organisationRepository.findAll().size();
 
         // Update the organisation
@@ -252,8 +255,7 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
                 .createdate(UPDATED_CREATEDATE)
                 .updatedate(UPDATED_UPDATEDATE)
                 .owner(UPDATED_OWNER)
-                .establishmentdate(UPDATED_ESTABLISHMENTDATE)
-                .createdby(UPDATED_CREATEDBY);
+                .establishmentdate(UPDATED_ESTABLISHMENTDATE);
         OrganisationDTO organisationDTO = organisationMapper.organisationToOrganisationDTO(updatedOrganisation);
 
         restOrganisationMockMvc.perform(put("/api/organisations")
@@ -272,7 +274,10 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
         assertThat(testOrganisation.getUpdatedate()).isEqualTo(UPDATED_UPDATEDATE);
         assertThat(testOrganisation.getOwner()).isEqualTo(UPDATED_OWNER);
         assertThat(testOrganisation.getEstablishmentdate()).isEqualTo(UPDATED_ESTABLISHMENTDATE);
-        assertThat(testOrganisation.getCreatedby()).isEqualTo(UPDATED_CREATEDBY);
+
+        // Validate the Organisation in Elasticsearch
+        Organisation organisationEs = organisationSearchRepository.findOne(testOrganisation.getId());
+        assertThat(organisationEs).isEqualToComparingFieldByField(testOrganisation);
     }
 
     @Test
@@ -297,6 +302,7 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
     public void deleteOrganisation() throws Exception {
         // Initialize the database
         organisationRepository.save(organisation);
+        organisationSearchRepository.save(organisation);
         int databaseSizeBeforeDelete = organisationRepository.findAll().size();
 
         // Get the organisation
@@ -304,9 +310,33 @@ public class OrganisationResourceIntTest extends AbstractCassandraTest {
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
+        // Validate Elasticsearch is empty
+        boolean organisationExistsInEs = organisationSearchRepository.exists(organisation.getId());
+        assertThat(organisationExistsInEs).isFalse();
+
         // Validate the database is empty
         List<Organisation> organisationList = organisationRepository.findAll();
         assertThat(organisationList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    public void searchOrganisation() throws Exception {
+        // Initialize the database
+        organisationRepository.save(organisation);
+        organisationSearchRepository.save(organisation);
+
+        // Search the organisation
+        restOrganisationMockMvc.perform(get("/api/_search/organisations?query=id:" + organisation.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(organisation.getId().toString())))
+            .andExpect(jsonPath("$.[*].orgname").value(hasItem(DEFAULT_ORGNAME.toString())))
+            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
+            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
+            .andExpect(jsonPath("$.[*].createdate").value(hasItem(sameInstant(DEFAULT_CREATEDATE))))
+            .andExpect(jsonPath("$.[*].updatedate").value(hasItem(sameInstant(DEFAULT_UPDATEDATE))))
+            .andExpect(jsonPath("$.[*].owner").value(hasItem(DEFAULT_OWNER.toString())))
+            .andExpect(jsonPath("$.[*].establishmentdate").value(hasItem(sameInstant(DEFAULT_ESTABLISHMENTDATE))));
     }
 
     @Test

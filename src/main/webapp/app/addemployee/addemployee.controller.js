@@ -5,9 +5,9 @@
         .module('eofficeApp')
         .controller('AddemployeeController', AddemployeeController);
 
-    AddemployeeController.$inject = ['Employeesupdated'];
+    AddemployeeController.$inject = ['Addemployee'];
 
-    function AddemployeeController(Employeesupdated) {
+    function AddemployeeController(Addemployee) {
 
         var vm = this;
 
@@ -16,7 +16,7 @@
         loadAll();
 
         function loadAll() {
-            Employeesupdated.query(function(result) {
+            Addemployee.query(function(result) {
                 vm.employees = result;
                 vm.searchQuery = null;
             });

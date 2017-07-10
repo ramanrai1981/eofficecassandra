@@ -5,13 +5,16 @@
         .module('eofficeApp')
         .controller('EmployeeController', EmployeeController);
 
-    EmployeeController.$inject = ['Employee'];
+    EmployeeController.$inject = ['Employee', 'EmployeeSearch'];
 
-    function EmployeeController(Employee) {
+    function EmployeeController(Employee, EmployeeSearch) {
 
         var vm = this;
 
         vm.employees = [];
+        vm.clear = clear;
+        vm.search = search;
+        vm.loadAll = loadAll;
 
         loadAll();
 
@@ -21,5 +24,19 @@
                 vm.searchQuery = null;
             });
         }
-    }
+
+        function search() {
+            if (!vm.searchQuery) {
+                return vm.loadAll();
+            }
+            EmployeeSearch.query({query: vm.searchQuery}, function(result) {
+                vm.employees = result;
+                vm.currentSearch = vm.searchQuery;
+            });
+        }
+
+        function clear() {
+            vm.searchQuery = null;
+            loadAll();
+        }    }
 })();
