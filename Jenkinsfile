@@ -45,7 +45,7 @@ node {
             }
 
             stage('package and deploy') {
-                sh "./mvnw com.heroku.sdk:heroku-maven-plugin:1.1.1:deploy -DskipTests -Pprod -Dheroku.appName="
+                sh "./mvnw package -DskipTests=true -Pprod docker:build="
                 archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
             }
 
@@ -59,7 +59,7 @@ node {
         }
 
         stage('publish docker') {
-            docker.withRegistry('https://registry.hub.docker.com', '35761f30-48fc-4e76-8a6a-8b4755db0b75') {
+            docker.withRegistry('https://hub.docker.com/r/ramanrai1981/eofficecassandra/', '35761f30-48fc-4e76-8a6a-8b4755db0b75') {
                 dockerImage.push 'latest'
             }
         }
