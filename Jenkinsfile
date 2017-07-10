@@ -59,7 +59,7 @@ node {
         }
 
         stage('publish docker') {
-            docker.withRegistry('https://hub.docker.com/r/ramanrai1981/eofficecassandra/', '35761f30-48fc-4e76-8a6a-8b4755db0b75') {
+            docker.withRegistry('https://hub.docker.com/r/ramanrai1981/eofficecassandra/', '6d5fb97e-2255-41c6-92e9-7576b6580cde') {
                 dockerImage.push 'latest'
             }
         }
