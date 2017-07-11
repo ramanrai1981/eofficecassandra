@@ -55,7 +55,7 @@ node {
     }
 
     stage('publish docker') {
-        docker.withRegistry('https://hub.docker.com/r/ramanrai1981/eofficecassandra/', '') {
+        docker.withRegistry('http://10.210.30.4:5000', '') {
             dockerImage.push 'latest'
         }
 
