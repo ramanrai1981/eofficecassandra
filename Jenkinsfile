@@ -5,8 +5,7 @@ node {
         checkout scm
     }
 
-    gitlabCommitStatus('build') {
-        docker.image('openjdk:8').inside('-u root -e MAVEN_OPTS="-Duser.home=./"') {
+            {
             stage('check java') {
                 sh "java -version"
             }
@@ -44,8 +43,8 @@ node {
                 }
             }
 
-            stage('package and deploy') {
-                sh "./mvnw package -DskipTests=true -Pprod docker:build="
+            stage('package') {
+                sh "./mvnw package -DskipTests"
                 archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
             }
 
