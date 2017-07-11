@@ -55,7 +55,7 @@ node {
     }
 
     stage('publish docker') {
-        docker.withRegistry('https://hub.docker.com/r/ramanrai1981/eofficecassandra/', 'ramanrai1981') {
+        docker.withRegistry('https://hub.docker.com/r/ramanrai1981/eofficecassandra/', '') {
             dockerImage.push 'latest'
         }
 
