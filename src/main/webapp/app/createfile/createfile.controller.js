@@ -78,7 +78,7 @@
 
         function onPutUpFileError () {
             vm.isSaving = false;
-            alert("Error... in Put Up File or You Did Not fill the details !");
+            //alert("Error... in Put Up File or You Did Not fill the details !");
         }
 
 //        End Put Up File functionality
